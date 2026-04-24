@@ -1,0 +1,1174 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: sans-serif;
+  scroll-margin-top: 10vh;
+  scroll-behavior: smooth;
+}
+:root {
+  --bg: white;
+  --text: black;
+  --primary: #06b6d4;
+  --card-bg: #e4e4e4;
+  --overlay: #00000021;
+}
+.dark {
+  --bg: black;
+  --text: white;
+  --primary: #0ef;
+  --card-bg: #2d2d2d;
+  --overlay: #2828284a;
+}
+#top-svg, #bottom-svg {
+  position: absolute;
+  width: auto;
+  width: 100%;
+  height: 300px;
+}
+#top-svg {
+  top: 0;
+}
+#bottom-svg {
+  bottom: 0;
+  transform: scale(-1);
+}
+body {
+  background: var(--bg);
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+/* ----->>>>> HEADER */
+header {
+  z-index: 9999;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+}
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: inherit;
+  width: 100%;
+  padding: 0 50px;
+  height: 70px;
+}
+header nav .active > i {
+  border-radius: 10px;
+  color: var(--primary);
+}
+header nav .logo {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  gap: 5px;
+  font-size: 1.5rem;
+  color: var(--text);
+}
+header nav .logo svg {
+  width: 40px;
+  fill: var(--primary);
+}
+header nav .logo p {
+  margin-bottom: 4px;
+}
+header nav ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  background: inherit;
+  gap: 10px;
+}
+nav ul li a {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  min-width: 100px;
+  color: var(--text);
+  outline: none;
+}
+nav input {
+  display: none;
+}
+#button-navbar {
+  cursor: pointer;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  width: 50px;
+  height: 50px;
+  font-size: 2rem;
+}
+.user-preference {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+}
+.user-preference button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--text);
+  font-size: 1rem;
+  gap: 10px;
+}
+.user-preference button span {
+  position: relative;
+  overflow: hidden;
+  background: var(--text);
+  color: var(--bg);
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
+.user-preference button span i {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  transition: 0.5s all;
+}
+/* ----->>>>> HOMEPAGE */
+.home-page {
+  position: relative;
+  padding-bottom: 20px;
+  color: var(--text);
+  /* height: auto; */
+}
+/* ----->>>>> HOMEPAGE - HERO*/
+.home-page .hero {
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+}
+.home-page .hero svg {
+  width: 100px;
+  fill: var(--primary);
+}
+.home-page .hero h1 {
+  text-align: center;
+  font-size: 4rem;
+  color: var(--primary);
+}
+.home-page .hero p {
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  color: var(--text);
+}
+.link-button {
+  padding: 30px;
+  display: flex;
+  gap: 10px;
+}
+.link-button a {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  width: 120px;
+  color: var(--text);
+}
+.link-button a:nth-child(2) {
+  background: var(--primary);
+  border-radius: 20px;
+  color: var(--bg);
+}
+/* ----->>>>> HOMEPAGE - FITUR */
+.fitur {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  min-height: 30svh;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+.fitur .card {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  gap: 30px;
+  width: calc(33% - 11px);
+  border-radius: 20px;
+  background: var(--overlay);
+}
+
+.fitur .card span {
+  top: -100px;
+  background: transparent;
+  width: 100px;
+  height: 100px;
+  font-size: 4rem;
+  color: var(--primary);
+}
+.fitur .card p {
+  color: var(--text);
+}
+/* ----->>>>> ABOUTUS */
+.about-container {
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  background: var(--bg-color);
+  color: var(--text);
+}
+.about-container h1 {
+  color: var(--primary);
+}
+
+.about-wrapper {
+  max-width: 800px;
+  color: var(--text-color);
+}
+
+.about-wrapper h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+.about-section {
+  margin-bottom: 30px;
+}
+
+.about-section h2 {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  background: var(--primary);
+  color: var(--bg);
+}
+
+.about-section p {
+  line-height: 1.6;
+}
+
+.about-section ul {
+  padding-left: 20px;
+}
+
+.about-section li {
+  margin-bottom: 8px;
+}
+/* ----->>>>> LOGIN & REGISTER PAGE */
+.login-page, .register-page {
+  height: calc(100svh - 70px);
+  padding: 10px;
+  color: var(--text);
+}
+.login-page form,
+.register-page form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  backdrop-filter: blur(20px);
+  width: 100%;
+  max-width: 500px;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+.login-page form h1,
+.register-page form h1 {
+  color: var(--text);
+  text-align: center;
+  font-size: 2rem;
+}
+
+.login-page form p,
+.register-page form p {
+  padding: 10px 0;
+}
+.inp {
+  display: flex;
+  border: 1px solid white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.inp label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  background: var(--text);
+  color: var(--bg);
+}
+.inp input {
+  color: var(--text);
+  font-size: 1rem;
+  padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  background: var(--bg);
+  box-shadow: 0 0 5px black inset;
+  color: var(--text);
+  border: none;
+}
+.inp input:focus {
+  outline: none;
+}
+.login-page form p a,
+.register-page form p a {
+  color: var(--primary);
+  font-weight: bold;
+}
+.login-page form p a:hover,
+.register-page form p a:hover {
+  border-bottom: 1px solid #06b6d4;
+}
+.login-page form button,
+.register-page form button {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  height: 40px;
+  border-radius: 10px;
+}
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.loading span {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+.loading span::before,
+.loading span::after {
+  padding: 10px;
+  position: absolute;
+  content: "";
+  width: inherit;
+  height: inherit;
+  background: conic-gradient(black, #0ef);
+  border-radius: inherit;
+  animation: loading 1s linear infinite;
+}
+.loading span::after {
+  padding: 0;
+  background: var(--bg);
+}
+
+@keyframes loading {
+  to {transform: rotate(360deg);}
+}
+/* ----->>>>> DASHBOARD PAGE */
+.dashboard-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  padding: 10px;
+  gap: 10px;
+  width: 100%;
+  min-height: calc(100svh - 70px);
+}
+.dashboard-page main {
+  width: 75%;
+  height: 100%;
+  border-radius: 10px;
+}
+/* ----->>>>> DASHBOARD PAGE - ASIDE */
+.dashboard-page aside {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  height: calc(90svh - 20px);
+  top: 80px;
+}
+.dashboard-page aside h1,
+.dashboard-page aside h2 {
+  font-size: 1rem;
+  color: var(--text);
+  text-align: left;
+  padding: 10px;
+}
+.main-navigation {
+  width: 100%;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.main-navigation .active {
+  background: var(--primary);
+  color: var(--bg);
+}
+.main-navigation a {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background: transparent;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+  color: var(--text);
+  border: none;
+}
+.main-navigation a i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+}
+.main-navigation a span {
+  position: absolute;
+  right: 10px;
+}
+.main-navigation a span i {
+  background: transparent;
+  text-shadow: none;
+  color: var(--primary);
+}
+.main-navigation .active span i {
+  color: var(--bg);
+}
+#aside-logout {
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border-radius: 10px;
+  border: 1px solid black;
+  color: var(--bg);
+  background: var(--text);
+  height: 40px;
+  font-weight: bold;
+  font-size: 1rem;
+  bottom: 20px;
+  width: 90%;
+}
+#nav-logout {
+  display: none;
+  align-items: center;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  padding-left: 10px;
+  font-size: 1rem;
+  gap: 10px;
+  width: 100%;
+  height: 40px;
+}
+/* ----->>>>> DASHBOARD PAGE - MY PROFILE */
+.my-profile {
+  width: 100%;
+  min-height: calc(90svh - 20px);
+}
+.my-profile form {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+.my-profile form .box-picture {
+  background: var(--primary);
+  box-shadow: 0 0 10px black inset;
+  border-radius: 10px;
+}
+.my-profile form .picture {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  background-position: center;
+  background-size: cover;
+  border: 1px solid black;
+  border-radius: 100%;
+}
+#profile-pict-not-set {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 100%;
+  width: 100%;
+  height: 100%;
+  font-size: 4rem;
+}
+#upload-picture {
+  display: none;
+}
+.picture label {
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  bottom: 5px;
+  right: 5px;
+}
+.my-profile form .box {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+.my-profile form .box .side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 50%;
+}
+.my-profile form span {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+  border: 1px solid transparent;
+}
+.my-profile form span:hover {
+  border: 1px solid var(--primary);
+}
+.my-profile form span label {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  color: var(--primary);
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+.my-profile form span input {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 25px;
+  width: 100%;
+}
+.my-profile form span:focus-within {
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  background: var(--text);
+}
+.my-profile form span input:focus {
+  outline: none;
+  background: var(--bg);
+}
+.my-profile form .box-bio {
+  background: var(--primary);
+  gap: 10px;
+}
+.my-profile form .box-bio label {
+  color: var(--bg);
+}
+.my-profile form .box-bio textarea {
+  width: 100%;
+  padding: 10px;
+  height: 200px;
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 10px;
+  font-size: 1rem;
+  border: none;
+  resize: none;
+}
+.box .side span .alert {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  right: 0;
+  height: 100%;
+  padding: 0 5px;
+  color: gray;
+}
+.box .side span .alert i {
+  color: #06b6d4;
+  padding: 5px;
+}
+.my-profile form button {
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+  background: black;
+  font-weight: bold;
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+.is-verified {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  font-weight: bold;
+  background: var(--text);
+  color: var(--bg);
+}
+.is-verified p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.is-verified p i {
+  color: var(--bg);
+  font-size: 1.5rem;
+}
+.is-verified button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  width: 100px;
+  height: 35px;
+}
+.is-verified button i {
+  color: black;
+  animation: loading 1s linear infinite;
+}
+@keyframes loading {
+  to {rotate: 360deg;}
+}
+/* ----->>>>> DASHBOARD PAGE - MY DASHBOARD */
+.dashboard-page main .cards {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.dashboard-page main .cards .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: 20px;
+  gap: 10px;
+  border-radius: 10px;
+  width: 100%;
+  height: 150px;
+  background: var(--card-bg);
+  color: var(--text);
+}
+.dashboard-page main .cards .card .count {
+  font-size: 3rem;
+}
+.card .box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card .box:nth-child(2) {
+  justify-content: start;
+  gap: 10px;
+  height: 50px;
+  background: white;
+  border: 1px solid var(--overlay);
+  color: black;
+  border-radius: 10px;
+  padding: 10px;
+}
+.card span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  color: black;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  right: 20px;
+  top: 20px;
+}
+.dashboard-page main .cards .card:nth-child(3) .box:nth-child(2) {
+  justify-content: space-between;
+}
+.my-dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  gap: 10px;
+  height: calc(90svh - 20px);
+}
+.my-dashboard .portfolio-progress {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-weight: bold;
+  background: var(--card-bg);
+  padding: 10px;
+  height: 50px;
+  border-radius: 10px;
+  width: 100%;
+}
+.my-dashboard .portfolio-progress p {
+  z-index: 1;
+  color: var(--text);
+}
+.my-dashboard .portfolio-progress .bar {
+  position: absolute;
+  background: #06b5d44b;
+  border-radius: 10px;
+  width: 50%;
+  height: 100%;
+  left: 0;
+}
+.my-dashboard .preview {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+.my-dashboard .preview .box {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  color: var(--text);
+  border-radius: 10px;
+  gap: 10px;
+  width: 50%;
+  height: 100%;
+  padding: 10px;
+  height: 100%;
+}
+.my-dashboard .preview .box .project,
+.my-dashboard .preview .box .certificate {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  background: var(--overlay);
+  border-radius: 10px;
+  gap: 20px;
+  height: 50%;
+  padding: 20px;
+}
+.my-dashboard .preview .box .project img ,
+.my-dashboard .preview .box .certificate img {
+  width: 200px;
+  height: 125px;
+}
+.my-dashboard .preview .box .project span,
+.my-dashboard .preview .box .certificate span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  width: 200px;
+  height: 100%;
+}
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 10px;
+}
+.skill-item {
+  display: flex;
+  align-items: center;
+  background: var(--overlay);
+  border-radius: 10px;
+  color: var(--text);
+}
+.skill-item span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+}
+.empty-skills {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: whitesmoke;
+  color: black;
+  padding: 20px;
+  gap: 20px;
+  height: 100%;
+}
+.empty-skills span {
+  font-size: 4rem;
+}
+/* CONTENT */
+.mini-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+  background: var(--card-bg);
+  height: 60px;
+  padding: 10px;
+}
+.mini-navbar h3 {
+  color: var(--text);
+  width: 110px;
+}
+.mini-navbar .search-box {
+  display: flex;
+  background: white;
+  width: 70%;
+  max-width: 400px;
+  height: 40px;
+  border-radius: 10px;
+}
+.mini-navbar .search-box input {
+  background: transparent;
+  padding: 0 10px;
+  font-size: 16px;
+  width: 100%;
+  border: none;
+}
+.mini-navbar .search-box input:focus {
+  outline: none;
+}
+.mini-navbar .search-box label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 40px;
+  color: black;
+}
+#button-add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  background: var(--text);
+  color: var(--bg);
+  padding: 0px 40px;
+  gap: 10px;
+  font-size: 1rem;
+  height: 40px;
+  border-radius: 10px;
+}
+.my-projects, .my-certificates {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.project-list, .certificate-list {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  width: 100%;
+  gap: 10px;
+}
+.project-item, .certificate-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  width: 100%;
+  height: max-content;
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--text);
+}
+.certificate-item table{
+  width: 100%;
+}
+.project-item .side,
+.certificate-item .side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.project-item .side img,
+.certificate-item .side img {
+  width: 300px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.project-item .side:nth-child(2),
+.certificate-item .side:nth-child(2) {
+  width: 100%;
+}
+.project-item .side:nth-child(3),
+.certificate-item .side:nth-child(3) {
+  justify-content: start;
+}
+.project-item .side:nth-child(3) button,
+.certificate-item .side:nth-child(3) button {
+  cursor: pointer;
+  background: transparent;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  padding: 5px;
+  border: none;
+  width: 30px;
+  height: 30px;
+  color: var(--text);
+}
+.highlight-text {
+  color: #06b6d4;
+  font-weight: bold;
+}
+.btn-active {
+  background: var(--text) !important;
+  color: var(--bg) !important;
+}
+.my-projects__button {
+  display: flex;
+  gap: 10px;
+}
+.my-projects__button a {
+  text-align: center;
+  color: var(--text);
+  border-radius: 10px;
+  font-size: 1rem;
+  padding: 10px;
+  width: 100%;
+}
+.form-input-project {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #d6d6d6;
+  min-height: calc(90svh - 20px);
+  padding: 20px;
+  gap: 10px;
+  border-radius: 10px;
+}
+.form-input-project .preview {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+.form-input-project .preview .image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  height: 180px;
+  background: white;
+  background-position: center;
+  background-size: cover;
+  color: black;
+  border-radius: 10px;
+}
+.form-input-project .preview input {
+  display: none;
+}
+.form-input-project .preview label {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-shadow: 0 0 5px black;
+  border-radius: 10px;
+  font-size: 3rem;
+}
+.form-input-project .wrapping {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+}
+.form-input-project input {
+  padding-left: 10px;
+}
+.form-input-project input,
+.form-input-project textarea,
+.form-input-project button {
+  border: 1px solid black;
+  height: 40px;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+}
+.form-input-project textarea {
+  resize: none;
+  padding: 10px;
+  height: 100px;
+}
+.form-input-project button {
+  background: black;
+  color: whitesmoke;
+}
+.form-input-project #back {
+  cursor: pointer;
+  background: transparent;
+  color: black;
+  font-size: 1rem;
+  border: none;
+  width: 100px;
+  top: 20px;
+  left: 20px;
+}
+.popup-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #d6d6d6;
+  min-height: calc(90svh - 20px);
+  border-radius: 10px;
+}
+.popup-message .box {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 10px;
+  color: black;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  gap: 10px;
+}
+.popup-message .box .btn {
+  display: flex;
+  gap: 10px;
+}
+.popup-message .box .btn button {
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  color: black;
+  font-size: 1rem;
+}
+.popup-message .box .btn button:nth-child(2) {
+  background: darkred;
+  color: whitesmoke;
+}
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #d6d6d6;
+  color: black;
+  border-radius: 10px;
+  min-height: calc(80svh - 10px);
+  gap: 10px;
+}
+.empty-state span {
+  font-size: 5rem;
+}
+.empty-state button {
+  padding: 10px;
+}
+.is-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 70svh;
+}
+.is-loading span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: conic-gradient(#0ef, black);
+  border-radius: 100%;
+  animation: isLoading 1s infinite;
+}
+.is-loading span::before {
+  content: "";
+  position: absolute;
+  background: #d6d6d6;
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+}
+@keyframes isLoading {
+  to {transform: rotate(360deg);}
+}
+/* ALL SECTION */
+section {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+/* FOOTER */
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  color: var(--text);
+}

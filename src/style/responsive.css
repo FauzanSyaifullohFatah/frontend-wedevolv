@@ -1,0 +1,229 @@
+@media only screen and (max-width: 900px) {
+  .home-page .hero {
+    padding: 50px 0;
+  }
+  .home-page .hero h1 {font-size: 3rem;}
+  .fitur {
+    flex-direction: column;
+    height: max-content;
+    padding: 0;
+  }
+}
+@media only screen and (max-width: 800px) {
+  header nav {
+    padding: 0 20px;
+  }
+  #button-navbar {display: flex;}
+  #navbar:checked + ul {
+    height: 50dvh;
+    padding: 20px;
+    opacity: 1;
+    box-shadow: 0 15px 10px var(--overlay);
+    border-bottom: 4px solid var(--primary);
+  }
+  header .active {
+    border-right: 4px solid var(--primary);
+  }
+  nav ul {
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: end;
+    position: fixed;
+    background: whitesmoke;
+    border-radius: 0 0 100px 100px;
+    transition: 0.5s all;
+    top: 70px;
+    right: 0;
+    width: 100%;
+    gap: 20px;
+    height: 0;
+    padding: 0px;
+  }
+  nav ul li {
+    width: 100%;
+    display: flex;
+  }
+  nav ul li a {
+    justify-content: start;
+    border-right: 4px solid var(--text);
+    width: 100%;
+  }
+
+  nav ul li i {
+    display: none;
+  }
+  .user-preference {
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 10px;
+  }
+  .fitur .card {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .dashboard-page {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+  }
+  .dark .dashboard-page {
+    background: black;
+  }
+  .dashboard-page main {
+    width: 100%;
+  }
+  .my-certificates, .my-projects {
+    gap: 0;
+  }
+  .dashboard-page aside h1,
+  .dashboard-page aside h2 {
+    display: none;
+  }
+  .main-navigation {
+    padding: 0;
+  }
+  .main-navigation a p {
+    display: none;
+  }
+  .mini-navbar {
+    gap: 10px;
+    padding: 0 10px;
+    padding-top: 10px;
+    height: max-content;
+    background: transparent;
+  }
+  .mini-navbar .search-box {
+    background: var(--card-bg);
+    width: 100%;
+  }
+  .mini-navbar .search-box label,
+  .mini-navbar .search-box input {
+    color: var(--text) !important;
+  }
+  .mini-navbar h3 {
+    display: none;
+  }
+  #nav-logout {display: flex;}
+  #aside-logout {display: none}
+  .dashboard-page aside {
+    z-index: 100;
+    position: sticky;
+    flex-direction: row-reverse;
+    justify-content: center;
+    background: var(--bg);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 0 0 20px 20px;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    top: 70px;
+  }
+  .main-navigation {
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    width: 100%;
+  }
+  .main-navigation a {
+    justify-content: center;
+    padding: 0;
+  }
+  .main-navigation .active {
+    background: transparent;
+  }
+  .main-navigation .active i {
+    color: #06b6d4;
+  }
+  .main-navigation a i {
+    font-size: 1.3rem;
+    text-shadow: none;
+    background: transparent;
+    padding: 0;
+  }
+  .main-navigation a span {
+    right: 0;
+  }
+  .main-navigation a span i {
+    color: gray;
+    border-radius: 0;
+    padding: 0;
+    font-size: 16px;
+  }
+  .dashboard-page main .cards {
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .dashboard-page main .cards .card {
+    width: calc(50% - 5px);
+  }
+  .dashboard-page main .cards .card:nth-child(3) {
+    width: 100%;
+  }
+  #button-add {
+    background: var(--card-bg);
+    color: var(--text);
+    padding: 10px;
+    font-size: 1.5rem;
+  }
+  #button-add p {
+    display: none;
+  }
+  .project-list, .certificate-list {
+    padding: 10px;
+    background: transparent;
+  }
+  .project-item, .certificate-item {
+    flex-direction: column;
+    border-left: none;
+  }
+  .project-item .side:nth-child(1),
+  .certificate-item .side:nth-child(1) {
+    align-items: center;
+  }
+  .project-item .side:nth-child(3),
+  .certificate-item .side:nth-child(3) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .my-dashboard {
+    height: auto;
+    padding: 10px;
+    background: var(--bg);
+  }
+  .my-dashboard .preview {
+    flex-direction: column;
+  }
+  .my-dashboard .preview .box {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .my-profile {
+    padding-bottom: 60px;
+    background: transparent;
+  }
+  .my-profile form {
+    gap: 10px;
+  }
+  .my-profile form .box {
+    flex-direction: column;
+  }
+  .my-profile form .box .side {
+    width: 100%;
+  }
+  .my-profile form span {
+    background: transparent;
+    border-right: 1px solid var(--primary);
+    border-radius: 0;
+  }
+  .my-profile form label {
+    color: var(--primary);
+  }
+  .my-profile form input {
+    font-size: 1rem;
+    color: var(--text);
+  }
+}
