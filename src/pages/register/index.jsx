@@ -4,8 +4,10 @@ import { register } from "../../utils/api";
 import { useAuth } from "../../hooks/useAuth";
 import { sanitizeUsername } from "../../utils";
 import Footer from "../../component/Footer";
+import { useLanguage } from "../../hooks/useLanguage";
 
 function RegisterPage(){
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { authedUser } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -27,7 +29,7 @@ function RegisterPage(){
     setLoading(true);
   
     if (form.password !== confirmPassword) {
-      setMessage("Password tidak sama");
+      setMessage(t("formReg.passNotSame"));
       setLoading(false);
       return;
     }
@@ -39,7 +41,11 @@ function RegisterPage(){
   
       navigate('/dashboard');
     } catch (error) {
-      setMessage(error);
+      if (error === "Email is already registered.") {
+        setMessage(t("formReg.emailExists"));
+      } else {
+        setMessage(t("formReg.usernameExists"));
+      }
     } finally {
       setLoading(false);
     }
@@ -48,13 +54,13 @@ function RegisterPage(){
   return (
     <section className="register-page">
       <form onSubmit={handleSubmit}>
-        <h1>CREATE ACCOUNT</h1>
+        <h1>{t("formReg.title")}</h1>
         <div className="inp">
           <label htmlFor="fullname"><i className="fa fa-address-card"></i></label>
           <input
             id="fullname"
             type="text"
-            placeholder="Fullname"
+            placeholder={t("formReg.fullname")}
             value={form.fullname}
             onChange={(e) =>
               setForm({ ...form, fullname: e.target.value })
@@ -92,7 +98,7 @@ function RegisterPage(){
           <input
             id="password"
             type="password"
-            placeholder="Password"
+            placeholder={t("formReg.password")}
             value={form.password}
             onChange={(e) =>
               setForm({ ...form, password: e.target.value })
@@ -105,20 +111,20 @@ function RegisterPage(){
           <input
             id="confirm-password"
             type="password"
-            placeholder="Confirm password"
+            placeholder={t("formReg.confirmPass")}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </div>
         <div style={{display: "flex", justifyContent: "space-between"}}>
-          <p>have account ? <Link to={'/login'}> Login</Link></p>
+          <p>{t("formReg.haveAcc")} <Link to={'/login'}> {t("login")}</Link></p>
           {message
             ? <p><i className="fa fa-exclamation-triangle" style={{color: "yellow"}}></i> {message}</p>
             : null}
         </div>
         {loading ? <div className="loading"><span></span></div> : null}
-        <button>REGISTER</button>
+        <button>{t("register")}</button>
       </form>
       <Footer />
     </section>

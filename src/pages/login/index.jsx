@@ -4,8 +4,10 @@ import { login } from "../../utils/api";
 import { useAuth } from "../../hooks/useAuth";
 import { sanitizeUsername } from "../../utils";
 import Footer from "../../component/Footer";
+import { useLanguage } from "../../hooks/useLanguage";
 
 function LoginPage(){
+  const { t } = useLanguage();
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -32,11 +34,11 @@ function LoginPage(){
     } catch (error) {
       setLoginError(true);
       if (error === "User not found") {
-        setLoginMessage("username tidak terdaftar");
+        setLoginMessage(t("formLogin.userNotReg"));
       } else if (error === "Invalid password") {
-        setLoginMessage("Wrong password!");
+        setLoginMessage(t("formLogin.wrongPass"));
       } else {
-        setLoginMessage("Terjadi kesalahan, coba lagi");
+        setLoginMessage(t("formLogin.error"));
       }
     } finally {
       setLoading(false);
@@ -46,7 +48,7 @@ function LoginPage(){
   return (
     <section className="login-page">
       <form onSubmit={handleSubmit}>
-        <h1>LOGIN ACCOUNT</h1>
+        <h1>{t("formLogin.title")}</h1>
         <div className="inp">
           <label htmlFor="username"><i className="fa fa-user-circle"></i></label>
           <input
@@ -67,7 +69,7 @@ function LoginPage(){
             required
             id="password"
             type="password"
-            placeholder="Password"
+            placeholder={t("formLogin.password")}
             value={form.password}
             onChange={(e) => {
               const value = e.target.value.replace(/\s/g, "");
@@ -75,7 +77,7 @@ function LoginPage(){
             }}
           />
         </div>
-        <p>Not have account ? <Link to={'/register'}> Register now</Link></p>
+        <p>{t("formLogin.notHaveAcc")} <Link to={'/register'}> {t("register")}</Link></p>
         {loading ? <div className="loading"><span></span></div> : null}
         {loginError
           ? <div className="login-error">{loginMessage}</div>
@@ -83,7 +85,7 @@ function LoginPage(){
         }
         <button
           disabled={loading}
-        >LOGIN</button>
+        >{t("login")}</button>
       </form>
       <Footer />
     </section>

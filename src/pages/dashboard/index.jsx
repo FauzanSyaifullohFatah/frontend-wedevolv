@@ -1,8 +1,10 @@
 import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
 import { logout } from "../../utils/api";
 import { useAuth } from "../../hooks/useAuth";
+import { useLanguage } from "../../hooks/useLanguage";
 
 function DashboardPage(){
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { authedUser, setAuthedUser } = useAuth();
 
@@ -51,7 +53,7 @@ function DashboardPage(){
           id="aside-logout"
           onClick={handleLogout}>
           <i className="fa fa-sign-out"></i>
-          <p>Logout</p>
+          <p>{t("logout")}</p>
         </button>
       </aside>
       <main>

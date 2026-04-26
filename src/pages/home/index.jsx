@@ -2,9 +2,11 @@ import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import Logo from "../../component/Logo";
 import Footer from "../../component/Footer";
+import { useLanguage } from "../../hooks/useLanguage";
 
 function HomePage(){
   const { authedUser } = useAuth();
+  const { t } = useLanguage();
 
   if (authedUser) {
     return <Navigate to={"/dashboard"} />;
@@ -14,39 +16,36 @@ function HomePage(){
       <div className="hero">
         <Logo />
         <h1>Developer Portfolio Builder</h1>
-        <p>
-          Build your professional developer portfolio in minutes. Showcase your
-          skills, projects, and experience with a beautiful and modern portfolio.
-        </p>
+        <p>{t("hero.description")}</p>
         <div className="link-button">
-          <Link to="/register">Get Started</Link>
-          <Link to="/login">Login</Link>
+          <Link to="/register">{t("hero.cta")}</Link>
+          <Link to="/login">{t("login")}</Link>
         </div>
       </div>
       <div className="fitur">
         <div className="card">
           <span><i className="fa fa-list-alt"></i></span>
-          <p>Menampilkan project dengan struktur yang rapi, terorganisir, dan mudah dipahami sehingga memudahkan siapa pun untuk mengeksplorasi hasil karya.</p>
+          <p>{t("homePage.fitur1")}</p>
         </div>
         <div className="card">
           <span><i className="fa fa-address-card"></i></span>
-          <p>Membangun profil developer yang menarik, modern, dan profesional sebagai representasi diri di dunia digital.</p>
+          <p>{t("homePage.fitur2")}</p>
         </div>
         <div className="card">
           <span><i className="fa-solid fa-briefcase"></i></span>
-          <p>Menyediakan akses portfolio dalam satu link yang praktis, sehingga mudah dibagikan ke recruiter, client, maupun rekan developer.</p>
+          <p>{t("homePage.fitur3")}</p>
         </div>
         <div className="card">
           <span><i className="fa fa-search"></i></span>
-          <p>Dilengkapi fitur pencarian untuk menemukan project dengan cepat dan efisien.</p>
+          <p>{t("homePage.fitur4")}</p>
         </div>
         <div className="card">
           <span><i className="fa fa-address-card"></i></span>
-          <p>Tampilan responsif yang optimal di berbagai perangkat, baik desktop maupun mobile.</p>
+          <p>{t("homePage.fitur5")}</p>
         </div>
         <div className="card">
           <span><i className="fa-solid fa-briefcase"></i></span>
-          <p>Pengalaman pengguna yang sederhana namun tetap interaktif dan nyaman digunakan.</p>
+          <p>{t("homePage.fitur6")}</p>
         </div>
       </div>
       <Footer />
