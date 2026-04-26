@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { LanguageContext } from "./LanguageContext";
-import { translations } from "../../utils/translation";
+import { translations } from "../../utils/translations";
 import PropTypes from "prop-types";
 
 export function LanguageProvider({ children }) {

@@ -8,31 +8,18 @@
   scroll-behavior: smooth;
 }
 :root {
-  --bg: white;
+  --bg: #f3f3f3;
   --text: black;
   --primary: #06b6d4;
   --card-bg: #e4e4e4;
   --overlay: #00000021;
 }
 .dark {
-  --bg: black;
+  --bg: #0e0e0e;
   --text: white;
   --primary: #0ef;
-  --card-bg: #2d2d2d;
+  --card-bg: #111111;
   --overlay: #2828284a;
-}
-#top-svg, #bottom-svg {
-  position: absolute;
-  width: auto;
-  width: 100%;
-  height: 300px;
-}
-#top-svg {
-  top: 0;
-}
-#bottom-svg {
-  bottom: 0;
-  transform: scale(-1);
 }
 body {
   background: var(--bg);
@@ -56,9 +43,15 @@ header nav {
   padding: 0 50px;
   height: 70px;
 }
+header nav .active {
+  opacity: 1;
+}
 header nav .active > i {
   border-radius: 10px;
-  color: var(--primary);
+  color: transparent;
+  background: linear-gradient(to right bottom, blue, #ff00e1);
+  background-clip: text;
+  border-radius: 0;
 }
 header nav .logo {
   cursor: pointer;
@@ -69,10 +62,7 @@ header nav .logo {
   font-size: 1.5rem;
   color: var(--text);
 }
-header nav .logo svg {
-  width: 40px;
-  fill: var(--primary);
-}
+header nav .logo img {width: 40px;}
 header nav .logo p {
   margin-bottom: 4px;
 }
@@ -83,7 +73,7 @@ header nav ul {
   background: inherit;
   gap: 10px;
 }
-nav ul li a {
+header ul li a {
   position: relative;
   display: flex;
   justify-content: center;
@@ -92,6 +82,7 @@ nav ul li a {
   padding: 10px;
   min-width: 100px;
   color: var(--text);
+  opacity: 0.6;
   outline: none;
 }
 nav input {
@@ -122,17 +113,21 @@ nav input {
   background: transparent;
   outline: none;
   color: var(--text);
+  opacity: 0.8;
   font-size: 1rem;
   gap: 10px;
 }
 .user-preference button span {
   position: relative;
   overflow: hidden;
-  background: var(--text);
-  color: var(--bg);
   width: 30px;
   height: 30px;
   border-radius: 10px;
+}
+.user-preference button:nth-child(2) span {
+  background: linear-gradient(to right bottom,blue, #ff00e1);
+  color: white;
+  text-shadow: 0 0 10px black;
 }
 .user-preference button span i {
   position: absolute;
@@ -141,17 +136,12 @@ nav input {
   align-items: center;
   width: 30px;
   height: 30px;
+}
+.user-preference button:nth-child(2) span i {
   transition: 0.5s all;
 }
-/* ----->>>>> HOMEPAGE */
-.home-page {
-  position: relative;
-  padding-bottom: 20px;
-  color: var(--text);
-  /* height: auto; */
-}
-/* ----->>>>> HOMEPAGE - HERO*/
-.home-page .hero {
+/* ----->>>>> HERO*/
+.hero {
   z-index: 1;
   overflow: hidden;
   position: relative;
@@ -160,20 +150,31 @@ nav input {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 20px 0;
+  min-height: 60svh;
 }
-.home-page .hero svg {
+.hero span,
+.hero img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100px;
-  fill: var(--primary);
+  height: 100px;
+  font-size: 5rem;
+  color: transparent;
+  background: linear-gradient(to right bottom, blue, #ff00e1);
+  background-clip: text;
+
 }
-.home-page .hero h1 {
+.hero h1 {
   text-align: center;
   font-size: 4rem;
-  color: var(--primary);
+  color: transparent;
+  background: linear-gradient(to right, blue, #ff00e1, blue);
+  background-clip: text;
 }
-.home-page .hero p {
+.hero p {
   padding: 20px;
-  max-width: 700px;
+  max-width: 900px;
   width: 100%;
   text-align: center;
   color: var(--text);
@@ -191,9 +192,15 @@ nav input {
   color: var(--text);
 }
 .link-button a:nth-child(2) {
-  background: var(--primary);
+  background: linear-gradient(to right bottom, blue, #ff00e1);
   border-radius: 20px;
-  color: var(--bg);
+  color: white;
+}
+/* ----->>>>> HOMEPAGE */
+.home-page {
+  position: relative;
+  padding-bottom: 20px;
+  color: var(--text);
 }
 /* ----->>>>> HOMEPAGE - FITUR */
 .fitur {
@@ -201,53 +208,62 @@ nav input {
   flex-wrap: wrap;
   width: 90%;
   min-height: 30svh;
-  gap: 20px;
+  gap: 40px;
   padding: 20px;
-  border-radius: 10px;
 }
 .fitur .card {
   z-index: 2;
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 30px;
   gap: 30px;
-  width: calc(33% - 11px);
+  width: calc(31%);
   border-radius: 20px;
-  background: var(--overlay);
 }
-
-.fitur .card span {
-  top: -100px;
-  background: transparent;
+.fitur .card::before,
+.fitur .card::after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.fitur .card::before {
+  padding: 5px;
+  background: conic-gradient(blue, var(--bg));
+}
+.fitur .card::after {
+  background: var(--bg);
+}
+.home-page .fitur .card span {
   width: 100px;
   height: 100px;
   font-size: 4rem;
-  color: var(--primary);
-}
-.fitur .card p {
-  color: var(--text);
+  color: transparent;
+  background: linear-gradient(to right bottom, blue, #ff00e1);
+  background-clip: text;
+  text-shadow: none;
 }
 /* ----->>>>> ABOUTUS */
 .about-container {
-  padding: 80px 20px;
   display: flex;
   justify-content: center;
   background: var(--bg-color);
   color: var(--text);
-}
-.about-container h1 {
-  color: var(--primary);
+  padding-bottom: 50px;
 }
 
 .about-wrapper {
-  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   color: var(--text-color);
-}
-
-.about-wrapper h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+  gap: 20px;
+  padding: 0 100px 50px 100px;
 }
 
 .about-intro {
@@ -257,15 +273,22 @@ nav input {
 }
 
 .about-section {
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border-radius: 10px;
+  width: calc(50% - 10px);
+  padding: 20px;
+  gap: 20px;
 }
 
 .about-section h2 {
   text-align: left;
-  margin-bottom: 10px;
   font-size: 1.5rem;
-  background: var(--primary);
-  color: var(--bg);
+  padding: 0;
+  color: transparent;
+  background: linear-gradient(to left, blue 80%, #ff00e1);
+  background-clip: text;
 }
 
 .about-section p {
@@ -282,79 +305,133 @@ nav input {
 /* ----->>>>> LOGIN & REGISTER PAGE */
 .login-page, .register-page {
   height: calc(100svh - 70px);
-  padding: 10px;
+  flex-direction: row;
   color: var(--text);
 }
-.login-page form,
-.register-page form {
+.login-page .wrapper,
+.register-page .wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 50px;
+}
+.login-page .wrapper .box,
+.register-page .wrapper .box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+.login-page .wrapper:nth-child(1),
+.register-page .wrapper:nth-child(1) {
+  align-items: start;
+  justify-content: start;
+  gap: 10px;
+  padding-top: 100px;
+  padding-left: 100px;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+.login-page .wrapper:nth-child(1),
+.register-page .wrapper:nth-child(1) {
+  width: calc(100% - 600px);
+}
+.login-page .wrapper:nth-child(2),
+.register-page .wrapper:nth-child(2) {
+  width: 600px;
+}
+.login-page .wrapper form,
+.register-page .wrapper form {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  backdrop-filter: blur(20px);
+  align-items: center;
+  border-radius: 20px;
   width: 100%;
-  max-width: 500px;
-  gap: 20px;
-  padding: 20px;
-  border-radius: 10px;
-}
-.login-page form h1,
-.register-page form h1 {
-  color: var(--text);
-  text-align: center;
-  font-size: 2rem;
+  height: 100%;
+  padding: 20px 40px;
+  background: var(--card-bg);
+  box-shadow: 0 0 10px black;
 }
 
-.login-page form p,
-.register-page form p {
+.login-page .wrapper h1,
+.register-page .wrapper h1 {
+  text-align: left;
+  color: transparent;
+  background: linear-gradient(to right, blue, #ff00e1);
+  background-clip: text;
+}
+.login-page .wrapper h1,
+.register-page .wrapper h1 {
+  font-size: 4rem;
+}
+.login-page .wrapper h2,
+.register-page .wrapper h2 {
+  font-size: 2rem;
+}
+.login-page .wrapper form p,
+.register-page .wrapper form p {
   padding: 10px 0;
 }
 .inp {
   display: flex;
-  border: 1px solid white;
+  position: relative;
+  width: 100%;
   border-radius: 10px;
+  border: 1px solid gray;
   overflow: hidden;
 }
 .inp label {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: transparent;
+  background: linear-gradient(to right, blue, #ff00e1);
+  background-clip: text;
   width: 40px;
-  background: var(--text);
-  color: var(--bg);
 }
 .inp input {
-  color: var(--text);
   font-size: 1rem;
-  padding-left: 10px;
   width: 100%;
   height: 40px;
-  background: var(--bg);
-  box-shadow: 0 0 5px black inset;
+  background: transparent;
   color: var(--text);
   border: none;
 }
 .inp input:focus {
   outline: none;
 }
-.login-page form p a,
-.register-page form p a {
-  color: var(--primary);
+.login-page .wrapper form p a,
+.register-page .wrapper form p a {
+  color: blue;
   font-weight: bold;
 }
-.login-page form p a:hover,
-.register-page form p a:hover {
-  border-bottom: 1px solid #06b6d4;
+.login-page .wrapper form p a:hover,
+.register-page .wrapper form p a:hover {
+  border-bottom: 1px solid blue;
 }
-.login-page form button,
-.register-page form button {
+.login-page .wrapper form button,
+.register-page .wrapper form button {
   cursor: pointer;
   font-weight: bold;
+  width: 100%;
   font-size: 1.2rem;
-  background: var(--text);
-  color: var(--bg);
+  color: white;
+  background: linear-gradient(to right, blue, #ff00e1);
   border: none;
   height: 40px;
   border-radius: 10px;
+}
+#show-pass {
+  background: transparent;
+  position: absolute;
+  width: max-content;
+  color: var(--text);
+  font-size: 1rem;
+  right: 10px;
 }
 .loading {
   display: flex;
@@ -379,13 +456,13 @@ nav input {
   content: "";
   width: inherit;
   height: inherit;
-  background: conic-gradient(black, #0ef);
+  background: conic-gradient(transparent, #ff00e1);
   border-radius: inherit;
   animation: loading 1s linear infinite;
 }
 .loading span::after {
   padding: 0;
-  background: var(--bg);
+  background: var(--card-bg);
 }
 
 @keyframes loading {
@@ -432,8 +509,12 @@ nav input {
   padding: 10px;
 }
 .main-navigation .active {
-  background: var(--primary);
-  color: var(--bg);
+  background: var(--overlay);
+  opacity: 1;
+}
+.main-navigation .active i {
+  background: linear-gradient(to right, blue, #ff00e1);
+  color: white;
 }
 .main-navigation a {
   position: relative;
@@ -446,14 +527,12 @@ nav input {
   padding: 10px;
   width: 100%;
   color: var(--text);
-  border: none;
+  opacity: 0.6;
 }
 .main-navigation a i {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--bg);
-  color: var(--text);
   border-radius: 10px;
   width: 30px;
   height: 30px;
@@ -463,12 +542,8 @@ nav input {
   right: 10px;
 }
 .main-navigation a span i {
-  background: transparent;
-  text-shadow: none;
-  color: var(--primary);
-}
-.main-navigation .active span i {
-  color: var(--bg);
+  background: transparent !important;
+  color: yellow !important;
 }
 #aside-logout {
   cursor: pointer;
@@ -478,9 +553,10 @@ nav input {
   align-items: center;
   gap: 5px;
   border-radius: 10px;
-  border: 1px solid black;
-  color: var(--bg);
-  background: var(--text);
+  border: none;
+  color: white;
+  background: linear-gradient(to right, blue, #ff00e1);
+  text-shadow: 0 0 5px black;
   height: 40px;
   font-weight: bold;
   font-size: 1rem;
@@ -501,8 +577,14 @@ nav input {
 }
 /* ----->>>>> DASHBOARD PAGE - MY PROFILE */
 .my-profile {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: calc(90svh - 20px);
+  background: var(--card-bg);
+  padding: 10px;
+  border-radius: 10px;
+  gap: 10px;
 }
 .my-profile form {
   display: flex;
@@ -513,8 +595,8 @@ nav input {
   gap: 10px;
 }
 .my-profile form .box-picture {
-  background: var(--primary);
-  box-shadow: 0 0 10px black inset;
+  background: linear-gradient(to right, blue, #ff00e1);
+  box-shadow: 0 0 200px black inset;
   border-radius: 10px;
 }
 .my-profile form .picture {
@@ -534,6 +616,7 @@ nav input {
   justify-content: center;
   align-items: center;
   background: var(--text);
+  background: linear-gradient(to right, blue, #ff00e1);
   color: var(--bg);
   border-radius: 100%;
   width: 100%;
@@ -577,20 +660,21 @@ nav input {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background: var(--bg);
   border-radius: 10px;
   padding: 10px;
   gap: 10px;
   border: 1px solid transparent;
 }
 .my-profile form span:hover {
-  border: 1px solid var(--primary);
+  border: 1px solid blue;
 }
 .my-profile form span label {
   display: flex;
   justify-content: left;
   align-items: center;
-  color: var(--primary);
+  color: transparent;
+  background: linear-gradient(to right, blue, #ff00e1 20%);
+  background-clip: text;
   gap: 10px;
   width: 100%;
   height: 100%;
@@ -598,26 +682,27 @@ nav input {
 .my-profile form span input {
   background: transparent;
   color: var(--text);
-  border: none;
+  border: 1px solid transparent;
   border-radius: 10px;
   padding: 10px 25px;
   width: 100%;
 }
 .my-profile form span:focus-within {
-  border: 1px solid var(--primary);
   border-radius: 10px;
-  background: var(--text);
+  background: var(--bg);
 }
 .my-profile form span input:focus {
   outline: none;
-  background: var(--bg);
+  background: white;
+  color: black;
+  border: 1px solid blue;
 }
 .my-profile form .box-bio {
-  background: var(--primary);
+  background: linear-gradient(to right, blue, #ff00e1, blue) !important;
   gap: 10px;
 }
 .my-profile form .box-bio label {
-  color: var(--bg);
+  color: white;
 }
 .my-profile form .box-bio textarea {
   width: 100%;
@@ -630,30 +715,24 @@ nav input {
   border: none;
   resize: none;
 }
-.box .side span .alert {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  right: 0;
-  height: 100%;
-  padding: 0 5px;
-  color: gray;
-}
-.box .side span .alert i {
-  color: #06b6d4;
-  padding: 5px;
+.my-profile form .box-bio textarea:focus {
+  outline: none;
+  background: white;
+  color: black;
 }
 .my-profile form button {
+  z-index: 1;
+  position: sticky;
+  top: 80px;
   cursor: pointer;
   width: 100%;
   height: 40px;
-  background: black;
   font-weight: bold;
-  color: white;
+  font-size: 1rem;
   border-radius: 10px;
   border: none;
+  background: linear-gradient(to right, blue, #ff00e1);
+  color: white;
 }
 .is-verified {
   display: flex;
@@ -661,8 +740,7 @@ nav input {
   align-items: center;
   padding: 10px 20px;
   font-weight: bold;
-  background: var(--text);
-  color: var(--bg);
+  color: var(--text);
 }
 .is-verified p {
   display: flex;
@@ -670,19 +748,19 @@ nav input {
   gap: 10px;
 }
 .is-verified p i {
-  color: var(--bg);
+  color: gold;
+  text-shadow: 1px 1px 2px black;
   font-size: 1.5rem;
 }
 .is-verified button {
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-radius: 10px;
-  background: var(--bg);
-  color: var(--text);
-  width: 100px;
-  height: 35px;
+  background: linear-gradient(to right, blue, #ff00e1);
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 30px;
 }
 .is-verified button i {
   color: black;
@@ -713,27 +791,27 @@ nav input {
 .dashboard-page main .cards .card .count {
   font-size: 3rem;
 }
-.card .box {
+.dashboard-page main .card .box {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.card .box:nth-child(2) {
+.dashboard-page main .card .box:nth-child(2) {
   justify-content: start;
   gap: 10px;
   height: 50px;
-  background: white;
-  border: 1px solid var(--overlay);
-  color: black;
   border-radius: 10px;
   padding: 10px;
+  background: white;
+  color: black;
 }
 .card span {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
-  color: black;
+  background: linear-gradient(to right, blue, #ff00e1);
+  text-shadow: 0 0 5px black;
+  color: white;
   border-radius: 5px;
   width: 30px;
   height: 30px;
@@ -750,10 +828,11 @@ nav input {
   align-items: center;
   border-radius: 10px;
   gap: 10px;
-  height: calc(90svh - 20px);
+  min-height: calc(90svh - 20px);
 }
 .my-dashboard .portfolio-progress {
   position: relative;
+  overflow: hidden;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -770,11 +849,12 @@ nav input {
 }
 .my-dashboard .portfolio-progress .bar {
   position: absolute;
-  background: #06b5d44b;
+  background: linear-gradient(to right, blue, #ff00e1);
+  opacity: 0.5;
   border-radius: 10px;
-  width: 50%;
+  width: 100%;
   height: 100%;
-  left: 0;
+  right: 0%;
 }
 .my-dashboard .preview {
   display: flex;
@@ -862,17 +942,18 @@ nav input {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  border-radius: 10px;
-  background: var(--card-bg);
   height: 60px;
-  padding: 10px;
+  background: var(--overlay);
+  border-radius: 10px 10px 0 0;
+  padding: 10px 20px;
 }
 .mini-navbar h3 {
   color: var(--text);
-  width: 110px;
+  width: 130px;
 }
 .mini-navbar .search-box {
   display: flex;
+  overflow: hidden;
   background: white;
   width: 70%;
   max-width: 400px;
@@ -883,6 +964,7 @@ nav input {
   background: transparent;
   padding: 0 10px;
   font-size: 16px;
+  color: black;
   width: 100%;
   border: none;
 }
@@ -893,48 +975,57 @@ nav input {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(to right bottom, blue, #ff00e1);
   height: 100%;
   width: 40px;
-  color: black;
+  color: white;
 }
 #button-add {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(to right, blue, #ff00e1);
+  color: white;
+  font-weight: bold;
+  text-shadow: 0 0 5px black;
   border: none;
-  cursor: pointer;
-  background: var(--text);
-  color: var(--bg);
-  padding: 0px 40px;
+  padding: 10px 40px;
   gap: 10px;
   font-size: 1rem;
-  height: 40px;
   border-radius: 10px;
 }
 .my-projects, .my-certificates {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  background: var(--card-bg);
+  border-radius: 10px;
 }
 .project-list, .certificate-list {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   width: 100%;
-  gap: 10px;
+  padding: 20px;
+  gap: 20px;
 }
 .project-item, .certificate-item {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 20px;
   gap: 20px;
   width: 100%;
   height: max-content;
   border-radius: 10px;
-  background: var(--card-bg);
+  background: var(--overlay);
   color: var(--text);
+}
+.project-item .description-project {
+  opacity: 0.8;
+  line-height: 1.5;
 }
 .certificate-item table{
   width: 100%;
@@ -973,13 +1064,15 @@ nav input {
   height: 30px;
   color: var(--text);
 }
+.project-item .side .btn-active,
+.certificate-item .side .btn-active {
+  background: linear-gradient(to right, blue, #ff00e1) !important;
+  color: white !important;
+  text-shadow: 0 0 5px black;
+}
 .highlight-text {
   color: #06b6d4;
   font-weight: bold;
-}
-.btn-active {
-  background: var(--text) !important;
-  color: var(--bg) !important;
 }
 .my-projects__button {
   display: flex;
@@ -998,7 +1091,6 @@ nav input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #d6d6d6;
   min-height: calc(90svh - 20px);
   padding: 20px;
   gap: 10px;
@@ -1016,11 +1108,11 @@ nav input {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 300px;
-  height: 180px;
-  background: white;
+  width: 370px;
+  height: 200px;
   background-position: center;
   background-size: cover;
+  border: 1px solid var(--text);
   color: black;
   border-radius: 10px;
 }
@@ -1063,8 +1155,10 @@ nav input {
   height: 100px;
 }
 .form-input-project button {
-  background: black;
-  color: whitesmoke;
+  background: linear-gradient(to right, blue, #ff00e1);
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
 }
 .form-input-project #back {
   cursor: pointer;
@@ -1116,14 +1210,18 @@ nav input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #d6d6d6;
-  color: black;
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 1.5rem;
   border-radius: 10px;
   min-height: calc(80svh - 10px);
   gap: 10px;
 }
 .empty-state span {
   font-size: 5rem;
+  color: transparent;
+  background: linear-gradient(to right, blue, #ff00e1);
+  background-clip: text;
 }
 .empty-state button {
   padding: 10px;

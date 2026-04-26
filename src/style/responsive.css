@@ -1,17 +1,51 @@
+@media only screen and (max-width: 1320px) {
+  .home-page .fitur .card {
+    width: calc(50% - 20px);
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .login-page .wrapper:nth-child(1),
+  .register-page .wrapper:nth-child(1) {
+    padding-left: 50px;
+  }
+  .login-page .wrapper:nth-child(1) h1,
+  .register-page .wrapper:nth-child(1) h1 {
+    font-size: 3rem;
+  }
+}
 @media only screen and (max-width: 900px) {
+  .login-page .wrapper:nth-child(1),
+  .register-page .wrapper:nth-child(1) {
+    display: none;
+  }
+  .login-page .wrapper:nth-child(2),
+  .register-page .wrapper:nth-child(2) {
+    padding: 10px;
+  }
+  .login-page .wrapper form,
+  .register-page .wrapper form {
+    padding: 20px;
+  }
   .home-page .hero {
     padding: 50px 0;
   }
   .home-page .hero h1 {font-size: 3rem;}
-  .fitur {
-    flex-direction: column;
-    height: max-content;
-    padding: 0;
+  header nav ul {
+    gap: 0;
+  }
+  header nav ul li a {
+    min-width: max-content;
+  }
+  header nav ul li a p {
+    display: none;
+  }
+  .about-wrapper {
+    padding: 0px 40px;
   }
 }
-@media only screen and (max-width: 800px) {
-  header nav {
-    padding: 0 20px;
+@media only screen and (max-width: 620px) {
+  .home-page .fitur .card {
+    width: 100%;
   }
   #button-navbar {display: flex;}
   #navbar:checked + ul {
@@ -19,17 +53,19 @@
     padding: 20px;
     opacity: 1;
     box-shadow: 0 15px 10px var(--overlay);
-    border-bottom: 4px solid var(--primary);
+    border-bottom: 4px solid #ff00e1;
   }
   header .active {
-    border-right: 4px solid var(--primary);
+    border-right: 4px solid #ff00e1;
   }
-  nav ul {
+  header nav {
+    padding: 0 20px;
+  }
+  header nav ul {
     overflow: hidden;
     flex-direction: column;
     justify-content: end;
     position: fixed;
-    background: whitesmoke;
     border-radius: 0 0 100px 100px;
     transition: 0.5s all;
     top: 70px;
@@ -39,25 +75,28 @@
     height: 0;
     padding: 0px;
   }
-  nav ul li {
+  header nav ul li {
     width: 100%;
-    display: flex;
   }
-  nav ul li a {
+  header nav ul li a {
     justify-content: start;
     border-right: 4px solid var(--text);
-    width: 100%;
   }
-
+  header nav ul li a p {
+    display: block;
+  }
   nav ul li i {
-    display: none;
+    width: 25px;
   }
   .user-preference {
     justify-content: space-evenly;
     width: 100%;
     padding: 10px;
   }
-  .fitur .card {
+  .about-wrapper {
+    padding: 0px 20px;
+  }
+  .about-section {
     width: 100%;
   }
 }
@@ -75,7 +114,7 @@
     width: 100%;
   }
   .my-certificates, .my-projects {
-    gap: 0;
+    background: transparent;
   }
   .dashboard-page aside h1,
   .dashboard-page aside h2 {
@@ -98,7 +137,6 @@
     background: var(--card-bg);
     width: 100%;
   }
-  .mini-navbar .search-box label,
   .mini-navbar .search-box input {
     color: var(--text) !important;
   }
@@ -110,10 +148,8 @@
   .dashboard-page aside {
     z-index: 100;
     position: sticky;
-    flex-direction: row-reverse;
     justify-content: center;
     background: var(--bg);
-    border-bottom: 2px solid var(--primary);
     border-radius: 0 0 20px 20px;
     width: 100%;
     height: 40px;
@@ -133,7 +169,9 @@
     background: transparent;
   }
   .main-navigation .active i {
-    color: #06b6d4;
+    color: transparent;
+    background: linear-gradient(to right, blue, #ff00e1);
+    background-clip: text;
   }
   .main-navigation a i {
     font-size: 1.3rem;
@@ -162,21 +200,17 @@
     width: 100%;
   }
   #button-add {
-    background: var(--card-bg);
-    color: var(--text);
     padding: 10px;
-    font-size: 1.5rem;
   }
   #button-add p {
     display: none;
   }
   .project-list, .certificate-list {
     padding: 10px;
-    background: transparent;
   }
   .project-item, .certificate-item {
     flex-direction: column;
-    border-left: none;
+    background: var(--card-bg);
   }
   .project-item .side:nth-child(1),
   .certificate-item .side:nth-child(1) {
@@ -184,6 +218,7 @@
   }
   .project-item .side:nth-child(3),
   .certificate-item .side:nth-child(3) {
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
   }
@@ -205,8 +240,8 @@
     padding-bottom: 60px;
     background: transparent;
   }
-  .my-profile form {
-    gap: 10px;
+  .my-profile form .box-picture  {
+    padding: 20px;
   }
   .my-profile form .box {
     flex-direction: column;
@@ -214,13 +249,8 @@
   .my-profile form .box .side {
     width: 100%;
   }
-  .my-profile form span {
-    background: transparent;
-    border-right: 1px solid var(--primary);
-    border-radius: 0;
-  }
-  .my-profile form label {
-    color: var(--primary);
+  .my-profile form button {
+    top: 120px;
   }
   .my-profile form input {
     font-size: 1rem;

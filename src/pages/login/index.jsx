@@ -17,6 +17,9 @@ function LoginPage(){
   const [loginError, setLoginError] = useState(false);
   const [loginMessage, setLoginMessage] = useState(null);
   const navigate = useNavigate();
+
+  const [showPass, setShowPass] = useState(false);
+  const [isVisibleShowPass, setIsVisibleShowPass] = useState(false);
   
   if (authedUser) {
     return <Navigate to={"/dashboard"} />;
@@ -45,49 +48,78 @@ function LoginPage(){
     }
   }
 
+  const onChange = (e) => {
+    const value = e.target.value.replace(/\s/g, "");
+    setForm({ ...form, password: value })
+
+    if (value.length > 0) {
+      setIsVisibleShowPass(true);
+    } else {
+      setIsVisibleShowPass(false);
+    }
+  }
+
   return (
     <section className="login-page">
-      <form onSubmit={handleSubmit}>
-        <h1>{t("formLogin.title")}</h1>
-        <div className="inp">
-          <label htmlFor="username"><i className="fa fa-user-circle"></i></label>
-          <input
-            required
-            id="username"
-            type="text"
-            placeholder="Username"
-            value={form.username}
-            onChange={(e) => {
-              const value = sanitizeUsername(e.target.value);
-              setForm({ ...form, username: value })
-            }}
-          />
-        </div>
-        <div className="inp">
-          <label htmlFor="password"><i className="fa fa-unlock-alt"></i></label>
-          <input
-            required
-            id="password"
-            type="password"
-            placeholder={t("formLogin.password")}
-            value={form.password}
-            onChange={(e) => {
-              const value = e.target.value.replace(/\s/g, "");
-              setForm({ ...form, password: value })
-            }}
-          />
-        </div>
-        <p>{t("formLogin.notHaveAcc")} <Link to={'/register'}> {t("register")}</Link></p>
-        {loading ? <div className="loading"><span></span></div> : null}
-        {loginError
-          ? <div className="login-error">{loginMessage}</div>
-          : null
-        }
-        <button
-          disabled={loading}
-        >{t("login")}</button>
-      </form>
-      <Footer />
+      <div className="wrapper">
+        <h1>{t("loginPage.title")}</h1>
+        <p>{t("loginPage.description")}</p>
+      </div>
+      <div className="wrapper">
+        <form onSubmit={handleSubmit}>
+          <h2>{t("formLogin.title")}</h2>
+          <div className="box">
+            <div className="inp">
+              <label htmlFor="username"><i className="fa fa-user-circle"></i></label>
+              <input
+                required
+                id="username"
+                type="text"
+                placeholder="Username"
+                value={form.username}
+                onChange={(e) => {
+                  const value = sanitizeUsername(e.target.value);
+                  setForm({ ...form, username: value })
+                }}
+              />
+            </div>
+            <div className="inp">
+              <label htmlFor="password"><i className="fa fa-unlock-alt"></i></label>
+              <input
+                required
+                id="password"
+                type={showPass ? "text" : "password"}
+                placeholder={t("formLogin.password")}
+                value={form.password}
+                onChange={onChange}
+              />
+              {isVisibleShowPass && (
+                <button
+                  type="button"
+                  id="show-pass"
+                  onClick={() => setShowPass(!showPass)}
+                  >
+                  {showPass
+                    ? <i className="fa fa-eye"></i>
+                    : <i className="fa fa-eye-slash"></i>
+                  }
+                  
+                </button>
+              )}
+            </div>
+            <p>{t("formLogin.notHaveAcc")} <Link to={'/register'}> {t("register")}</Link></p>
+          </div>
+          {loading ? <div className="loading"><span></span></div> : null}
+          {loginError
+            ? <div className="login-error">{loginMessage}</div>
+            : null
+          }
+          <button
+            disabled={loading}
+          >{t("login")}</button>
+          <Footer />
+        </form>
+      </div>
     </section>
   )
 }

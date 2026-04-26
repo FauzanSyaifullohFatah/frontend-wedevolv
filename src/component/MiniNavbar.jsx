@@ -1,9 +1,20 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 
 function MiniNavbar({ variant, onAdd, keyword, setKeyword }) {
+  const [icon, setIcon] = useState();
+
+  useEffect(() => {
+    if (variant === "Projects") {
+      setIcon("fa fa-file-code");
+    } else {
+      setIcon("fa-solid fa-award");
+    }
+  }, [variant])
+
   return (
     <div className="mini-navbar">
-      <h3>{variant}</h3>
+      <h3><i className={icon}></i> {variant}</h3>
       <div className="search-box">
         <label htmlFor={variant}><i className="fa fa-search"></i></label>
         <input

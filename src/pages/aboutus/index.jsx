@@ -6,11 +6,12 @@ function AboutUs() {
 
   return (
     <section className="about-container">
-      <div className="about-wrapper">
-        <h1><i className="fa fa-info-circle"></i> {t("aboutPage.hero.title")}</h1>
-
+      <div className="hero">
+        <span><i className="fa fa-info-circle"></i></span>
+        <h1>{t("aboutPage.hero.title")}</h1>
         <p className="about-intro">{t("aboutPage.hero.description")}</p>
-
+      </div>
+      <div className="about-wrapper">
         <div className="about-section">
           <h2>{t("aboutPage.mission.title")}</h2>
           <p>{t("aboutPage.mission.description")}</p>

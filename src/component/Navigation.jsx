@@ -23,12 +23,14 @@ function Navigation() {
           <>
             <li>
               <NavLink to={"/dashboard"}>
-                <i className="fa fa-th-large"></i>Dashboard
+                <i className="fa fa-th-large"></i>
+                <p>Dashboard</p>
               </NavLink>
             </li>
             <li>
               <NavLink to={"/explore"}>
-                <i className="fa-solid fa-laptop-code"></i>{t("header.explore")}
+                <i className="fa-solid fa-laptop-code"></i>
+                <p>{t("header.explore")}</p>
               </NavLink>
             </li>
             <li>
@@ -42,22 +44,26 @@ function Navigation() {
           <>
             <li>
               <NavLink to={"/"}>
-                <i className="fa-solid fa-house"></i>Home
+                <i className="fa-solid fa-house"></i>
+                <p>Home</p>
               </NavLink>
             </li>
             <li>
               <NavLink to={"/explore"}>
-                <i className="fa-solid fa-laptop-code"></i>{t("header.explore")}
+                <i className="fa-solid fa-laptop-code"></i>
+                <p>{t("header.explore")}</p>
               </NavLink>
             </li>
             <li>
               <NavLink to={"/aboutus"}>
-                <i className="fa fa-info-circle"></i>{t("header.about")}
+                <i className="fa fa-info-circle"></i>
+                <p>{t("header.about")}</p>
               </NavLink>
             </li>
             <li>
               <NavLink to={"/login"}>
-                <i className="fa fa-sign-in"></i>{t("login")}
+                <i className="fa fa-sign-in"></i>
+                <p>{t("login")}</p>
               </NavLink>
             </li>
           </>

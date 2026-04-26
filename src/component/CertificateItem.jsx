@@ -68,7 +68,7 @@ function CertificateItem({
                 <span>
                 </span>
               </div>
-              {locationPath === "/dashboard/projects" && (
+              {locationPath === "/dashboard/certificates" && (
                 <div className="side">
                   <button
                     id="btn-show-certificate-portfolio"

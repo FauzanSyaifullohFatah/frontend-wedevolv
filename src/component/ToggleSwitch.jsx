@@ -7,7 +7,7 @@ function ToggleSwitch({ condition, handleOnclick }){
       className="toggle-switch"
       onClick={handleOnclick}
       style={condition
-        ? {background: "#0ef"}
+        ? {background: "blue"}
         : {background: "white"}
       }
     >
@@ -15,7 +15,7 @@ function ToggleSwitch({ condition, handleOnclick }){
         id="toggle-control"
         style={condition
           ? {left: "58%"}
-          : {left: "3%"}
+          : {left: "5%"}
         }
       >
       </div>

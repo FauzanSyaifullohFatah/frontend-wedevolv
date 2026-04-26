@@ -193,7 +193,7 @@ function MyProfile() {
                 Email
                 <div className="alert">
                 {authedUser.is_verified
-                  ? <i className="fa fa-check" style={{color: ""}}></i>
+                  ? <i className="fa fa-check"></i>
                   : <i className="fa fa-exclamation-triangle"></i>
                 }
                 </div>

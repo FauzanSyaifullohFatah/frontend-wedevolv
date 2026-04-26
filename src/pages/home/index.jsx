@@ -40,7 +40,7 @@ function HomePage(){
           <p>{t("homePage.fitur4")}</p>
         </div>
         <div className="card">
-          <span><i className="fa fa-address-card"></i></span>
+          <span><i className="fa fa-window-restore"></i></span>
           <p>{t("homePage.fitur5")}</p>
         </div>
         <div className="card">
