@@ -1,13 +1,14 @@
 import Footer from "../../component/Footer";
+import { useLanguage } from "../../hooks/useLanguage";
 
 function PortfolioComingSoon(){
+  const { t } = useLanguage();
+
   return (
     <>
       <article className="portfolio-coming-soon">
         <span><i className="fa-solid fa-briefcase"></i></span>
-        <h1>Portfolio sedang dipersiapkan</h1>
-        {/* <h2>{name} sedang menyusun portfolionya untuk ditampilkan di <b>wedevolv</b></h2> */}
-        {/* <h3>Kembali lagi nanti untuk melihat hasilnya.</h3> */}
+        <h1>{t("portfolioComingSoon.title")}</h1>
       </article>
       <Footer />
     </>

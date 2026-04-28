@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Image from "../component/Image";
 import highlightText from "../utils/highlight";
 import { useLocation } from "react-router-dom";
+import { useLanguage } from "../hooks/useLanguage";
 
 function ProjectItem({
   projects,
@@ -13,6 +14,7 @@ function ProjectItem({
   showForm,
   keyword = "",
 }) {
+  const { t } = useLanguage();
   const locationPath = useLocation().pathname;
 
   const filteredProjects = projects.filter((p) =>
@@ -26,8 +28,8 @@ function ProjectItem({
     <>
       {filteredProjects.length === 0
         ? (
-          <div style={{color: "black"}}>
-            <p>Tidak ada yang cocok dengan pencarian <b><q>{keyword}</q></b></p>
+          <div className="keyword-not-match">
+            <p>{t("keywordNotMatch")} <b><q>{keyword}</q></b></p>
           </div>
         )
         : (

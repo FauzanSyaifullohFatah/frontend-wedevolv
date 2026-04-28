@@ -68,23 +68,28 @@ function PortfolioPage(){
   if (!data) return <p>User tidak ditemukan</p>;
 
   return (
-    <>
+    <div className="portfolio-container">
       <Home user={data.user} />
-      <section id="projects">
+      <section className="portfolio-project" id="projects">
         <h2><i className="fa fa-laptop-code"></i> Projects</h2>
         <ProjectList projects={data.projects} />
       </section>
 
-      <section id="skills">
-        <h2><i className="fa-solid fa-code"></i> SKILLS</h2>
-        <SkillList allSkill={allSkill} />
-      </section>
-      <section id="certificate">
+      <section className="portfolio-certificate" id="certificate">
         <h2><i className="fa-solid fa-award"></i> CERTIFICATE</h2>
         <CertificateList certificates={data.certificates} />
       </section>
+
+      <section className="portfolio-skill" id="skills">
+        <h2><i className="fa-solid fa-code"></i> SKILLS</h2>
+        <div className="box-skill" style={{width: `${100 * allSkill.length + 80}px`}}>
+          <SkillList allSkill={allSkill} />
+          <SkillList allSkill={allSkill} />
+        </div>
+      </section>
+
       <Footer />
-    </>
+    </div>
   )
 }
 

@@ -14,6 +14,7 @@ function MyProfile() {
     email: "",
     linkedin: "",
     github: "",
+    instagram: "",
     phone: "",
     whatsapp: "",
     country: "",
@@ -36,6 +37,7 @@ function MyProfile() {
         email: authedUser?.email || "",
         linkedin: authedUser?.linkedin || "",
         github: authedUser?.github || "",
+        instagram: authedUser?.instagram || "",
         phone: authedUser?.phone || "",
         whatsapp: authedUser?.whatsapp || "",
         country: authedUser?.country || "",
@@ -47,6 +49,7 @@ function MyProfile() {
       setInitialForm(initialData);
       setPreviewUrl(getImageUrl(authedUser?.image));
     }
+    console.log(authedUser);
   }, [authedUser]);
 
   if (!authedUser) {
@@ -101,6 +104,7 @@ function MyProfile() {
       formData.append("bio", form.bio);
       formData.append("github", form.github);
       formData.append("linkedin", form.linkedin);
+      formData.append("instagram", form.instagram);
       formData.append("phone", form.phone);
       formData.append("whatsapp", form.whatsapp);
       formData.append("country", form.country);
@@ -209,6 +213,19 @@ function MyProfile() {
               />
             </span>
             <span>
+              <label htmlFor="fullname">
+                <i className="fa fa-user-circle"></i>
+                Fullname
+              </label>
+              <input
+                id="fullname"
+                name="fullname"
+                value={form.fullname}
+                onChange={handleChange}
+                placeholder="Fullname"
+              />
+            </span>
+            <span>
               <label htmlFor="username">
                 <i className="fa fa-user"></i>
                 Username
@@ -228,6 +245,11 @@ function MyProfile() {
                 </div>
               )}
             </span>
+          </div>
+        </div>
+
+        <div className="box">
+          <div className="side">
             <span>
               <label htmlFor="role">
                 <i className="fa fa-tools"></i>
@@ -239,24 +261,6 @@ function MyProfile() {
                 value={form.role}
                 onChange={handleChange}
                 placeholder="Role"
-              />
-            </span>
-          </div>
-        </div>
-
-        <div className="box">
-          <div className="side">
-            <span>
-              <label htmlFor="fullname">
-                <i className="fa fa-user-circle"></i>
-                Fullname
-              </label>
-              <input
-                id="fullname"
-                name="fullname"
-                value={form.fullname}
-                onChange={handleChange}
-                placeholder="Fullname"
               />
             </span>
             <span>
@@ -283,6 +287,19 @@ function MyProfile() {
                 value={form.github}
                 onChange={handleChange}
                 placeholder="Link Github"
+              />
+            </span>
+            <span>
+              <label htmlFor="github">
+                <i className="fa-brands fa-instagram"></i>
+                Instagram
+              </label>
+              <input
+                id="instagram"
+                name="instagram"
+                value={form.instagram}
+                onChange={handleChange}
+                placeholder="Link Instagram"
               />
             </span>
           </div>

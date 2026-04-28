@@ -52,11 +52,6 @@ export const translations = {
           "Dibangun dengan teknologi modern seperti React dan Django, Wedevolv memastikan performa, skalabilitas, serta pengalaman pengguna yang mulus.",
       },
     },
-    login: "Masuk",
-    logout: "Keluar",
-    register: "Buat akun",
-    dark: "Gelap",
-    light: "Terang",
     loginPage: {
       title: "Selamat Datang Kembali",
       description: "Masuk untuk melanjutkan perjalananmu di Wedevolv. Kelola portfolio, tampilkan project terbaikmu, dan bangun identitasmu sebagai developer di satu tempat.",
@@ -82,7 +77,16 @@ export const translations = {
       passNotSame: "Password tidak sama.",
       emailExists: "Email sudah terdaftar.",
       usernameExists: "Username sudah digunakan."
-    }
+    },
+    portfolioComingSoon: {
+      title: "Portfolio sedang dipersiapkan",
+    },
+    login: "Masuk",
+    logout: "Keluar",
+    register: "Buat akun",
+    dark: "Gelap",
+    light: "Terang",
+    keywordNotMatch: "Tidak ditemukan hasil untuk",
   },
   en: {
     header: {
@@ -137,11 +141,6 @@ export const translations = {
           "Built with modern technologies like React and Django, Wedevolv ensures performance, scalability, and a seamless user experience.",
       },
     },
-    login: "Login",
-    logout: "Logout",
-    register: "Create account",
-    dark: "Dark",
-    light: "Light",
     loginPage: {
       title: "Welcome Back",
       description: "Sign in to continue your journey on Wedevolv. Manage your portfolio, showcase your best projects, and build your identity as a developer in one place.",
@@ -167,6 +166,15 @@ export const translations = {
       passNotSame: "Passwords do not match.",
       emailExists: "Email is already registered.",
       usernameExists: "Username is already taken."
-    }
+    },
+    portfolioComingSoon: {
+      title: "Portfolio is being prepared",
+    },
+    login: "Login",
+    logout: "Logout",
+    register: "Create account",
+    dark: "Dark",
+    light: "Light",
+    keywordNotMatch: "No results found for",
   }
 }

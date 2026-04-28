@@ -8,14 +8,17 @@ import { useLanguage } from "../../hooks/useLanguage";
 
 function LoginPage(){
   const { t } = useLanguage();
+  const { authedUser, setAuthedUser } = useAuth();
+  
   const [form, setForm] = useState({
     username: "",
     password: "",
   })
-  const { authedUser, setAuthedUser } = useAuth();
+
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const [loginMessage, setLoginMessage] = useState(null);
+
   const navigate = useNavigate();
 
   const [showPass, setShowPass] = useState(false);
@@ -40,6 +43,7 @@ function LoginPage(){
         setLoginMessage(t("formLogin.userNotReg"));
       } else if (error === "Invalid password") {
         setLoginMessage(t("formLogin.wrongPass"));
+        
       } else {
         setLoginMessage(t("formLogin.error"));
       }

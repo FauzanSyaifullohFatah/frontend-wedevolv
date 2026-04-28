@@ -6,8 +6,8 @@ function NavigationPortfolio(){
   const listMenu = [
     { id: "home", icon: "fa-solid fa-house", label: "Home" },
     { id: "projects", icon: "fa-solid fa-laptop-code", label: "Projects" },
-    { id: "skills", icon: "fa-solid fa-code", label: "Skills" },
     { id: "certificate", icon: "fa-solid fa-award", label: "Certificate" },
+    { id: "skills", icon: "fa-solid fa-code", label: "Skills" },
   ]
 
   useEffect(() => {

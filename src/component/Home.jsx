@@ -1,34 +1,33 @@
-import Image from "./Image";
 import PropTypes from "prop-types";
+import { getImageUrl } from "../utils";
 
 function Home({ user }){
   return(
-    <section id="home">
-      <div className="container">
-        <div className="introduction">
-          <div className="nameAndTitle">
-            <h1>{user.fullname}</h1>
-            <b className="role">{user.role}</b>
+    <section className="portfolio-home" id="home">
+      <div className="wrapper">
+        <span>
+          <h1>{user.fullname}</h1>
+          <b className="role">{user.role}</b>
+        </span>
+        <p className="descriptions">{user.bio}</p>
+        <div className="social-media">
+          <a href={user.email} target="_blank" rel="noreferrer">
+            <i className="fa-solid fa-envelope"></i>
+          </a>
+          <a href={user.linkedin} target="_blank" rel="noreferrer">
+            <i className="fa-brands fa-linkedin"></i>
+          </a>
+          <a href={user.github} target="_blank" rel="noreferrer">
+            <i className="fa-brands fa-github"></i>
+          </a>
+          <a href={user.instagram} target="_blank" rel="noreferrer">
+            <i className="fa-brands fa-instagram"></i>
+          </a>
           </div>
-          <p>{user.bio}</p>
-          <div className="socialMedia">
-            <a href={user.email} target="_blank" rel="noreferrer">
-              <i className="fa-solid fa-envelope"></i>
-            </a>
-            <a href={user.linkedin} target="_blank" rel="noreferrer">
-              <i className="fa-brands fa-linkedin"></i>
-            </a>
-            <a href={user.github} target="_blank" rel="noreferrer">
-              <i className="fa-brands fa-github"></i>
-            </a>
-            <a href="https://www.instagram.com/fauzan_s.f" target="_blank" rel="noreferrer">
-              <i className="fa-brands fa-instagram"></i>
-            </a>
-          </div>
-        </div>
       </div>
-      <div className="container">
-        <Image src={user.image} alt={user.image} id="profile-picture" />
+
+      <div className="wrapper">
+        <img src={getImageUrl(user.image)} alt={user.fullname} />
       </div>
     </section>
   )

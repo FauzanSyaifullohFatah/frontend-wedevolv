@@ -43,12 +43,11 @@ function DashboardPage(){
             <i className="fa-solid fa-award"></i>
             <p>Certificates</p>
           </NavLink>
-          <h2>Settings</h2>
+          <NavLink to={"/dashboard/settings"}>
+            <i className="fa fa-cogs"></i>
+            <p>Settings</p>
+          </NavLink>
         </div>
-        {/* <button>
-          <i className="fa fa-question-circle"></i>
-          <p>Forgot password</p>
-        </button> */}
         <button
           id="aside-logout"
           onClick={handleLogout}>

@@ -12,6 +12,7 @@ import MyProjects from "../pages/dashboard/MyProjects";
 import MyCertificates from "../pages/dashboard/MyCertificates";
 import MyProfile from "../pages/dashboard/MyProfile";
 import AboutUs from "../pages/aboutus";
+import Settings from "../pages/dashboard/Settings";
 
 function AppRoutes() {
   const { loading } = useAuth();
@@ -28,6 +29,7 @@ function AppRoutes() {
               <Route path="profile" element={<MyProfile />} />
               <Route path="projects" element={<MyProjects />} />
               <Route path="certificates" element={<MyCertificates />} />
+              <Route path="settings" element={<Settings />} />
           </Route>
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/login" element={<LoginPage />} />
