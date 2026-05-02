@@ -9,7 +9,7 @@ import { useLanguage } from "../../hooks/useLanguage";
 function RegisterPage(){
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const { authedUser } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     fullname: "",
@@ -20,7 +20,7 @@ function RegisterPage(){
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  if (authedUser) {
+  if (user) {
     return <Navigate to={"/"} />;
   }
 
@@ -135,6 +135,10 @@ function RegisterPage(){
           <button>{t("register")}</button>
           <Footer />
         </form>
+      </div>
+      <div className="register-success">
+        <h3>Pendaftaran berhasil</h3>
+        <p>Silahkan unutk login ke akun anda</p>
       </div>
     </section>
   )

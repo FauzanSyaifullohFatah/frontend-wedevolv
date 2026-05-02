@@ -1,5 +1,5 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { login } from "../../utils/api";
 import { useAuth } from "../../hooks/useAuth";
 import { sanitizeUsername } from "../../utils";
@@ -8,12 +8,26 @@ import { useLanguage } from "../../hooks/useLanguage";
 
 function LoginPage(){
   const { t } = useLanguage();
-  const { authedUser, setAuthedUser } = useAuth();
+  const { user, setUser } = useAuth();
   
   const [form, setForm] = useState({
     username: "",
     password: "",
   })
+
+  const [loginExpired, setLoginExpired] = useState();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const reason = params.get("reason");
+
+    if (reason === "expired") {
+      setLoginExpired("Sesi Anda telah berakhir. Silakan login kembali.");
+    }
+
+    if (reason) {
+      window.history.replaceState({}, "", "/login");
+    }
+  }, []);
 
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState(false);
@@ -24,7 +38,7 @@ function LoginPage(){
   const [showPass, setShowPass] = useState(false);
   const [isVisibleShowPass, setIsVisibleShowPass] = useState(false);
   
-  if (authedUser) {
+  if (user) {
     return <Navigate to={"/dashboard"} />;
   }
 
@@ -35,15 +49,12 @@ function LoginPage(){
 
     try {
       const userData =  await login(form);
-      setAuthedUser(userData);
+      setUser(userData);
       navigate("/");
     } catch (error) {
       setLoginError(true);
-      if (error === "User not found") {
-        setLoginMessage(t("formLogin.userNotReg"));
-      } else if (error === "Invalid password") {
-        setLoginMessage(t("formLogin.wrongPass"));
-        
+      if (error === "Invalid username or password") {
+        setLoginMessage(t("formLogin.usr_or_pass"));
       } else {
         setLoginMessage(t("formLogin.error"));
       }
@@ -111,7 +122,7 @@ function LoginPage(){
                 </button>
               )}
             </div>
-            <p>{t("formLogin.notHaveAcc")} <Link to={'/register'}> {t("register")}</Link></p>
+            <p>{t("formLogin.notHaveAcc")} <Link to={"/register"}> {t("register")}</Link></p>
           </div>
           {loading ? <div className="loading"><span></span></div> : null}
           {loginError
@@ -121,9 +132,15 @@ function LoginPage(){
           <button
             disabled={loading}
           >{t("login")}</button>
+          <Link to={"/reset-password"}>Lupa kata sandi</Link>
           <Footer />
         </form>
       </div>
+      {loginExpired && (
+        <div className="login-expired">
+          <p>{loginExpired}</p>
+        </div>
+      )}
     </section>
   )
 }

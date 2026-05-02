@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import FormInputProject from "../../component/FormInputProject";
-import MiniNavbar from "../../component/MiniNavbar";
-import PopupMessage from "../../component/PopupMessage";
-import { API, getProjects } from "../../utils/api";
-import ProjectList from "../../component/ProjectList";
+import FormInputProject from "../../../component/FormInputProject";
+import MiniNavbar from "../../../component/MiniNavbar";
+import PopupMessage from "../../../component/PopupMessage";
+import { API, getProjects } from "../../../utils/api";
+import ProjectList from "../../../component/ProjectList";
 
 function MyProjects() {
   const [projects, setProjects] = useState([])

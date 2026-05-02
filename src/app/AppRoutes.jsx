@@ -7,37 +7,42 @@ import RegisterPage from "../pages/register";
 import PortfolioPage from "../pages/portfolio";
 
 import DashboardPage from "../pages/dashboard";
-import MyDashboard from "../pages/dashboard/MyDashboard";
-import MyProjects from "../pages/dashboard/MyProjects";
-import MyCertificates from "../pages/dashboard/MyCertificates";
-import MyProfile from "../pages/dashboard/MyProfile";
+import Dashboard from "../pages/dashboard/user/Dashboard";
+import Projects from "../pages/dashboard/user/Projects";
+import Certificates from "../pages/dashboard/user/Certificates";
+import Profile from "../pages/dashboard/user/Profile";
+
 import AboutUs from "../pages/aboutus";
-import Settings from "../pages/dashboard/Settings";
+import ProtectedRoute from "./ProtectedRoute";
+import ResetPassword from "../pages/reset-password";
+import ConfirmPassword from "../pages/confirm-password";
 
 function AppRoutes() {
   const { loading } = useAuth();
 
+  if (loading) return <p>Loading</p>
+
   return (
-    <>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/dashboard" element={<DashboardPage />}>
-              <Route index element={<MyDashboard />} />
-              <Route path="profile" element={<MyProfile />} />
-              <Route path="projects" element={<MyProjects />} />
-              <Route path="certificates" element={<MyCertificates />} />
-              <Route path="settings" element={<Settings />} />
-          </Route>
-          <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/:username" element={<PortfolioPage />} />
-        </Routes>
-      )}
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<DashboardPage />}>
+          <Route index element={<Dashboard />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="certificates" element={<Certificates />} />
+        </Route>
+      </Route>
+
+      <Route path="/explore" element={<p>Explore</p>} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/confirm-password/:token" element={<ConfirmPassword />} />
+      <Route path="/aboutus" element={<AboutUs />} />
+      <Route path="/:username" element={<PortfolioPage />} />
+    </Routes>
   );
 }
 

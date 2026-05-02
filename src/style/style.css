@@ -303,13 +303,30 @@ nav input {
   margin-bottom: 8px;
 }
 /* ----->>>>> LOGIN & REGISTER PAGE */
-.login-page, .register-page {
+.login-expired {
+  position: fixed;
+  background: var(--card-bg);
+  border: 1px solid var(--text);
+  border-radius: 10px;
+  top: 100px;
+  padding: 20px;
+  animation: login-expired 6s forwards;
+}
+@keyframes login-expired {
+  0%        {top: -100px;}
+  10%, 50%  {top: 100px;}
+  70%, 100% {top: -100px;}
+}
+.login-page,
+.register-page,
+.reset-password {
   height: calc(100svh - 70px);
   flex-direction: row;
   color: var(--text);
 }
 .login-page .wrapper,
-.register-page .wrapper {
+.register-page .wrapper,
+.reset-password .wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -318,14 +335,16 @@ nav input {
   padding: 50px;
 }
 .login-page .wrapper .box,
-.register-page .wrapper .box {
+.register-page .wrapper .box,
+.reset-password .wrapper .box {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 10px;
 }
 .login-page .wrapper:nth-child(1),
-.register-page .wrapper:nth-child(1) {
+.register-page .wrapper:nth-child(1),
+.reset-password .wrapper:nth-child(1) {
   align-items: start;
   justify-content: start;
   gap: 10px;
@@ -335,15 +354,18 @@ nav input {
   line-height: 1.5;
 }
 .login-page .wrapper:nth-child(1),
-.register-page .wrapper:nth-child(1) {
+.register-page .wrapper:nth-child(1),
+.reset-password .wrapper:nth-child(1) {
   width: calc(100% - 600px);
 }
 .login-page .wrapper:nth-child(2),
-.register-page .wrapper:nth-child(2) {
+.register-page .wrapper:nth-child(2),
+.reset-password .wrapper:nth-child(2) {
   width: 600px;
 }
 .login-page .wrapper form,
-.register-page .wrapper form {
+.register-page .wrapper form,
+.reset-password .wrapper form {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -358,22 +380,22 @@ nav input {
 }
 
 .login-page .wrapper h1,
-.register-page .wrapper h1 {
+.register-page .wrapper h1,
+.reset-password .wrapper h1 {
   text-align: left;
   color: transparent;
   background: linear-gradient(to right, blue, #ff00e1);
   background-clip: text;
-}
-.login-page .wrapper h1,
-.register-page .wrapper h1 {
   font-size: 4rem;
 }
 .login-page .wrapper h2,
-.register-page .wrapper h2 {
+.register-page .wrapper h2,
+.reset-password .wrapper h2 {
   font-size: 2rem;
 }
 .login-page .wrapper form p,
-.register-page .wrapper form p {
+.register-page .wrapper form p,
+.reset-password .wrapper form p {
   padding: 10px 0;
 }
 .inp {
@@ -401,20 +423,28 @@ nav input {
   color: var(--text);
   border: none;
 }
+.inp input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px var(--card-bg) inset;
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+}
 .inp input:focus {
   outline: none;
 }
-.login-page .wrapper form p a,
-.register-page .wrapper form p a {
+.login-page .wrapper form a,
+.register-page .wrapper form a,
+.reset-password .wrapper form a {
   color: blue;
   font-weight: bold;
 }
-.login-page .wrapper form p a:hover,
-.register-page .wrapper form p a:hover {
+.login-page .wrapper form a:hover,
+.register-page .wrapper form a:hover,
+.reset-password .wrapper form a:hover {
   border-bottom: 1px solid blue;
 }
 .login-page .wrapper form button,
-.register-page .wrapper form button {
+.register-page .wrapper form button,
+.reset-password .wrapper form button {
   cursor: pointer;
   font-weight: bold;
   width: 100%;
@@ -424,6 +454,11 @@ nav input {
   border: none;
   height: 40px;
   border-radius: 10px;
+}
+.register-page .register-success {
+  position: fixed;
+  background: red;
+  padding: 10px;
 }
 #show-pass {
   background: transparent;
@@ -586,6 +621,21 @@ nav input {
   border-radius: 10px;
   gap: 10px;
 }
+.my-profile .alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: yellow;
+}
+.my-profile .alert button {
+  width: max-content;
+  padding: 0 10px;
+}
+.my-profile .alert button i {
+  animation: isLoading 1s linear infinite;
+}
+
 .my-profile form {
   display: flex;
   flex-direction: column;
@@ -733,38 +783,6 @@ nav input {
   border: none;
   background: linear-gradient(to right, blue, #ff00e1);
   color: white;
-}
-.is-verified {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  font-weight: bold;
-  color: var(--text);
-}
-.is-verified p {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.is-verified p i {
-  color: gold;
-  text-shadow: 1px 1px 2px black;
-  font-size: 1.5rem;
-}
-.is-verified button {
-  cursor: pointer;
-  border-radius: 10px;
-  background: linear-gradient(to right, blue, #ff00e1);
-  font-size: 1rem;
-  color: white;
-  font-weight: bold;
-  border: none;
-  padding: 10px 30px;
-}
-.is-verified button i {
-  color: black;
-  animation: loading 1s linear infinite;
 }
 @keyframes loading {
   to {rotate: 360deg;}
@@ -1161,7 +1179,7 @@ nav input {
 .form-input-project #back {
   cursor: pointer;
   background: transparent;
-  color: black;
+  color: var(--text);
   font-size: 1rem;
   border: none;
   width: 100px;
@@ -1172,7 +1190,7 @@ nav input {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #d6d6d6;
+  background: var(--card-bg);
   min-height: calc(90svh - 20px);
   border-radius: 10px;
 }
@@ -1195,9 +1213,10 @@ nav input {
   cursor: pointer;
   width: 100%;
   height: 40px;
+  font-size: 1rem;
   border-radius: 10px;
   color: black;
-  font-size: 1rem;
+  border: 1px solid black;
 }
 .popup-message .box .btn button:nth-child(2) {
   background: darkred;
@@ -1258,41 +1277,6 @@ nav input {
 }
 .keyword-not-match p b {
   color: blue;
-}
-/* ----->>>>> SETTINGS */
-.settings {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  gap: 10px;
-  background: var(--card-bg);
-  border-radius: 10px;
-  min-height: calc(90svh - 20px);
-}
-.settings button {
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  gap: 10px;
-  padding: 10px;
-}
-.settings .wrapper,
-.settings .wrapper form {
-  display: flex;
-  flex-direction: column;
-  background: whitesmoke;
-  border-radius: 10px;
-  padding: 10px;
-  gap: 10px;
-}
-.settings .wrapper form input {
-  padding: 10px;
-}
-.settings .wrapper form button {
-  background: blue;
-  width: max-content;
-  color: white;
-  border: none;
 }
 /* ----->>>>> ALL SECTION */
 section {

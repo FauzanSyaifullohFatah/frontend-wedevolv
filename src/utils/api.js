@@ -1,64 +1,109 @@
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
-const API_URL = `${BASE_URL}/api/`;
-
-const API = axios.create({ baseURL: API_URL });
-
-API.interceptors.request.use((config) => {
-  const token = getAccessToken();
-
-  const isLoginRequest = config.url.includes("login");
-
-  if (token && !isLoginRequest) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
+const API = axios.create({
+  baseURL: `${BASE_URL}/api/`,
+  withCredentials: true,
 });
+
+let isRefreshing = false;
+let failedQueue = [];
+
+const processQueue = (error, token = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
+};
 
 API.interceptors.response.use(
   (response) => response,
-  (error) => {
-    const isLoginRequest = error.config?.url.includes("login");
+  async (error) => {
+    const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !isLoginRequest) {
-      removeAccessToken();
-      window.location.href = "/login";
+    if (!originalRequest) return Promise.reject(error);
+
+    if (originalRequest.skipAuthRefresh) {
+      return Promise.reject(error);
+    }
+
+    const isLoginRequest = originalRequest?.url?.includes("login");
+    const isRefreshRequest = originalRequest?.url?.includes("refresh");
+
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !isLoginRequest &&
+      !isRefreshRequest
+    ) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({
+            resolve: () => resolve(API(originalRequest)),
+            reject,
+          });
+        });
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      try {
+        await API.post("auth/refresh/");
+        processQueue(null);
+        return API(originalRequest);
+      } catch (err) {
+        processQueue(err);
+        window.location.href = "/login?reason=expired";
+        return Promise.reject(err);
+      } finally {
+        isRefreshing = false;
+      }
     }
 
     return Promise.reject(error);
   }
 );
 
-function putAccessToken(accessToken) {
-  return localStorage.setItem("accessToken", accessToken)
-}
-
-function getAccessToken() {
-  return localStorage.getItem("accessToken");
-}
-
-function removeAccessToken() {
-  localStorage.removeItem("accessToken");
-}
-
 async function login(form) {
   try {
-    const res = await API.post("login/", form);
-    putAccessToken(res.data.access);
-    
-    const user = await getUserLogged(); 
+    await API.post("auth/login/", form);
+    const user = await getUserLogged();
     return user;
-  } catch(err) {
+  } catch (err) {
     const error = err.response?.data?.error;
     throw error || "Terjadi kesalahan";
   }
 }
 
+async function logout() {
+  try {
+    await API.post("auth/logout/");
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+async function getUserLogged() {
+  try {
+    const res = await API.get("auth/profile/", { skipAuthRefresh: true });
+    return res.data;
+  } catch (err) {
+    if (err.response?.status === 401) {
+      return null;
+    }
+
+    throw err.response?.data || "Gagal ambil profile";
+  }
+}
+
 async function register(form) {
   try {
-    const res = await API.post("register/", form);
+    const res = await API.post("auth/register/", form);
     return res.data;
   } catch (err) {
     const errors = err.response?.data;
@@ -72,50 +117,27 @@ async function register(form) {
   }
 }
 
-async function getUserLogged() {
-  try {
-    const res = await API.get("profile/");
-    return res.data;
-  } catch (err) {
-    throw err.response?.data || "gagal ambil profile";
-  }
-}
-
-function logout() {
-  removeAccessToken();
-}
-
 async function getProjects() {
   try {
-    const res = await API.get("/projects/");
+    const res = await API.get("projects/");
     return res.data;
   } catch (err) {
     console.error("Gagal fetch project:", err.response?.data || err);
   }
 }
 
-// async function deleteProject(id) {
-//   try {
-//     const res = await API.delete(`/projects/${id}`);
-//     return res.data;
-//   } catch (err) {
-//     console.error("Gagal hapus project:", err.response?.data || err);
-//     throw err;
-//   }
-// }
-
 async function getCertificates() {
   try {
-    const res = await API.get("/certificates/");
+    const res = await API.get("certificates/");
     return res.data;
   } catch (err) {
     console.error("Gagal fetch certificate:", err.response?.data || err);
   }
 }
 
-async function getPortfolio( username ) {
+async function getPortfolio(username) {
   try {
-    const res = await API.get(`/portfolio/${username}/`);
+    const res = await API.get(`auth/portfolio/${username}/`);
     return res.data;
   } catch (err) {
     console.error("Gagal fetch portfolio:", err.response?.data || err);
@@ -123,16 +145,12 @@ async function getPortfolio( username ) {
 }
 
 export {
-  API,
-  API_URL,
   BASE_URL,
-  putAccessToken,
-  getAccessToken,
-  removeAccessToken,
+  API,
   login,
+  logout,
   register,
   getUserLogged,
-  logout,
   getProjects,
   getCertificates,
   getPortfolio,

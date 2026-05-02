@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { API, getCertificates, getProjects } from "../../utils/api";
-import ToggleSwitch from "../../component/ToggleSwitch";
-import { useAuth } from "../../hooks/useAuth";
-import SkillList from "../../component/SkillList";
-import Image from "../../component/Image";
+import { API, getCertificates, getProjects } from "../../../utils/api";
+import ToggleSwitch from "../../../component/ToggleSwitch";
+import { useAuth } from "../../../hooks/useAuth";
+import SkillList from "../../../component/SkillList";
+import Image from "../../../component/Image";
 
 function MyDashboard(){
-  const { authedUser, setAuthedUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   const [projects, setProjects] = useState([]);
   const [certificates, setCertificates] = useState([]);
@@ -22,7 +22,7 @@ function MyDashboard(){
   
       setProjects(proj);
       setCertificates(cert);
-      setIsPublicPortfolio(authedUser.is_public_portfolio);
+      setIsPublicPortfolio(user?.is_public_portfolio);
   
       const latestProject = [...proj].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
       const latestCertificate = [...cert].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
@@ -56,16 +56,16 @@ function MyDashboard(){
     }
 
     fetchData();
-  }, [authedUser])
+  }, [user])
 
   const handlePublicPortfolio = async () => {
     try {
-      const res = await API.put("/profile/", {
+      const res = await API.put("/auth/profile/", {
         is_public_portfolio: !isPublicPortfolio
       });
 
       setIsPublicPortfolio(res.data.is_public_portfolio);
-      setAuthedUser(prev => ({
+      setUser(prev => ({
         ...prev,
         is_public_portfolio: res.data.is_public_portfolio
       }));

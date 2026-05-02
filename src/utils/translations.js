@@ -60,9 +60,8 @@ export const translations = {
       title: "Masuk Akun",
       password: "Kata Sandi",
       notHaveAcc: "Tidak punya akun ?",
-      wrongPass: "Kata sandi salah!",
-      userNotReg: "Username tidak terdaftar",
-      error: "Terjadi kesalahan, coba lagi",
+      usr_or_pass: "Username atau kata sandi tidak valid.",
+      error: "Terjadi kesalahan, coba lagi.",
     },
     registerPage: {
       title: "Mulai Perjalananmu",
@@ -77,6 +76,15 @@ export const translations = {
       passNotSame: "Password tidak sama.",
       emailExists: "Email sudah terdaftar.",
       usernameExists: "Username sudah digunakan."
+    },
+    confirmPass: {
+      title: "Atur ulang kata sandi",
+      subTitle: "Buat kata sandi baru",
+      description: "Silakan masukkan kata sandi baru Anda. Pastikan kata sandi sulit ditebak namun mudah Anda ingat.",
+      newPass: "Kata sandi baru",
+      confirm: "Konfirmasi kata sandi",
+      submit: "Ubah kata sandi",
+      sending: "Memproses..."
     },
     portfolioComingSoon: {
       title: "Portfolio sedang dipersiapkan",
@@ -149,8 +157,7 @@ export const translations = {
       title: "Login Account",
       password: "Password",
       notHaveAcc: "Not have account ?",
-      wrongPass: "Wrong password!",
-      userNotReg: "Username not register",
+      usr_or_pass: "Invalid username or password.",
       error: "Something went wrong. Try again.",
     },
     registerPage: {
@@ -166,6 +173,15 @@ export const translations = {
       passNotSame: "Passwords do not match.",
       emailExists: "Email is already registered.",
       usernameExists: "Username is already taken."
+    },
+    confirmPass: {
+      title: "Reset Password",
+      subTitle: "Create a new password",
+      description: "Please enter your new password. Make sure it is hard to guess but easy for you to remember.",
+      newPass: "New password",
+      confirm: "Confirm password",
+      submit: "Change password",
+      sending: "Processing..."
     },
     portfolioComingSoon: {
       title: "Portfolio is being prepared",

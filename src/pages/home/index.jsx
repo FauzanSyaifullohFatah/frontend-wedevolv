@@ -5,10 +5,10 @@ import Footer from "../../component/Footer";
 import { useLanguage } from "../../hooks/useLanguage";
 
 function HomePage(){
-  const { authedUser } = useAuth();
+  const { user } = useAuth();
   const { t } = useLanguage();
 
-  if (authedUser) {
+  if (user) {
     return <Navigate to={"/dashboard"} />;
   }
   return (

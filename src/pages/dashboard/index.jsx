@@ -1,53 +1,28 @@
-import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { logout } from "../../utils/api";
 import { useAuth } from "../../hooks/useAuth";
 import { useLanguage } from "../../hooks/useLanguage";
+import MainNavigation from "../../component/MainNavigation";
 
 function DashboardPage(){
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const { authedUser, setAuthedUser } = useAuth();
+  const { setUser } = useAuth();
 
-  const handleLogout = () => {
-    logout();
-    setAuthedUser(null);
-    navigate("/");
-  }
-
-  if (!authedUser) {
-    return <Navigate to={"/"} />;
-  }
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setUser(null);
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <section className="dashboard-page">
       <aside>
-        <div className="main-navigation">
-          <h1>{authedUser.fullname}</h1>
-          <NavLink to={"/dashboard/profile"}>
-            <i className="fa fa-user"></i>
-            <p>{authedUser.username}</p>
-            {!authedUser.is_verified && (
-              <span><i className="fa fa-exclamation-triangle"></i></span>
-            )}
-          </NavLink>
-          <h2>Main navigation</h2>
-          <NavLink to={"/dashboard"} end>
-            <i className="fa fa-th-large"></i>
-            <p>Dashboard</p>
-          </NavLink>
-          <NavLink to={"/dashboard/projects"}>
-            <i className="fa fa-file-code"></i>
-            <p>Projects</p>
-          </NavLink>
-          <NavLink to={"/dashboard/certificates"}>
-            <i className="fa-solid fa-award"></i>
-            <p>Certificates</p>
-          </NavLink>
-          <NavLink to={"/dashboard/settings"}>
-            <i className="fa fa-cogs"></i>
-            <p>Settings</p>
-          </NavLink>
-        </div>
+        <MainNavigation />
         <button
           id="aside-logout"
           onClick={handleLogout}>

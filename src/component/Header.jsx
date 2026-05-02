@@ -9,7 +9,15 @@ function Header(){
   const match = useMatch("/:username");
   const username = match?.params?.username;
 
-  const reservedRoutes = ["login", "register", "dashboard", "explore", "aboutus"];
+  const reservedRoutes = [
+    "login",
+    "register",
+    "dashboard",
+    "explore",
+    "aboutus",
+    "reset-password",
+    "confirm-password"
+  ];
   const isPortfolioPage = match && !reservedRoutes.includes(username);
 
   const navigate = useNavigate();

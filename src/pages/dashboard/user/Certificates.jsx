@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import FormInputCertificate from "../../component/FormInputCertificate";
-import MiniNavbar from "../../component/MiniNavbar";
-import PopupMessage from "../../component/PopupMessage";
-import { API, getCertificates } from "../../utils/api";
-import CertificateList from "../../component/CertificateList";
+import FormInputCertificate from "../../../component/FormInputCertificate";
+import MiniNavbar from "../../../component/MiniNavbar";
+import PopupMessage from "../../../component/PopupMessage";
+import { API, getCertificates } from "../../../utils/api";
+import CertificateList from "../../../component/CertificateList";
 
 function MyCertificates() {
   const [certificates, setCertificates] = useState([]);

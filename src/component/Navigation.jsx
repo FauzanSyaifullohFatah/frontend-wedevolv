@@ -5,20 +5,24 @@ import { logout } from "../utils/api";
 import { useLanguage } from "../hooks/useLanguage";
 
 function Navigation() {
-  const { authedUser, setAuthedUser } = useAuth();
+  const { user, setUser } = useAuth();
   const { t } = useLanguage();
 
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    setAuthedUser(null);
-    navigate("/");
-  }
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setUser(null);
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return(
     <>
-      {authedUser
+      {user
         ? (
           <>
             <li>

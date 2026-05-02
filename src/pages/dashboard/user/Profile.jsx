@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import { useState, useEffect } from "react";
-import { API } from "../../utils/api";
-import { getImageUrl, sanitizeUsername } from "../../utils";
+import { API } from "../../../utils/api";
+import { getImageUrl, sanitizeUsername } from "../../../utils";
 
 function MyProfile() {
-  const { authedUser, setAuthedUser } = useAuth();
+  const { user, setUser } = useAuth();
   
   const [form, setForm] = useState({
     fullname: "",
@@ -27,32 +27,32 @@ function MyProfile() {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [errorUsername, setErrorUsername] = useState(false);
   const [isLoadingVerification, SetIsLoadingVerification] = useState(false);
+  const [messageVerif, setMessageVerif] = useState("");
 
   useEffect(() => {
-    if (authedUser) {
+    if (user) {
       const initialData = {
-        fullname: authedUser?.fullname || "",
-        username: authedUser?.username || "",
-        role: authedUser?.role || "",
-        email: authedUser?.email || "",
-        linkedin: authedUser?.linkedin || "",
-        github: authedUser?.github || "",
-        instagram: authedUser?.instagram || "",
-        phone: authedUser?.phone || "",
-        whatsapp: authedUser?.whatsapp || "",
-        country: authedUser?.country || "",
-        bio: authedUser?.bio || "",
-        isVerified: authedUser?.is_verified,
+        fullname: user?.fullname || "",
+        username: user?.username || "",
+        role: user?.role || "",
+        email: user?.email || "",
+        linkedin: user?.linkedin || "",
+        github: user?.github || "",
+        instagram: user?.instagram || "",
+        phone: user?.phone || "",
+        whatsapp: user?.whatsapp || "",
+        country: user?.country || "",
+        bio: user?.bio || "",
+        isVerified: user?.is_verified,
       };
 
       setForm(initialData);
       setInitialForm(initialData);
-      setPreviewUrl(getImageUrl(authedUser?.image));
+      setPreviewUrl(getImageUrl(user?.image));
     }
-    console.log(authedUser);
-  }, [authedUser]);
+  }, [user]);
 
-  if (!authedUser) {
+  if (!user) {
     return <Navigate to={"/"} />;
   }
 
@@ -117,11 +117,11 @@ function MyProfile() {
         formData.append("image", previewImage);
       }
 
-      const res = await API.put("/profile/", formData, {
+      const res = await API.put("/auth/profile/", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      setAuthedUser(res.data);
+      setUser(res.data);
       setErrorUsername(false);
 
     } catch (err) {
@@ -137,11 +137,10 @@ function MyProfile() {
   const handleVerification = async () => {
     SetIsLoadingVerification(true);
     try {
-      const res = await API.post("/send-verification-link/");
-  
-      alert(res.data.message);
+      await API.post("/auth/send-verification-link/");
+      setMessageVerif("Cek email anda");
     } catch (err) {
-      alert("Gagal mengirim link");
+      setMessageVerif("Gagal mengirim link verifikasi");
     } finally {
       SetIsLoadingVerification(false);
     }
@@ -149,20 +148,6 @@ function MyProfile() {
 
   return (
     <div className="my-profile">
-      {!authedUser.is_verified && (
-        <div className="is-verified">
-          <p><i className="fa fa-exclamation-triangle"></i> Email Not Verified</p>
-          <button
-            onClick={handleVerification}
-            disabled={isLoadingVerification}
-          >
-            {isLoadingVerification
-              ? <i className="fa fa-spinner"></i>
-              : <p>Verification</p>
-            }
-          </button>
-        </div>
-      )}
       <form onSubmit={handleSubmit}>
         {isFormChanged() && (
           <button type="submit" disabled={isLoading}>
@@ -191,14 +176,27 @@ function MyProfile() {
           </div>
 
           <div className="side">
-            <span style={{background: authedUser.is_verified && ("transparent")}}>
+            <span style={{background: user?.is_verified && ("transparent")}}>
               <label htmlFor="email">
                 <i className="fa fa-envelope"></i>
                 Email
                 <div className="alert">
-                {authedUser.is_verified
+                {user?.is_verified
                   ? <i className="fa fa-check"></i>
-                  : <i className="fa fa-exclamation-triangle"></i>
+                  : <>
+                      <i className="fa fa-exclamation-triangle"></i>
+                      <p>{messageVerif}</p>
+                      <button
+                        type="button"
+                        onClick={handleVerification}
+                        disabled={isLoadingVerification}
+                      >
+                        {isLoadingVerification
+                          ? <i className="fa fa-spinner"></i>
+                          : <p>Verification</p>
+                        }
+                      </button>
+                    </>
                 }
                 </div>
               </label>
@@ -209,7 +207,7 @@ function MyProfile() {
                 onChange={handleChange}
                 placeholder="Email"
                 autoComplete="email"
-                disabled={authedUser.is_verified}
+                disabled={user?.is_verified}
               />
             </span>
             <span>
