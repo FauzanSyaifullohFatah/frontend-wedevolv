@@ -13,7 +13,6 @@ function Header(){
     "login",
     "register",
     "dashboard",
-    "explore",
     "aboutus",
     "reset-password",
     "confirm-password"

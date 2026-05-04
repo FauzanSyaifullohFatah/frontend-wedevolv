@@ -94,38 +94,49 @@ function MyProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
       const formData = new FormData();
-
-      formData.append("username", form.username);
-      formData.append("email", form.email);
-      formData.append("role", form.role);
-      formData.append("bio", form.bio);
-      formData.append("github", form.github);
-      formData.append("linkedin", form.linkedin);
-      formData.append("instagram", form.instagram);
-      formData.append("phone", form.phone);
-      formData.append("whatsapp", form.whatsapp);
-      formData.append("country", form.country);
-
+  
+      Object.entries(form).forEach(([key, value]) => {
+        if (key === "fullname") return;
+        formData.append(key, value || "");
+      });
+  
       const [first_name, ...last] = form.fullname.split(" ");
-      formData.append("first_name", first_name);
-      formData.append("last_name", last.join(" "));
-
-      if (previewImage) {
+      formData.append("first_name", first_name || "");
+      formData.append("last_name", last.join(" ") || "");
+  
+      if (previewImage instanceof File) {
         formData.append("image", previewImage);
       }
-
-      const res = await API.put("/auth/profile/", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
+  
+      const res = await API.put("/auth/profile/", formData);
+  
       setUser(res.data);
       setErrorUsername(false);
-
+      setPreviewImage(null);
+      setPreviewUrl(getImageUrl(res.data.image));
+  
+      const updatedForm = {
+        fullname: res.data.fullname || "",
+        username: res.data.username || "",
+        role: res.data.role || "",
+        email: res.data.email || "",
+        linkedin: res.data.linkedin || "",
+        github: res.data.github || "",
+        instagram: res.data.instagram || "",
+        phone: res.data.phone || "",
+        whatsapp: res.data.whatsapp || "",
+        country: res.data.country || "",
+        bio: res.data.bio || "",
+      };
+  
+      setForm(updatedForm);
+      setInitialForm(updatedForm);
+  
     } catch (err) {
-      if (err.response?.data.username) {
+      if (err.response?.data?.username) {
         setErrorUsername(true);
       }
       console.error(err.response?.data || err);
@@ -350,14 +361,14 @@ function MyProfile() {
         <span className="box-bio">
           <label htmlFor="bio">
             <i className="fa fa-file-text"></i>
-            Bio
+            Professional Summary
           </label>
           <textarea
             name="bio"
             id="bio"
             value={form.bio}
             onChange={handleChange}
-            placeholder="Ceritakan tentang diri anda..."
+            placeholder="Jelaskan dirimu berdasarkan role yang dipilih. Contoh: 'Frontend Developer dengan pengalaman 2 tahun dalam membangun aplikasi web menggunakan React.'"
           />
         </span>
       </form>

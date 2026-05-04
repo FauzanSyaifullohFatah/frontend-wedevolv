@@ -2,7 +2,6 @@ export const translations = {
   id: {
     header: {
       home: "Home",
-      explore: "Explorasi",
       about: "Tentang",
     },
     hero: {
@@ -89,6 +88,11 @@ export const translations = {
     portfolioComingSoon: {
       title: "Portfolio sedang dipersiapkan",
     },
+    notFoundPage: {
+      title: "Halaman Tidak Ditemukan",
+      description: "Halaman yang kamu cari tidak tersedia.",
+      button: "Kembali ke Beranda",
+    },
     login: "Masuk",
     logout: "Keluar",
     register: "Buat akun",
@@ -99,7 +103,6 @@ export const translations = {
   en: {
     header: {
       home: "Home",
-      explore: "Explore",
       about: "About",
     },
     hero: {
@@ -185,6 +188,11 @@ export const translations = {
     },
     portfolioComingSoon: {
       title: "Portfolio is being prepared",
+    },
+    notFoundPage: {
+      title: "Page Not Found",
+      description: "The page you are looking for is not available.",
+      button: "Back to Home",
     },
     login: "Login",
     logout: "Logout",

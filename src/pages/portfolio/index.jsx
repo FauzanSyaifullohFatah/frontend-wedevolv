@@ -1,27 +1,36 @@
-import Footer from "../../component/Footer";
-import Home from "../../component/Home";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPortfolio } from "../../utils/api";
+import { portfolioProgress } from "../../utils";
+
 import PortfolioComingSoon from "./PortfolioComingSoon";
+import Home from "../../component/Home";
 import ProjectList from "../../component/ProjectList";
-import SkillList from "../../component/SkillList";
 import CertificateList from "../../component/CertificateList";
+import SkillList from "../../component/SkillList";
+import Footer from "../../component/Footer";
 
 import "../../style/portfolio.css";
+import GLobalLoading from "../../component/GlobalLoading";
+import PageNotFound from "../notFound";
 
 function PortfolioPage() {
   const { username } = useParams();
 
-  const [isPublicPortFolio, setIsPublicPortfolio] = useState(false);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [allSkill, setAllSkill] = useState([]);
+  const [progress, setProgress] = useState(null);
 
   useEffect(() => {
     const fetchPortfolio = async () => {
       try {
         const res = await getPortfolio(username);
+
+        if (!res) {
+          setData(null);
+          return;
+        }
 
         const safeData = {
           user: res?.user || {},
@@ -30,7 +39,6 @@ function PortfolioPage() {
         };
 
         setData(safeData);
-        setIsPublicPortfolio(safeData.user?.is_public_portfolio ?? false);
 
         const techProj = [
           ...new Set(
@@ -50,11 +58,11 @@ function PortfolioPage() {
           )
         ];
 
-        const mergedSkills = [...new Set([...techProj, ...skillsCert])];
-        setAllSkill(mergedSkills);
+        setAllSkill([...new Set([...techProj, ...skillsCert])]);
 
       } catch (err) {
         console.error("Fetch portfolio error:", err);
+        setData(null);
       } finally {
         setLoading(false);
       }
@@ -65,17 +73,50 @@ function PortfolioPage() {
 
   useEffect(() => {
     if (data?.user?.fullname) {
-      document.title = `${data.user?.fullname} | Wedevolv`;
+      document.title = `${data.user.fullname} | Wedevolv`;
     }
   }, [data]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!data) return <p>User tidak ditemukan</p>;
-  if (!isPublicPortFolio) return <PortfolioComingSoon />;
+  useEffect(() => {
+    if (!data?.user) return;
 
+    const resultProgress = portfolioProgress({
+      profilePict: data.user.image,
+      isVerified: data.user.is_verified,
+      role: data.user.role,
+      country: data.user.country,
+      phoneNumber: data.user.phone,
+      whatsapp: data.user.whatsapp,
+      linkedin: data.user.linkedin,
+      github: data.user.github,
+      summary: data.user.bio,
+      projectCount: data.projects.length || 0,
+      certificateCount: data.certificates.length || 0,
+    });
+
+    setProgress(resultProgress.progress);
+  }, [data]);
+
+  const isLoading = loading;
+  const isNotFound = !loading && !data;
+  const isReady = data && progress !== null;
+
+  const canViewPortfolio =
+    isReady &&
+    progress === 100 &&
+    data?.user?.is_public_portfolio;
+
+  if (isLoading) return <GLobalLoading />;
+
+  if (isNotFound) return <PageNotFound />;
+
+  if (!isReady) return <GLobalLoading />;
+
+  if (!canViewPortfolio) return <PortfolioComingSoon />;
 
   return (
     <div className="portfolio-container">
+
       <Home user={data.user} />
 
       <section className="portfolio-project" id="projects">

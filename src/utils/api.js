@@ -27,24 +27,26 @@ API.interceptors.response.use(
 
     if (!originalRequest) return Promise.reject(error);
 
-    if (originalRequest.skipAuthRefresh) {
+    const isLoginRequest = originalRequest.url.includes("auth/login/");
+    const isRefreshRequest = originalRequest.url.includes("auth/refresh/");
+
+    if (isRefreshRequest) {
+      isRefreshing = false;
+      
       return Promise.reject(error);
     }
 
-    const isLoginRequest = originalRequest?.url?.includes("login");
-    const isRefreshRequest = originalRequest?.url?.includes("refresh");
-
     if (
-      error.response?.status === 401 &&
-      !originalRequest._retry &&
-      !isLoginRequest &&
-      !isRefreshRequest
+      error.response?.status === 401 && 
+      !originalRequest._retry && 
+      !isLoginRequest
     ) {
+      
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({
             resolve: () => resolve(API(originalRequest)),
-            reject,
+            reject: (err) => reject(err),
           });
         });
       }
@@ -53,13 +55,20 @@ API.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        await API.post("auth/refresh/");
+        await axios.post(`${BASE_URL}/api/auth/refresh/`, {}, { withCredentials: true });
+        
         processQueue(null);
         return API(originalRequest);
-      } catch (err) {
-        processQueue(err);
-        window.location.href = "/login?reason=expired";
-        return Promise.reject(err);
+      } catch (refreshError) {
+        processQueue(refreshError);
+
+        const isInitialCheck = originalRequest.url.includes("auth/profile/");
+
+        if (!isInitialCheck && window.location.pathname !== '/login') {
+          window.location.href = "/login?reason=expired";
+        }
+        
+        return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
       }
@@ -68,6 +77,15 @@ API.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+async function getUserLogged() {
+  try {
+    const res = await API.get("auth/profile/");
+    return res.data;
+  } catch (err) {
+    return null; 
+  }
+}
 
 async function login(form) {
   try {
@@ -85,19 +103,6 @@ async function logout() {
     await API.post("auth/logout/");
   } catch (err) {
     console.error(err);
-  }
-}
-
-async function getUserLogged() {
-  try {
-    const res = await API.get("auth/profile/", { skipAuthRefresh: true });
-    return res.data;
-  } catch (err) {
-    if (err.response?.status === 401) {
-      return null;
-    }
-
-    throw err.response?.data || "Gagal ambil profile";
   }
 }
 
@@ -144,6 +149,16 @@ async function getPortfolio(username) {
   }
 }
 
+async function getAllUsers() {
+  try {
+    const res = await API.get("auth/users/");
+    return res.data;
+  } catch (err) {
+    console.error("Gagal fetch users:", err.response?.data || err);
+    throw err.response?.data || "Gagal mengambil daftar pengguna";
+  }
+}
+
 export {
   BASE_URL,
   API,
@@ -154,4 +169,5 @@ export {
   getProjects,
   getCertificates,
   getPortfolio,
+  getAllUsers,
 };

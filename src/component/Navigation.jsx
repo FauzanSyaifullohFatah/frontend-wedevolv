@@ -32,12 +32,6 @@ function Navigation() {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/explore"}>
-                <i className="fa-solid fa-laptop-code"></i>
-                <p>{t("header.explore")}</p>
-              </NavLink>
-            </li>
-            <li>
               <button id="nav-logout" onClick={handleLogout}>
                 <i className="fa fa-sign-out"></i>
                 <p>{t("logout")}</p>
@@ -50,12 +44,6 @@ function Navigation() {
               <NavLink to={"/"}>
                 <i className="fa-solid fa-house"></i>
                 <p>Home</p>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={"/explore"}>
-                <i className="fa-solid fa-laptop-code"></i>
-                <p>{t("header.explore")}</p>
               </NavLink>
             </li>
             <li>

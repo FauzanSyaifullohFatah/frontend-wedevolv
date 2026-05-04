@@ -16,11 +16,14 @@ import AboutUs from "../pages/aboutus";
 import ProtectedRoute from "./ProtectedRoute";
 import ResetPassword from "../pages/reset-password";
 import ConfirmPassword from "../pages/confirm-password";
+import DashboardAdmin from "../pages/dashboard/admin/DashboardAdmin";
+import GLobalLoading from "../component/GlobalLoading";
+import PageNotFound from "../pages/notFound";
 
 function AppRoutes() {
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
 
-  if (loading) return <p>Loading</p>
+  if (loading) return <GLobalLoading />;
 
   return (
     <Routes>
@@ -28,20 +31,29 @@ function AppRoutes() {
 
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />}>
-          <Route index element={<Dashboard />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="projects" element={<Projects />} />
-          <Route path="certificates" element={<Certificates />} />
+          {user?.is_superuser ? (
+            <>
+              <Route index element={<DashboardAdmin />} />
+            </>
+          ) : (
+            <>
+              <Route index element={<Dashboard />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path="certificates" element={<Certificates />} />
+            </>
+          )}
         </Route>
       </Route>
 
-      <Route path="/explore" element={<p>Explore</p>} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/confirm-password/:token" element={<ConfirmPassword />} />
       <Route path="/aboutus" element={<AboutUs />} />
+
       <Route path="/:username" element={<PortfolioPage />} />
+      <Route path="*" element={<PageNotFound />}/>
     </Routes>
   );
 }

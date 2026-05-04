@@ -1,4 +1,4 @@
-import { formatDateIndo } from "../utils";
+import { formatDateIn } from "../utils/index";
 import PropTypes from "prop-types";
 import Image from "../component/Image";
 import highlightText from "../utils/highlight";
@@ -41,7 +41,7 @@ function ProjectItem({
               <div className="side">
                 <h3>{highlightText(p.title, keyword)}</h3>
                 <p className="created-at">
-                  {formatDateIndo(
+                  {formatDateIn(
                     highlightText(p.created_at, keyword)
                   )}
                 </p>

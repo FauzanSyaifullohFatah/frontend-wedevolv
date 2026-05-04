@@ -136,10 +136,6 @@ function RegisterPage(){
           <Footer />
         </form>
       </div>
-      <div className="register-success">
-        <h3>Pendaftaran berhasil</h3>
-        <p>Silahkan unutk login ke akun anda</p>
-      </div>
     </section>
   )
 }
