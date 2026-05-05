@@ -136,7 +136,7 @@ function LoginPage(){
             <button
               disabled={loading}
             >{t("login")}</button>
-            <Link to={"/reset-password"}>Lupa kata sandi</Link>
+            <Link to={"/forgot-password"}>Lupa kata sandi</Link>
             <Footer />
           </form>
         </div>

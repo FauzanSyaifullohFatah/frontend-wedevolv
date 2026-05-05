@@ -47,7 +47,7 @@ function Navigation() {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/aboutus"}>
+              <NavLink to={"/about"}>
                 <i className="fa fa-info-circle"></i>
                 <p>{t("header.about")}</p>
               </NavLink>

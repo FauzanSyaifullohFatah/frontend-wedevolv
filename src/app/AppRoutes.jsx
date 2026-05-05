@@ -48,9 +48,9 @@ function AppRoutes() {
 
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/forgot-password" element={<ResetPassword />} />
       <Route path="/confirm-password/:token" element={<ConfirmPassword />} />
-      <Route path="/aboutus" element={<AboutUs />} />
+      <Route path="/about" element={<AboutUs />} />
 
       <Route path="/:username" element={<PortfolioPage />} />
       <Route path="*" element={<PageNotFound />}/>

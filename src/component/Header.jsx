@@ -13,8 +13,8 @@ function Header(){
     "login",
     "register",
     "dashboard",
-    "aboutus",
-    "reset-password",
+    "about",
+    "forgot-password",
     "confirm-password"
   ];
   const isPortfolioPage = match && !reservedRoutes.includes(username);
