@@ -11,7 +11,7 @@ function MainNavigation() {
       {admin
         ? (
           <>
-            <h1>ADMIN - {user?.username}</h1>
+            <h1>Admin - {user?.username}</h1>
             <NavLink>
               <i className="fa fa-th-large"></i>
               <p>Dashboard</p>

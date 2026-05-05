@@ -10,83 +10,94 @@ function ProjectItem({
   setEdit,
   deletePopup,
   projectVisible,
-  isLoadingVisibility,
+  loadingId,
   showForm,
   keyword = "",
+  onlyVisible = false,
 }) {
   const { t } = useLanguage();
   const locationPath = useLocation().pathname;
 
-  const filteredProjects = projects.filter((p) =>
+  const filteredProjects = projects
+    .filter((p) => (onlyVisible ? p.is_visible : true))
+    .filter((p) =>
     [p.title, p.description, p.created_at]
       .join(" ")
       .toLowerCase()
       .includes(keyword.toLowerCase())
-  )
+  );
 
   return (
     <>
-      {filteredProjects.length === 0
-        ? (
-          <div className="keyword-not-match">
-            <p>{t("keywordNotMatch")} <b><q>{keyword}</q></b></p>
-          </div>
-        )
-        : (
-          filteredProjects.map((p) => (
-            <article className="project-item" key={p.id}>
-              <div className="side">
-                <Image src={p.image} alt={p.title} />
+      {filteredProjects.length === 0 ? (
+        <div className="keyword-not-match">
+          <p>
+            {t("keywordNotMatch")} <b><q>{keyword}</q></b>
+          </p>
+        </div>
+      ) : (
+        filteredProjects.map((p) => (
+          <article className="project-item" key={p.id}>
+            <div className="side">
+              <Image src={p.image} alt={p.title} />
+            </div>
+
+            <div className="side">
+              <h3>{highlightText(p.title, keyword)}</h3>
+
+              <p className="created-at">
+                {formatDateIn(
+                  highlightText(p.created_at, keyword)
+                )}
+              </p>
+
+              <p className="description-project">
+                {highlightText(p.description, keyword)}
+              </p>
+
+              <div className="my-projects__button">
+                <a href={p.link_repository} target="_blank" rel="noreferrer">
+                  <i className="fa-brands fa-github"></i> Repository
+                </a>
+
+                <a href={p.link_demo} target="_blank" rel="noreferrer">
+                  <i className="fa fa-globe"></i> Live Demo
+                </a>
               </div>
+            </div>
+
+            {locationPath === "/dashboard/projects" && (
               <div className="side">
-                <h3>{highlightText(p.title, keyword)}</h3>
-                <p className="created-at">
-                  {formatDateIn(
-                    highlightText(p.created_at, keyword)
+                <button
+                  onClick={() => projectVisible(p.id, p.is_visible)}
+                  className={p.is_visible ? "btn-active" : ""}
+                  disabled={loadingId === p.id}
+                >
+                  {loadingId === p.id ? (
+                    <i className="fa fa-spinner fa-spin" id="isLoadingVisible"></i>
+                  ) : (
+                    <i className="fa fa-globe"></i>
                   )}
-                </p>
-                <p className="description-project">{highlightText(p.description, keyword)}</p>
-                <div className="my-projects__button">
-                  <a href={p.link_repository} target="_blank" rel="noreferrer">
-                    <i className="fa-brands fa-github"></i> Repository
-                  </a>
-                  <a href={p.link_demo} target="_blank" rel="noreferrer">
-                    <i className="fa fa-globe"></i> Live Demo
-                  </a>
-                </div>
+                </button>
+                <button
+                  onClick={() => {
+                    setEdit(p);
+                    showForm(true);
+                  }}
+                >
+                  <i className="fa fa-pencil-square"></i>
+                </button>
+                <button onClick={() => deletePopup(p)}>
+                  <i className="fa fa-trash"></i>
+                </button>
+
               </div>
-              {locationPath === "/dashboard/projects" && (
-                <div className="side">
-                  <button
-                    onClick={() => projectVisible(p.id, p.is_visible)}
-                    className={p.is_visible ? "btn-active" : ""}
-                  >
-                    {isLoadingVisibility
-                      ? <i className="fa fa-spinner" id="isLoadingVisible"></i>
-                      : <i className="fa fa-globe"></i>
-                    }
-                  </button>
-                  <button
-                      onClick={() => {
-                        setEdit(p);
-                        showForm(true);
-                      }}
-                    >
-                      <i className="fa fa-pencil-square"></i>
-                  </button>
-                  <button
-                    onClick={() => deletePopup(p)}
-                  >
-                    <i className="fa fa-trash"></i>
-                  </button>
-                </div>
-              )}
-            </article>
-          ))
-        )
-      }
+            )}
+          </article>
+        ))
+      )}
     </>
-  )
+  );
 }
 
 ProjectItem.propTypes = {
@@ -108,9 +119,10 @@ ProjectItem.propTypes = {
   setEdit: PropTypes.func,
   deletePopup: PropTypes.func,
   projectVisible: PropTypes.func,
-  isLoadingVisibility: PropTypes.bool,
+  loadingId: PropTypes.number,
   showForm: PropTypes.func,
   keyword: PropTypes.string,
-}
+  onlyVisible: PropTypes.bool,
+};
 
 export default ProjectItem;

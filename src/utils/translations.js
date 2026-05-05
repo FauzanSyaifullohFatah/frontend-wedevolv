@@ -9,6 +9,8 @@ export const translations = {
       cta: "Daftar sekarang",
     },
     homePage: {
+      metaTitle: "Wedevolv - Platform untuk Membuat Portofolio Developer",
+      metaDescription: "Bangun portofolio developer profesional Anda di Wedevolv. Cara termudah untuk memamerkan proyek, skill, dan pengalaman kerja Anda ke dunia.",
       fitur1: "Menampilkan project dengan struktur yang rapi, terorganisir, dan mudah dipahami sehingga memudahkan siapa pun untuk mengeksplorasi hasil karya.",
       fitur2: "Membangun profil developer yang menarik, modern, dan profesional sebagai representasi diri di dunia digital.",
       fitur3: "Menyediakan akses portfolio dalam satu link yang praktis, sehingga mudah dibagikan ke recruiter, client, maupun rekan developer.",
@@ -17,6 +19,8 @@ export const translations = {
       fitur6: "Pengalaman pengguna yang sederhana namun tetap interaktif dan nyaman digunakan.",
     },
     aboutPage: {
+      metaTitle: "Tentang - Wedevolv",
+      metaDescription: "Pelajari lebih lanjut tentang Wedevolv, platform yang dirancang untuk membantu developer membangun dan memamerkan portofolio profesional dengan mudah.",
       hero: {
         title: "Tentang Wedevolv",
         description:
@@ -52,6 +56,8 @@ export const translations = {
       },
     },
     loginPage: {
+      metaTitle: "Masuk - Wedevolv",
+      metaDescription: "Masuk ke akun Wedevolv Anda untuk mengelola portofolio developer Anda.",
       title: "Selamat Datang Kembali",
       description: "Masuk untuk melanjutkan perjalananmu di Wedevolv. Kelola portfolio, tampilkan project terbaikmu, dan bangun identitasmu sebagai developer di satu tempat.",
     },
@@ -63,6 +69,8 @@ export const translations = {
       error: "Terjadi kesalahan, coba lagi.",
     },
     registerPage: {
+      metaTitle: "Daftar - Wedevolv",
+      metaDescription: "Bergabunglah dengan Wedevolv dan mulai bangun portofolio developer profesional Anda sekarang. Gratis dan mudah untuk memulai.",
       title: "Mulai Perjalananmu",
       description: "Mulai perjalananmu di Wedevolv. Bangun portfolio digital, tampilkan project terbaikmu, dan biarkan orang lain melihat skill yang kamu miliki.",
     },
@@ -75,6 +83,16 @@ export const translations = {
       passNotSame: "Password tidak sama.",
       emailExists: "Email sudah terdaftar.",
       usernameExists: "Username sudah digunakan."
+    },
+    forgotPassword: {
+      metaTitle: "Lupa Kata Sandi - Wedevolv",
+      metaDescription: "Pulihkan kata sandi akun Wedevolv Anda untuk kembali membangun portofolio Anda.",
+      title: "Lupa kata sandi?",
+      subTitle: "Pulihkan akun anda",
+      description: "Masukkan alamat email Anda dan kami akan mengirimkan instruksi untuk mengatur ulang kata sandi Anda.",
+      email: "Masukan email anda",
+      submit: "Kirim Link Reset",
+      process: "Mengirim...",
     },
     confirmPass: {
       title: "Atur ulang kata sandi",
@@ -99,6 +117,8 @@ export const translations = {
     dark: "Gelap",
     light: "Terang",
     keywordNotMatch: "Tidak ditemukan hasil untuk",
+    emptyProject: "Belum ada proyek yang ditambahkan",
+    emptyCertificate: "Belum ada sertifikat yang ditambahkan",
   },
   en: {
     header: {
@@ -110,6 +130,8 @@ export const translations = {
       cta: "Register now",
     },
     homePage: {
+      metaTitle: "Wedevolv - Developer Portfolio Builder",
+      metaDescription: "Build your professional developer portfolio on Wedevolv. The easiest way to showcase your projects, skills, and work experience to the world.",
       fitur1: "Displays projects in a clean, well-structured, and organized way, making it easy for anyone to explore the work.",
       fitur2: "Builds an attractive, modern, and professional developer profile as a digital self-representation.",
       fitur3: "Provides portfolio access in a single convenient link, making it easy to share with recruiters, clients, and fellow developers.",
@@ -118,6 +140,8 @@ export const translations = {
       fitur6: "Delivers a simple yet interactive and user-friendly experience.",
     },
     aboutPage: {
+      metaTitle: "About - Wedevolv",
+      metaDescription: "Learn more about Wedevolv, the platform designed to help developers build and showcase professional portfolios easily.",
       hero: {
         title: "About Wedevolv",
         description:
@@ -153,6 +177,8 @@ export const translations = {
       },
     },
     loginPage: {
+      metaTitle: "Login - Wedevolv",
+      metaDescription: "Log in to your Wedevolv account to manage your developer portfolio.",
       title: "Welcome Back",
       description: "Sign in to continue your journey on Wedevolv. Manage your portfolio, showcase your best projects, and build your identity as a developer in one place.",
     },
@@ -164,6 +190,8 @@ export const translations = {
       error: "Something went wrong. Try again.",
     },
     registerPage: {
+      metaTitle: "Register - Wedevolv",
+      metaDescription: "Join Wedevolv and start building your professional developer portfolio today. It's free and easy to get started.",
       title: "Start Your Journey",
       description: "Start your journey on Wedevolv. Build your digital portfolio, showcase your best projects, and let others see the skills you have.",
     },
@@ -176,6 +204,16 @@ export const translations = {
       passNotSame: "Passwords do not match.",
       emailExists: "Email is already registered.",
       usernameExists: "Username is already taken."
+    },
+    forgotPassword: {
+      metaTitle: "Forgot Password - Wedevolv",
+      metaDescription: "Recover your Wedevolv account password to get back to building your portfolio.",
+      title: "Forgot Your Password?",
+      subTitle: "Recover your account",
+      description: "Enter your email address and we'll send you instructions to reset your password.",
+      email: "Email address",
+      submit: "Send Reset Link",
+      process: "Sending...",
     },
     confirmPass: {
       title: "Reset Password",
@@ -200,5 +238,7 @@ export const translations = {
     dark: "Dark",
     light: "Light",
     keywordNotMatch: "No results found for",
+    emptyProject: "No projects have been added yet",
+    emptyCertificate: "No certificates have been added yet",
   }
 }

@@ -36,7 +36,9 @@ function Header(){
           }
           <li><UserPreference /></li>
         </ul>
-        <label htmlFor="navbar" id="button-navbar"><i className="fa-solid fa-bars"></i></label>
+        <label htmlFor="navbar" id="button-navbar">
+          <i className="fa-solid fa-bars"></i>
+        </label>
       </nav>
     </header>
   )

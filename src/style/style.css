@@ -573,7 +573,7 @@ nav input {
 }
 .main-navigation a span i {
   background: transparent !important;
-  color: yellow !important;
+  color: orange !important;
 }
 #aside-logout {
   cursor: pointer;
@@ -1115,6 +1115,9 @@ nav input {
   height: 30px;
   color: var(--text);
 }
+#isLoadingVisible {
+  animation: loading 1s linear infinite;
+}
 .project-item .side .btn-active,
 .certificate-item .side .btn-active {
   background: linear-gradient(to right, blue, #ff00e1) !important;
@@ -1262,11 +1265,12 @@ nav input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: var(--card-bg);
+  text-align: center;
   color: var(--text);
   font-size: 1.5rem;
   border-radius: 10px;
   min-height: calc(80svh - 10px);
+  padding: 50px;
   gap: 10px;
 }
 .empty-state span {
@@ -1292,7 +1296,7 @@ nav input {
   position: relative;
   width: 100px;
   height: 100px;
-  background: conic-gradient(#0ef, black);
+  background: conic-gradient(#ff00e1, blue);
   border-radius: 100%;
   animation: isLoading 1s infinite;
 }

@@ -1,15 +1,22 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { LanguageContext } from "./LanguageContext";
 import { translations } from "../../utils/translations";
 import PropTypes from "prop-types";
 
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const langParam = params.get("lang");
+    if (langParam && translations[langParam]) {
+      return langParam;
+    }
+    
     return localStorage.getItem("lang") || "en";
   });
 
   useEffect(() => {
     localStorage.setItem("lang", lang);
+    document.documentElement.lang = lang;
   }, [lang]);
 
   const changeLang = (value) => {
@@ -37,4 +44,4 @@ export function LanguageProvider({ children }) {
 
 LanguageProvider.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};

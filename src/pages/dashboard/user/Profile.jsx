@@ -3,6 +3,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { useState, useEffect } from "react";
 import { API } from "../../../utils/api";
 import { getImageUrl, sanitizeUsername } from "../../../utils";
+import { Helmet } from "react-helmet-async";
 
 function MyProfile() {
   const { user, setUser } = useAuth();
@@ -158,221 +159,226 @@ function MyProfile() {
   };
 
   return (
-    <div className="my-profile">
-      <form onSubmit={handleSubmit}>
-        {isFormChanged() && (
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Menyimpan..." : "Simpan Perubahan"}
-          </button>
-        )}
-        <div className="box">
-          <div className="side box-picture">
-            <div
-              className="picture"
-              style={{backgroundImage: previewUrl ? `url(${previewUrl})` : "none",}}
-            >
-              {!previewUrl && <i id="profile-pict-not-set" className="fa fa-user"></i>}
+    <>
+      <Helmet>
+        <title>Profile - {user?.fullname}</title>
+      </Helmet>
+      <div className="my-profile">
+        <form onSubmit={handleSubmit}>
+          {isFormChanged() && (
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Menyimpan..." : "Simpan Perubahan"}
+            </button>
+          )}
+          <div className="box">
+            <div className="side box-picture">
+              <div
+                className="picture"
+                style={{backgroundImage: previewUrl ? `url(${previewUrl})` : "none",}}
+              >
+                {!previewUrl && <i id="profile-pict-not-set" className="fa fa-user"></i>}
 
-              <label htmlFor="upload-picture">
-                <i className="fa fa-camera"></i>
-              </label>
+                <label htmlFor="upload-picture">
+                  <i className="fa fa-camera"></i>
+                </label>
 
-              <input
-                type="file"
-                id="upload-picture"
-                onChange={handleFileChange}
-                hidden
-              />
+                <input
+                  type="file"
+                  id="upload-picture"
+                  onChange={handleFileChange}
+                  hidden
+                />
+              </div>
+            </div>
+
+            <div className="side">
+              <span style={{background: user?.is_verified && ("transparent")}}>
+                <label htmlFor="email">
+                  <i className="fa fa-envelope"></i>
+                  Email
+                  <div className="alert">
+                  {user?.is_verified
+                    ? <i className="fa fa-check"></i>
+                    : <>
+                        <i className="fa fa-exclamation-triangle"></i>
+                        <p>{messageVerif}</p>
+                        <button
+                          type="button"
+                          onClick={handleVerification}
+                          disabled={isLoadingVerification}
+                        >
+                          {isLoadingVerification
+                            ? <i className="fa fa-spinner"></i>
+                            : <p>Verification</p>
+                          }
+                        </button>
+                      </>
+                  }
+                  </div>
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  autoComplete="email"
+                  disabled={user?.is_verified}
+                />
+              </span>
+              <span>
+                <label htmlFor="fullname">
+                  <i className="fa fa-user-circle"></i>
+                  Fullname
+                </label>
+                <input
+                  id="fullname"
+                  name="fullname"
+                  value={form.fullname}
+                  onChange={handleChange}
+                  placeholder="Fullname"
+                />
+              </span>
+              <span>
+                <label htmlFor="username">
+                  <i className="fa fa-user"></i>
+                  Username
+                </label>
+                <input
+                  id="username"
+                  name="username"
+                  value={form.username}
+                  onChange={handleChange}
+                  placeholder="Username"
+                  autoComplete="username"
+                />
+                {errorUsername && (
+                  <div className="alert">
+                    <small>Username Already</small>
+                    <i className="fa fa-exclamation-triangle"></i>
+                  </div>
+                )}
+              </span>
             </div>
           </div>
 
-          <div className="side">
-            <span style={{background: user?.is_verified && ("transparent")}}>
-              <label htmlFor="email">
-                <i className="fa fa-envelope"></i>
-                Email
-                <div className="alert">
-                {user?.is_verified
-                  ? <i className="fa fa-check"></i>
-                  : <>
-                      <i className="fa fa-exclamation-triangle"></i>
-                      <p>{messageVerif}</p>
-                      <button
-                        type="button"
-                        onClick={handleVerification}
-                        disabled={isLoadingVerification}
-                      >
-                        {isLoadingVerification
-                          ? <i className="fa fa-spinner"></i>
-                          : <p>Verification</p>
-                        }
-                      </button>
-                    </>
-                }
-                </div>
-              </label>
-              <input
-                id="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="Email"
-                autoComplete="email"
-                disabled={user?.is_verified}
-              />
-            </span>
-            <span>
-              <label htmlFor="fullname">
-                <i className="fa fa-user-circle"></i>
-                Fullname
-              </label>
-              <input
-                id="fullname"
-                name="fullname"
-                value={form.fullname}
-                onChange={handleChange}
-                placeholder="Fullname"
-              />
-            </span>
-            <span>
-              <label htmlFor="username">
-                <i className="fa fa-user"></i>
-                Username
-              </label>
-              <input
-                id="username"
-                name="username"
-                value={form.username}
-                onChange={handleChange}
-                placeholder="Username"
-                autoComplete="username"
-              />
-              {errorUsername && (
-                <div className="alert">
-                  <small>Username Already</small>
-                  <i className="fa fa-exclamation-triangle"></i>
-                </div>
-              )}
-            </span>
-          </div>
-        </div>
+          <div className="box">
+            <div className="side">
+              <span>
+                <label htmlFor="role">
+                  <i className="fa fa-tools"></i>
+                  Role
+                </label>
+                <input
+                  id="role"
+                  name="role"
+                  value={form.role}
+                  onChange={handleChange}
+                  placeholder="Role"
+                />
+              </span>
+              <span>
+                <label htmlFor="linkedin">
+                  <i className="fa-brands fa-linkedin"></i>
+                  Linkedin
+                </label>
+                <input
+                  id="linkedin"
+                  name="linkedin"
+                  value={form.linkedin}
+                  onChange={handleChange}
+                  placeholder="Link Linkedin"
+                />
+              </span>
+              <span>
+                <label htmlFor="github">
+                  <i className="fa-brands fa-github"></i>
+                  Github
+                </label>
+                <input
+                  id="github"
+                  name="github"
+                  value={form.github}
+                  onChange={handleChange}
+                  placeholder="Link Github"
+                />
+              </span>
+              <span>
+                <label htmlFor="github">
+                  <i className="fa-brands fa-instagram"></i>
+                  Instagram
+                </label>
+                <input
+                  id="instagram"
+                  name="instagram"
+                  value={form.instagram}
+                  onChange={handleChange}
+                  placeholder="Link Instagram"
+                />
+              </span>
+            </div>
 
-        <div className="box">
-          <div className="side">
-            <span>
-              <label htmlFor="role">
-                <i className="fa fa-tools"></i>
-                Role
-              </label>
-              <input
-                id="role"
-                name="role"
-                value={form.role}
-                onChange={handleChange}
-                placeholder="Role"
-              />
-            </span>
-            <span>
-              <label htmlFor="linkedin">
-                <i className="fa-brands fa-linkedin"></i>
-                Linkedin
-              </label>
-              <input
-                id="linkedin"
-                name="linkedin"
-                value={form.linkedin}
-                onChange={handleChange}
-                placeholder="Link Linkedin"
-              />
-            </span>
-            <span>
-              <label htmlFor="github">
-                <i className="fa-brands fa-github"></i>
-                Github
-              </label>
-              <input
-                id="github"
-                name="github"
-                value={form.github}
-                onChange={handleChange}
-                placeholder="Link Github"
-              />
-            </span>
-            <span>
-              <label htmlFor="github">
-                <i className="fa-brands fa-instagram"></i>
-                Instagram
-              </label>
-              <input
-                id="instagram"
-                name="instagram"
-                value={form.instagram}
-                onChange={handleChange}
-                placeholder="Link Instagram"
-              />
-            </span>
+            <div className="side">
+              <span>
+                <label htmlFor="phone">
+                  <i className="fa fa-phone"></i>
+                  Phone Number
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="Nomor Ponsel"
+                  autoComplete="phone"
+                />
+              </span>
+              <span>
+                <label htmlFor="whatsapp">
+                  <i className="fa-brands fa-whatsapp"></i>
+                  Whatsapp
+                </label>
+                <input
+                  id="whatsapp"
+                  name="whatsapp"
+                  value={form.whatsapp}
+                  onChange={handleChange}
+                  placeholder="Whatsapp"
+                />
+              </span>
+              <span>
+                <label htmlFor="country">
+                  <i className="fa fa-globe"></i>
+                  Country
+                </label>
+                <input
+                  id="country"
+                  name="country"
+                  value={form.country}
+                  onChange={handleChange}
+                  placeholder="Negara"
+                  autoComplete="country"
+                />
+              </span>
+            </div>
           </div>
 
-          <div className="side">
-            <span>
-              <label htmlFor="phone">
-                <i className="fa fa-phone"></i>
-                Phone Number
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                placeholder="Nomor Ponsel"
-                autoComplete="phone"
-              />
-            </span>
-            <span>
-              <label htmlFor="whatsapp">
-                <i className="fa-brands fa-whatsapp"></i>
-                Whatsapp
-              </label>
-              <input
-                id="whatsapp"
-                name="whatsapp"
-                value={form.whatsapp}
-                onChange={handleChange}
-                placeholder="Whatsapp"
-              />
-            </span>
-            <span>
-              <label htmlFor="country">
-                <i className="fa fa-globe"></i>
-                Country
-              </label>
-              <input
-                id="country"
-                name="country"
-                value={form.country}
-                onChange={handleChange}
-                placeholder="Negara"
-                autoComplete="country"
-              />
-            </span>
-          </div>
-        </div>
-
-        <span className="box-bio">
-          <label htmlFor="bio">
-            <i className="fa fa-file-text"></i>
-            Professional Summary
-          </label>
-          <textarea
-            name="bio"
-            id="bio"
-            value={form.bio}
-            onChange={handleChange}
-            placeholder="Jelaskan dirimu berdasarkan role yang dipilih. Contoh: 'Frontend Developer dengan pengalaman 2 tahun dalam membangun aplikasi web menggunakan React.'"
-          />
-        </span>
-      </form>
-    </div>
+          <span className="box-bio">
+            <label htmlFor="bio">
+              <i className="fa fa-file-text"></i>
+              Professional Summary
+            </label>
+            <textarea
+              name="bio"
+              id="bio"
+              value={form.bio}
+              onChange={handleChange}
+              placeholder="Jelaskan dirimu berdasarkan role yang dipilih. Contoh: 'Frontend Developer dengan pengalaman 2 tahun dalam membangun aplikasi web menggunakan React.'"
+            />
+          </span>
+        </form>
+      </div>
+    </>
   );
 }
 

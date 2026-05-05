@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { API } from "../../utils/api";
+import { useLanguage } from "../../hooks/useLanguage";
 import Footer from "../../component/Footer";
+import SEO from "../../component/SEO";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const { t } = useLanguage();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,43 +27,46 @@ function ForgotPassword() {
   };
 
   return (
-    <section className="reset-password">
-      <div className="wrapper">
-        <h1>Lupa kata sandi</h1>
-        <p>Masukkan alamat email Anda dan kami akan mengirimkan instruksi untuk mengatur ulang kata sandi Anda.</p>
-      </div>
-      <div className="wrapper">
-        <form onSubmit={handleSubmit}>
-          <h2>Pulihkan akun anda</h2>
-          <div className="box">
-            <div className="inp">
-              <label htmlFor="email"><i className="fa fa-envelope"></i></label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Masukan email anda"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+    <>
+      <SEO title={t("forgotPassword.metaTitle")} description={t("forgotPassword.metaDescription")} />
+      <section className="reset-password">
+        <div className="wrapper">
+          <h1>{t("forgotPassword.title")}</h1>
+          <p>{t("forgotPassword.description")}</p>
+        </div>
+        <div className="wrapper">
+          <form onSubmit={handleSubmit}>
+            <h2>{t("forgotPassword.subTitle")}</h2>
+            <div className="box">
+              <div className="inp">
+                <label htmlFor="email"><i className="fa fa-envelope"></i></label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder={t("forgotPassword.email")}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              {message && (
+                <p style={{ 
+                  fontSize: "12px", 
+                  marginTop: "10px", 
+                  color: message.includes("kesalahan") || message.includes("tidak") ? "red" : "green" 
+                }}>
+                  {message}
+                </p>
+              )}
             </div>
-            {message && (
-              <p style={{ 
-                fontSize: "12px", 
-                marginTop: "10px", 
-                color: message.includes("kesalahan") || message.includes("tidak") ? "red" : "green" 
-              }}>
-                {message}
-              </p>
-            )}
-          </div>
-          <button type="submit" disabled={loading}>
-            {loading ? "Mengirim..." : "Kirim"}
-          </button>
-          <Footer />
-        </form>
-      </div>
-    </section>
+            <button type="submit" disabled={loading}>
+              {loading ? t("forgotPassword.process") : t("forgotPassword.submit")}
+            </button>
+            <Footer />
+          </form>
+        </div>
+      </section>
+    </>
   );
 }
 

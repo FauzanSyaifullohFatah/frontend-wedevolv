@@ -1,3 +1,4 @@
+import { useLanguage } from "../hooks/useLanguage";
 import ProjectItem from "./ProjectItem";
 import PropTypes from "prop-types";
 
@@ -6,11 +7,14 @@ function ProjectList({
   setEdit,
   deletePopup,
   projectVisible,
-  isLoadingVisibility,
+  loadingId,
   showForm,
   isLoading,
   keyword,
+  onlyVisible,
 }) {
+  const { t } = useLanguage();
+
   if (isLoading) {
     return (
       <div className="is-loading">
@@ -25,11 +29,11 @@ function ProjectList({
         <span>
           <i className="fa fa-folder-plus"></i>
         </span>
-        <p>Kamu belum menambahkan projek</p>
+        <p>{t("emptyProject")}</p>
       </div>
     );
   }
-  
+
   return (
     <div className="project-list">
       <ProjectItem
@@ -37,9 +41,10 @@ function ProjectList({
         setEdit={setEdit}
         deletePopup={deletePopup}
         projectVisible={projectVisible}
-        isLoadingVisibility={isLoadingVisibility}
+        loadingId={loadingId}
         showForm={showForm}
         keyword={keyword}
+        onlyVisible={onlyVisible}
       />
     </div>
   );
@@ -64,10 +69,11 @@ ProjectList.propTypes = {
   setEdit: PropTypes.func,
   deletePopup: PropTypes.func,
   projectVisible: PropTypes.func,
-  isLoadingVisibility: PropTypes.bool,
+  loadingId: PropTypes.number,
   showForm: PropTypes.func,
   isLoading: PropTypes.bool,
   keyword: PropTypes.string,
-}
+  onlyVisible: PropTypes.bool,
+};
 
 export default ProjectList;

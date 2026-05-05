@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import FormInputProject from "../../../component/FormInputProject";
-import MiniNavbar from "../../../component/MiniNavbar";
-import PopupMessage from "../../../component/PopupMessage";
 import { API, getProjects } from "../../../utils/api";
+import { useAuth } from "../../../hooks/useAuth";
+import { Helmet } from "react-helmet-async";
+import MiniNavbar from "../../../component/MiniNavbar";
+import FormInputProject from "../../../component/FormInputProject";
 import ProjectList from "../../../component/ProjectList";
+import PopupMessage from "../../../component/PopupMessage";
 
 function MyProjects() {
-  const [projects, setProjects] = useState([])
+  const { user } = useAuth();
+  const [projects, setProjects] = useState([]);
   const [showFormProject, setShowFormProject] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isLoadingVisibility, setIsLoadingVisibility] = useState(false);
-
+  const [loadingId, setLoadingId] = useState(null);
+  
   const [isLoading, setIsLoading] = useState(false);
   const [popup, setPopup] = useState(false);
   const [keyword, setKeyword] = useState("");
@@ -24,14 +27,14 @@ function MyProjects() {
       setProjects(proj);
     } catch (err) {
       console.error(err);
-    } finally{
+    } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
   const handleProjectAdded = (project) => {
     if (editingProject) {
@@ -41,7 +44,7 @@ function MyProjects() {
     } else {
       setProjects((prev) => [project, ...prev]);
     }
-  
+
     setShowFormProject(false);
     setEditingProject(null);
   };
@@ -49,10 +52,9 @@ function MyProjects() {
   const handleDeleteProject = async (id) => {
     try {
       await API.delete(`/projects/${id}/`);
-  
+
       setProjects((prev) => prev.filter((p) => p.id !== id));
       setPopup(false);
-  
     } catch (err) {
       console.error("Gagal hapus:", err.response?.data || err);
     }
@@ -64,9 +66,9 @@ function MyProjects() {
   };
 
   const handleProjectVisible = async (id, currentValue) => {
-    setIsLoadingVisibility(true);
-
     try {
+      setLoadingId(id);
+
       await API.patch(`/projects/${id}/`, {
         is_visible: !currentValue,
       });
@@ -81,51 +83,60 @@ function MyProjects() {
     } catch (err) {
       console.error("Gagal update visibility:", err.response?.data || err);
     } finally {
-      setIsLoadingVisibility(false);
+      setLoadingId(null);
     }
   };
 
   return (
-    <div className="my-projects">
-      {!(showFormProject || popup) && (
-        <>
-          <MiniNavbar
-            variant={"Projects"}
-            keyword={keyword}
-            setKeyword={setKeyword}
-            onAdd={() => {
-              setEditingProject(null);
-              setShowFormProject(true);
-            }}
+    <>
+      <Helmet>
+        <title>Projects - {user?.fullname}</title>
+      </Helmet>
+
+      <div className="my-projects">
+        {!(showFormProject || popup) && (
+          <>
+            <MiniNavbar
+              variant={"Projects"}
+              keyword={keyword}
+              setKeyword={setKeyword}
+              onAdd={() => {
+                setEditingProject(null);
+                setShowFormProject(true);
+              }}
+            />
+
+            <ProjectList
+              projects={projects}
+              setEdit={setEditingProject}
+              deletePopup={handlePopupDelete}
+              projectVisible={handleProjectVisible}
+              loadingId={loadingId}
+              showForm={setShowFormProject}
+              isLoading={isLoading}
+              keyword={keyword}
+            />
+          </>
+        )}
+
+        {popup && (
+          <PopupMessage
+            setPopup={setPopup}
+            data={selectedProject}
+            onDelete={() => handleDeleteProject(selectedProject.id)}
           />
-          <ProjectList
-            projects={projects}
-            setEdit={setEditingProject}
-            deletePopup={handlePopupDelete}
-            projectVisible={handleProjectVisible}
-            isLoadingVisibility={isLoadingVisibility}
-            showForm={setShowFormProject}
-            isLoading={isLoading}
-            keyword={keyword}
+        )}
+
+        {showFormProject && (
+          <FormInputProject
+            setShowFormProject={setShowFormProject}
+            onProjectAdded={handleProjectAdded}
+            projectToEdit={editingProject}
           />
-        </>
-      )}
-      {popup && (
-        <PopupMessage
-          setPopup={setPopup}
-          data={selectedProject}
-          onDelete={() => handleDeleteProject(selectedProject.id)}
-        />
-      )}
-      {showFormProject && (
-        <FormInputProject
-          setShowFormProject={setShowFormProject}
-          onProjectAdded={handleProjectAdded}
-          projectToEdit={editingProject}
-        />
-      )}
-    </div>
-  )
+        )}
+      </div>
+    </>
+  );
 }
 
 export default MyProjects;

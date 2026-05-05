@@ -5,6 +5,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import SkillList from "../../../component/SkillList";
 import Image from "../../../component/Image";
 import { portfolioProgress } from "../../../utils";
+import { Helmet } from "react-helmet-async";
 
 function MyDashboard(){
   const { user, setUser } = useAuth();
@@ -116,106 +117,111 @@ function MyDashboard(){
   }
   
   return (
-    <div className="my-dashboard">
-      <div className="cards">
-        <div className="card">
-          <div className="box">
-            <p>Projects</p>
-            <span><i className="fa fa-file-code"></i></span>
+    <>
+      <Helmet>
+        <title>Dashboard - {user?.fullname}</title>
+      </Helmet>
+      <div className="my-dashboard">
+        <div className="cards">
+          <div className="card">
+            <div className="box">
+              <p>Projects</p>
+              <span><i className="fa fa-file-code"></i></span>
+            </div>
+            <div className="box">
+              <p className="count">{projects.length}</p>
+              <p>Total</p>
+            </div>
           </div>
-          <div className="box">
-            <p className="count">{projects.length}</p>
-            <p>Total</p>
+
+          <div className="card">
+            <div className="box">
+              <p>Certificates</p>
+              <span><i className="fa-solid fa-award"></i></span>
+            </div>
+            <div className="box">
+              <p className="count">{certificates.length}</p>
+              <p>Total</p>
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="box">
+              <p>Portfolio</p>
+              <span><i className="fa-solid fa-briefcase"></i></span>
+            </div>
+
+            <div
+              className="box"
+              style={{opacity: progress === 100 ? 1 : 0.7}}
+            >
+              <p>Active</p>
+
+              <ToggleSwitch
+                condition={isPublicPortfolio}
+                handleOnclick={handlePublicPortfolio}
+              />
+            </div>
           </div>
         </div>
 
-        <div className="card">
-          <div className="box">
-            <p>Certificates</p>
-            <span><i className="fa-solid fa-award"></i></span>
-          </div>
-          <div className="box">
-            <p className="count">{certificates.length}</p>
-            <p>Total</p>
-          </div>
+        <div className="portfolio-progress">
+          <span>
+            <p>Portfolio Progress {progress}%</p>
+            {progress < 100 && (
+              <button onClick={handleDropdownProgress}>
+                <i className="fa fa-chevron-down"></i>
+              </button>
+            )}
+          </span>
+
+          <div className="bar" style={{width: `${progress}%`}}></div>
         </div>
 
-        <div className="card">
+        {dropdownProgress && (
+          <div className="missing-progress">
+            {missingProgress.map((m, i) => (
+              <p key={i}>
+                <i className="fa fa-exclamation"></i> {m}
+              </p>
+            ))}
+          </div>
+        )}
+
+        <div className="preview">
           <div className="box">
-            <p>Portfolio</p>
-            <span><i className="fa-solid fa-briefcase"></i></span>
+            <h3>Recent Update</h3>
+
+            {latestProject
+              ? <div className="project">
+                  <h4>{latestProject.title}</h4>
+                  <Image src={latestProject.image} alt={latestProject.title} />
+                </div>
+              : <div className="project">
+                  <h4>Latest Project</h4>
+                  <span><i className="fa fa-code"></i></span>
+                </div>
+            }
+
+            {latestCertificate
+              ? <div className="certificate">
+                  <h4>{latestCertificate.title}</h4>
+                  <Image src={latestCertificate.image} alt={latestCertificate.title} />
+                </div>
+              : <div className="certificate">
+                  <h4>Latest Certificate</h4>
+                  <span><i className="fa fa-award"></i></span>
+                </div>
+            }
           </div>
 
-          <div
-            className="box"
-            style={{opacity: progress === 100 ? 1 : 0.7}}
-          >
-            <p>Active</p>
-
-            <ToggleSwitch
-              condition={isPublicPortfolio}
-              handleOnclick={handlePublicPortfolio}
-            />
+          <div className="box">
+            <h3>Your Skills</h3>
+            <SkillList allSkill={allSkill} />
           </div>
         </div>
       </div>
-
-      <div className="portfolio-progress">
-        <span>
-          <p>Portfolio Progress {progress}%</p>
-          {progress < 100 && (
-            <button onClick={handleDropdownProgress}>
-              <i className="fa fa-chevron-down"></i>
-            </button>
-          )}
-        </span>
-
-        <div className="bar" style={{width: `${progress}%`}}></div>
-      </div>
-
-      {dropdownProgress && (
-        <div className="missing-progress">
-          {missingProgress.map((m, i) => (
-            <p key={i}>
-              <i className="fa fa-exclamation"></i> {m}
-            </p>
-          ))}
-        </div>
-      )}
-
-      <div className="preview">
-        <div className="box">
-          <h3>Recent Update</h3>
-
-          {latestProject
-            ? <div className="project">
-                <h4>{latestProject.title}</h4>
-                <Image src={latestProject.image} alt={latestProject.title} />
-              </div>
-            : <div className="project">
-                <h4>Latest Project</h4>
-                <span><i className="fa fa-code"></i></span>
-              </div>
-          }
-
-          {latestCertificate
-            ? <div className="certificate">
-                <h4>{latestCertificate.title}</h4>
-                <Image src={latestCertificate.image} alt={latestCertificate.title} />
-              </div>
-            : <div className="certificate">
-                <h4>Latest Certificate</h4>
-                <span><i className="fa fa-award"></i></span>
-              </div>
-          }
-        </div>
-
-        <div className="box">
-          <h3>Your Skills</h3>
-          <SkillList allSkill={allSkill} />
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
 

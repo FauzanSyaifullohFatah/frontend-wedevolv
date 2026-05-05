@@ -1,3 +1,4 @@
+import { useLanguage } from "../hooks/useLanguage";
 import CertificateItem from "./CertificateItem";
 import PropTypes from "prop-types";
 
@@ -6,11 +7,14 @@ function CertificateList({
   setEdit,
   deletePopup,
   certificateVisible,
-  isLoadingVisibility,
+  loadingId,
   showForm,
   isLoading,
-  keyword
+  keyword,
+  onlyVisible,
 }) {
+  const { t } = useLanguage();
+
   if (isLoading) {
     return (
       <div className="is-loading">
@@ -25,7 +29,7 @@ function CertificateList({
         <span>
           <i className="fa fa-folder-plus"></i>
         </span>
-        <p>Kamu belum menambahkan certificate</p>
+        <p>{t("emptyCertificate")}</p>
       </div>
     )
   }
@@ -37,9 +41,10 @@ function CertificateList({
         setEdit={setEdit}
         deletePopup={deletePopup}
         certificateVisible={certificateVisible}
-        isLoadingVisibility={isLoadingVisibility}
+        loadingId={loadingId}
         showForm={showForm}
         keyword={keyword}
+        onlyVisible={onlyVisible}
       />
     </div>
   )
@@ -65,10 +70,11 @@ CertificateList.propTypes = {
   setEdit: PropTypes.func,
   deletePopup: PropTypes.func,
   certificateVisible: PropTypes.func,
-  isLoadingVisibility: PropTypes.bool,
+  loadingId: PropTypes.number,
   showForm: PropTypes.func,
   isLoading: PropTypes.bool,
   keyword: PropTypes.string,
+  onlyVisible: PropTypes.bool,
 }
 
 export default CertificateList;

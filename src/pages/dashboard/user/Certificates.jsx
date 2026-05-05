@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
-import FormInputCertificate from "../../../component/FormInputCertificate";
-import MiniNavbar from "../../../component/MiniNavbar";
-import PopupMessage from "../../../component/PopupMessage";
 import { API, getCertificates } from "../../../utils/api";
+import { useAuth } from "../../../hooks/useAuth";
+import MiniNavbar from "../../../component/MiniNavbar";
+import FormInputCertificate from "../../../component/FormInputCertificate";
 import CertificateList from "../../../component/CertificateList";
+import PopupMessage from "../../../component/PopupMessage";
+import { Helmet } from "react-helmet-async";
 
 function MyCertificates() {
+  const { user } = useAuth();
   const [certificates, setCertificates] = useState([]);
   const [showFormCertificate, setShowFormCertificate] = useState(false);
   const [editingCertificate, setEditingCertificate] = useState(null);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
-  const [isLoadingVisibility, setIsLoadingVisibility] = useState(false);
+  const [loadingId, setLoadingId] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [popup, setPopup] = useState(false);
@@ -64,9 +67,9 @@ function MyCertificates() {
   };
 
   const handleCertificateVisible = async (id, currentValue) => {
-    setIsLoadingVisibility(true);
-
     try {
+      setLoadingId(id);
+
       await API.patch(`/certificates/${id}/`, {
         is_visible: !currentValue,
       });
@@ -81,50 +84,55 @@ function MyCertificates() {
     } catch (err) {
       console.error("Gagal update visibility:", err.response?.data || err);
     } finally {
-      setIsLoadingVisibility(false);
+      setLoadingId(null);
     }
   };
   
   return (
-    <div className="my-certificates">
-      {!(showFormCertificate || popup) && (
-        <>
-          <MiniNavbar
-            variant={"Certificates"}
-            keyword={keyword}
-            setKeyword={setKeyword}
-            onAdd={() => {
-              setEditingCertificate(null);
-              setShowFormCertificate(true);
-            }}
+    <>
+      <Helmet>
+        <title>Certificates - {user?.fullname}</title>
+      </Helmet>
+      <div className="my-certificates">
+        {!(showFormCertificate || popup) && (
+          <>
+            <MiniNavbar
+              variant={"Certificates"}
+              keyword={keyword}
+              setKeyword={setKeyword}
+              onAdd={() => {
+                setEditingCertificate(null);
+                setShowFormCertificate(true);
+              }}
+            />
+            <CertificateList
+              certificates={certificates}
+              setEdit={setEditingCertificate}
+              deletePopup={handlePopupDelete}
+              certificateVisible={handleCertificateVisible}
+              loadingId={loadingId}
+              showForm={setShowFormCertificate}
+              isLoading={isLoading}
+              keyword={keyword}
+            />
+          </>
+        )}
+        {popup && (
+          <PopupMessage
+            setPopup={setPopup}
+            data={selectedCertificate}
+            onDelete={() => handleDeleteCertificate(selectedCertificate.id)}
           />
-          <CertificateList
-            certificates={certificates}
-            setEdit={setEditingCertificate}
-            deletePopup={handlePopupDelete}
-            certificateVisible={handleCertificateVisible}
-            isLoadingVisibility={isLoadingVisibility}
-            showForm={setShowFormCertificate}
-            isLoading={isLoading}
-            keyword={keyword}
+        )}
+        {showFormCertificate && (
+          <FormInputCertificate
+            setShowFormCertificate={setShowFormCertificate}
+            onCertificateAdded={handleCertificateAdded}
+            certificateToEdit={editingCertificate}
           />
-        </>
-      )}
-      {popup && (
-        <PopupMessage
-          setPopup={setPopup}
-          data={selectedCertificate}
-          onDelete={() => handleDeleteCertificate(selectedCertificate.id)}
-        />
-      )}
-      {showFormCertificate && (
-        <FormInputCertificate
-          setShowFormCertificate={setShowFormCertificate}
-          onCertificateAdded={handleCertificateAdded}
-          certificateToEdit={editingCertificate}
-        />
-      )}
-    </div>
+        )}
+      </div>
+    </>
   )
 }
 

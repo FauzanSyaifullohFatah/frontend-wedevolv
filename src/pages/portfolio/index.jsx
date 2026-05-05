@@ -13,8 +13,11 @@ import Footer from "../../component/Footer";
 import "../../style/portfolio.css";
 import GLobalLoading from "../../component/GlobalLoading";
 import PageNotFound from "../notFound";
+import { Helmet } from "react-helmet-async";
+import { useLanguage } from "../../hooks/useLanguage";
 
 function PortfolioPage() {
+  const { lang } = useLanguage();
   const { username } = useParams();
 
   const [data, setData] = useState(null);
@@ -72,12 +75,6 @@ function PortfolioPage() {
   }, [username]);
 
   useEffect(() => {
-    if (data?.user?.fullname) {
-      document.title = `${data.user.fullname} | Wedevolv`;
-    }
-  }, [data]);
-
-  useEffect(() => {
     if (!data?.user) return;
 
     const resultProgress = portfolioProgress({
@@ -115,34 +112,61 @@ function PortfolioPage() {
   if (!canViewPortfolio) return <PortfolioComingSoon />;
 
   return (
-    <div className="portfolio-container">
+    <>
+      <Helmet>
+        <html lang={lang} />
+        <title>{`${data.user.fullname} | Wedevolv`}</title>
+        <meta name="description" content={data.user.bio || `Developer portfolio of ${data.user.fullname}`} />
+        <link rel="canonical" href={`https://wedevolv.com/${username}`} />
 
-      <Home user={data.user} />
+        <link rel="alternate" hrefLang="en" href={`https://wedevolv.com/${username}?lang=en`} />
+        <link rel="alternate" hrefLang="id" href={`https://wedevolv.com/${username}?lang=id`} />
+        <link rel="alternate" hrefLang="x-default" href={`https://wedevolv.com/${username}`} />
 
-      <section className="portfolio-project" id="projects">
-        <h2><i className="fa fa-laptop-code"></i> Projects</h2>
-        <ProjectList projects={data.projects || []} />
-      </section>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:type" content="profile" />
+        <meta property="og:url" content={`https://wedevolv.com/${username}`} />
+        <meta property="og:title" content={`${data.user.fullname} - Portfolio`} />
+        <meta property="og:description" content={data.user.bio} />
+        <meta property="og:image" content={data.user.image || "https://wedevolv.com/wedevolv-fav-icon.svg"} />
 
-      <section className="portfolio-certificate" id="certificate">
-        <h2><i className="fa-solid fa-award"></i> CERTIFICATE</h2>
-        <CertificateList certificates={data.certificates || []} />
-      </section>
+        <meta name="robots" content="index, follow" />
+      </Helmet>
+      <div className="portfolio-container">
 
-      <section className="portfolio-skill" id="skills">
-        <h2><i className="fa-solid fa-code"></i> SKILLS</h2>
+        <Home user={data.user} />
 
-        <div
-          className="box-skill"
-          style={{ width: `${100 * (allSkill.length || 1) + 80}px` }}
-        >
-          <SkillList allSkill={allSkill || []} />
-          <SkillList allSkill={allSkill || []} />
-        </div>
-      </section>
+        <section className="portfolio-project" id="projects">
+          <h2><i className="fa fa-laptop-code"></i> Projects</h2>
+          <ProjectList
+            projects={data.projects || []}
+            onlyVisible={true}
+          />
+        </section>
 
-      <Footer />
-    </div>
+        <section className="portfolio-certificate" id="certificate">
+          <h2><i className="fa-solid fa-award"></i> CERTIFICATE</h2>
+          <CertificateList
+            certificates={data.certificates || []}
+            onlyVisible={true}
+          />
+        </section>
+
+        <section className="portfolio-skill" id="skills">
+          <h2><i className="fa-solid fa-code"></i> SKILLS</h2>
+
+          <div
+            className="box-skill"
+            style={{ width: `${100 * (allSkill.length || 1) + 80}px` }}
+          >
+            <SkillList allSkill={allSkill || []} />
+            <SkillList allSkill={allSkill || []} />
+          </div>
+        </section>
+
+        <Footer />
+      </div>
+    </>
   );
 }
 
