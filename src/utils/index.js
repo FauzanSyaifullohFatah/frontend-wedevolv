@@ -46,87 +46,62 @@ export function portfolioProgress({
   isVerified,
   role,
   country,
-  phoneNumber,
-  whatsapp,
   linkedin,
   github,
   summary,
   projectCount = 0,
-  certificateCount = 0,
+  t,
 }) {
   let progress = 0;
   const missing = [];
 
-  // ===== BASIC INFO (30%) =====
+  // ===== BASIC INFO (40%) =====
   if (profilePict) {
-    progress += 5;
+    progress += 8;
   } else {
-    missing.push("Tambahkan profile picture");
+    missing.push(t("portfolioProgress.addProfilePict"));
   }
 
   if (isVerified) {
-    progress += 5;
+    progress += 8;
   } else {
-    missing.push("Email belum diverifikasi");
+    missing.push(t("portfolioProgress.emailNotVerif"));
   }
 
   if (role) {
-    progress += 5;
+    progress += 8;
   } else {
-    missing.push("Role belum diisi");
+    missing.push(t("portfolioProgress.role"));
   }
 
   if (country) {
-    progress += 5;
+    progress += 6;
   } else {
-    missing.push("Country belum diisi");
+    missing.push(t("portfolioProgress.country"));
   }
 
-  if (phoneNumber) {
-    progress += 2.5;
+  if (linkedin || github) {
+    progress += 10;
   } else {
-    missing.push("Phone number belum diisi");
+    missing.push(t("portfolioProgress.linkedinOrGithub"));
   }
 
-  if (whatsapp) {
-    progress += 2.5;
-  } else {
-    missing.push("WhatsApp belum diisi");
-  }
-
-  if (linkedin) {
-    progress += 2.5;
-  } else {
-    missing.push("LinkedIn belum diisi");
-  }
-
-  if (github) {
-    progress += 2.5;
-  } else {
-    missing.push("GitHub belum diisi");
-  }
-
-  // ===== SUMMARY (20%) =====
+  // ===== SUMMARY (25%) =====
   if (summary && summary.trim().length >= 50) {
-    progress += 20;
+    progress += 25;
   } else {
-    missing.push("Professional summary minimal 50 karakter");
+    missing.push(t("portfolioProgress.summary"));
   }
 
-  // ===== PROJECTS (25%) =====
-  const projectProgress = Math.min(projectCount / 3, 1) * 25;
+  // ===== PROJECTS (35%) =====
+  const projectProgress = Math.min(projectCount / 3, 1) * 35;
   progress += projectProgress;
 
   if (projectCount < 3) {
-    missing.push(`Tambah ${3 - projectCount} project lagi`);
-  }
-
-  // ===== CERTIFICATES (25%) =====
-  const certificateProgress = Math.min(certificateCount / 3, 1) * 25;
-  progress += certificateProgress;
-
-  if (certificateCount < 3) {
-    missing.push(`Tambah ${3 - certificateCount} certificate lagi`);
+    missing.push(
+      t("portfolioProgress.addProject")
+        .replace("{count}", 3 - projectCount)
+    );
   }
 
   return {

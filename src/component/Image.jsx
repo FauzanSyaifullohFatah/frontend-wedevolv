@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { BASE_URL } from "../utils/api";
 
-function Image({ src, alt, ...props }) {
+function Image({ src, alt }) {
   const baseUrl = BASE_URL;
 
   if (!src) return null;
@@ -10,7 +10,12 @@ function Image({ src, alt, ...props }) {
     ? src
     : `${baseUrl}${src}`;
 
-  return <img src={finalUrl} alt={alt} {...props} />;
+  return (
+    <img
+      src={finalUrl}
+      alt={alt}
+    />
+  )
 }
 
 Image.propTypes = {

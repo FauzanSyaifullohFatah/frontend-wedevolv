@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
-import { API } from "../utils/api";
 import PropTypes from "prop-types";
+import { useEffect, useState, useRef } from "react";
+import { API } from "../utils/api";
 import { getImageUrl } from "../utils";
+import { useLanguage } from "../hooks/useLanguage";
+import { skills } from "../utils/skills";
 
 function FormInputProject({ setShowFormProject, onProjectAdded, projectToEdit }) {
+  const { t } = useLanguage();
   const [form, setForm] = useState({
     title: projectToEdit?.title || "",
     description: projectToEdit?.description || "",
@@ -11,6 +14,7 @@ function FormInputProject({ setShowFormProject, onProjectAdded, projectToEdit })
     link_repository: projectToEdit?.link_repository || "",
     link_demo: projectToEdit?.link_demo || "",
   })
+  const inputRef = useRef();
 
   const [previewImage, setPreviewImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -72,13 +76,19 @@ function FormInputProject({ setShowFormProject, onProjectAdded, projectToEdit })
         setPreviewUrl(null);
       }
 
-      if (onProjectAdded) onProjectAdded(res.data);
+      if (onProjectAdded) onProjectAdded(res.data.payload);
     } catch (err) {
       console.error(err.response?.data || err);
     } finally {
       setLoading(false);
     }
   };
+
+  const currentSkill = form.tech.split(",").pop().trim();
+
+  const filteredSkills = Object.values(skills).filter((skill) =>
+    skill.label.toLowerCase().includes(currentSkill.toLowerCase())
+  );
 
   return (
     <form className="form-input-project" onSubmit={handleSubmit}>
@@ -93,31 +103,62 @@ function FormInputProject({ setShowFormProject, onProjectAdded, projectToEdit })
           type="file"
           id="upload-image"
           onChange={handleFileChange}
+          accept="image/*"
         />
       </div>
       <input
         type="text"
         name="title"
-        placeholder="Title Project"
+        placeholder={t("formProject.title")}
         value={form.title}
         onChange={handleChange}
         required
       />
       <textarea
         name="description"
-        placeholder="Description Project"
+        placeholder={t("formProject.description")}
         value={form.description}
         onChange={handleChange}
         required
       />
       <input
+        ref={inputRef}
         type="text"
         name="tech"
-        placeholder="Tech Stack"
+        placeholder={t("formProject.techStack")}
         value={form.tech}
         onChange={handleChange}
         required
       />
+      {currentSkill && filteredSkills.length > 0 && (
+        <div className="list-skills">
+          {filteredSkills.map((s) => (
+            <div
+              className="skill-item"
+              key={s.label}
+              onClick={() => {
+                const skillsArray = form.tech
+                  .split(",")
+                  .map((item) => item.trim());
+
+                skillsArray.pop();
+
+                const newSkills = [...skillsArray, s.label];
+
+                setForm({
+                  ...form,
+                  tech: `${newSkills.join(", ")}, `,
+                });
+
+                inputRef.current?.focus();
+              }}
+            >
+              <i className={s.icon}></i>
+              <span>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
       <input
         type="text"
         name="link_repository"
@@ -136,10 +177,10 @@ function FormInputProject({ setShowFormProject, onProjectAdded, projectToEdit })
       />
       <button type="submit" disabled={loading}>
         {loading
-          ? "Menyimpan..."
+          ? t("formProject.saving")
           : projectToEdit
-            ? "Simpan Perubahan"
-            : "Tambah Project"
+            ? t("formProject.saveChanges")
+            : t("formProject.submit")
         }
       </button>
       <button
@@ -147,7 +188,7 @@ function FormInputProject({ setShowFormProject, onProjectAdded, projectToEdit })
         id="back"
         onClick={() => setShowFormProject(false)}
       >
-        <i className="fa fa-chevron-left"></i> Back
+        <i className="fa fa-chevron-left"></i> {t("back")}
       </button>
     </form>
   )
@@ -162,7 +203,7 @@ FormInputProject.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     tech: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    image: PropTypes.string,
     link_demo: PropTypes.string.isRequired,
     link_repository: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,

@@ -5,24 +5,19 @@ import { Helmet } from "react-helmet-async";
 
 function DashboardAdmin() {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getAllUsers();
-        setUsers(data.users);
+        const res = await getAllUsers();
+        setUsers(res);
       } catch (err) {
-        console.error("Gagal memuat data:", err);
-      } finally {
-        setLoading(false);
+        console.error(err);
       }
     };
 
     fetchData();
   }, []);
-
-  if (loading) return <div style={{ color: "white" }}>Memuat data...</div>;
 
   return (
     <>

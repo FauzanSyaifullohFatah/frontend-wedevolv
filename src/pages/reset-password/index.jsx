@@ -8,7 +8,7 @@ function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,11 +16,10 @@ function ForgotPassword() {
     setMessage("");
     
     try {
-      const response = await API.post("auth/password-reset/", { email });
-      setMessage(response.data.message || "Link pemulihan telah dikirim ke email anda.");
-    } catch (error) {
-      const errorMsg = error.response?.data?.error || error.response?.data?.detail || "Terjadi kesalahan.";
-      setMessage(errorMsg);
+      const res = await API.post("auth/password-reset/", { email, lang });
+      setMessage(res.data.message);
+    } catch (err) {
+      setMessage(err.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -49,15 +48,7 @@ function ForgotPassword() {
                   required
                 />
               </div>
-              {message && (
-                <p style={{ 
-                  fontSize: "12px", 
-                  marginTop: "10px", 
-                  color: message.includes("kesalahan") || message.includes("tidak") ? "red" : "green" 
-                }}>
-                  {message}
-                </p>
-              )}
+              {message && <small className={message}>{t(`forgotPassword.${message}`)}</small>}
             </div>
             <button type="submit" disabled={loading}>
               {loading ? t("forgotPassword.process") : t("forgotPassword.submit")}

@@ -85,6 +85,9 @@ header ul li a {
   opacity: 0.6;
   outline: none;
 }
+header ul li a:hover {
+  color: #ff00e1;
+}
 nav input {
   display: none;
 }
@@ -376,7 +379,12 @@ nav input {
   height: 100%;
   padding: 20px 40px;
   background: var(--card-bg);
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 5px black;
+}
+
+.reset-password .wrapper form {
+  justify-content: center;
+  gap: 50px;
 }
 
 .login-page .wrapper h1,
@@ -392,6 +400,7 @@ nav input {
 .register-page .wrapper h2,
 .reset-password .wrapper h2 {
   font-size: 2rem;
+  text-align: center;
 }
 .login-page .wrapper form p,
 .register-page .wrapper form p,
@@ -454,6 +463,15 @@ nav input {
   border: none;
   height: 40px;
   border-radius: 10px;
+}
+.reset-password .wrapper form small {
+  padding: 10px;
+}
+.email_reset_password_success {
+  color: green;
+}
+.email_reset_password_failed {
+  color: red;
 }
 #show-pass {
   background: transparent;
@@ -571,10 +589,6 @@ nav input {
   position: absolute;
   right: 10px;
 }
-.main-navigation a span i {
-  background: transparent !important;
-  color: orange !important;
-}
 #aside-logout {
   cursor: pointer;
   position: absolute;
@@ -594,6 +608,7 @@ nav input {
   width: 90%;
 }
 #nav-logout {
+  cursor: pointer;
   display: none;
   align-items: center;
   border: none;
@@ -604,6 +619,9 @@ nav input {
   gap: 10px;
   width: 100%;
   height: 40px;
+}
+#nav-logout:hover {
+  color: #ff00e1;
 }
 /* ----->>>>> DASHBOARD PAGE - MY PROFILE */
 .my-profile {
@@ -621,90 +639,63 @@ nav input {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  color: yellow;
 }
 .my-profile .alert button {
   width: max-content;
-  padding: 0 10px;
+  height: max-content;
+  padding: 5px 10px;
 }
 .my-profile .alert button i {
   animation: isLoading 1s linear infinite;
 }
-
 .my-profile form {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: start;
   align-items: center;
   width: 100%;
   gap: 10px;
 }
-.my-profile form .box-picture {
-  background: linear-gradient(to right, blue, #ff00e1);
-  box-shadow: 0 0 200px black inset;
-  border-radius: 10px;
+.my-profile form .image {
+  background: linear-gradient(to right bottom, blue, #ff00e1);
+  border: 1px solid blue;
 }
-.my-profile form .picture {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 150px;
-  background-position: center;
-  background-size: cover;
-  border: 1px solid black;
-  border-radius: 100%;
+.my-profile form .image label {
+  color: white;
 }
-#profile-pict-not-set {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--text);
-  background: linear-gradient(to right, blue, #ff00e1);
-  color: var(--bg);
-  border-radius: 100%;
-  width: 100%;
-  height: 100%;
-  font-size: 4rem;
-}
-#upload-picture {
+.my-profile form .image input {
   display: none;
 }
-.picture label {
-  cursor: pointer;
+.my-profile form .image label {
+  align-items: start;
+  height: 80px;
+}
+.my-profile form .box-picture {
   position: absolute;
+  right: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
-  background: var(--bg);
-  color: var(--text);
+  width: 80px;
+  height: 80px;
   border-radius: 100%;
-  width: 40px;
-  height: 40px;
-  bottom: 5px;
-  right: 5px;
+  background: white;
 }
-.my-profile form .box {
-  width: 100%;
-  display: flex;
-  gap: 10px;
+.my-profile form .box-picture img {
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
 }
-.my-profile form .box .side {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: 50%;
+.my-profile form .box-picture i {
+  color: black;
+  font-size: 2rem;
 }
 .my-profile form span {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: calc(50% - 5px);
   border-radius: 10px;
   padding: 10px;
   gap: 10px;
@@ -714,6 +705,7 @@ nav input {
   border: 1px solid blue;
 }
 .my-profile form span label {
+  cursor: pointer;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -743,6 +735,7 @@ nav input {
   border: 1px solid blue;
 }
 .my-profile form .box-bio {
+  width: 100%;
   background: linear-gradient(to right, blue, #ff00e1, blue) !important;
   gap: 10px;
 }
@@ -778,6 +771,28 @@ nav input {
   border: none;
   background: linear-gradient(to right, blue, #ff00e1);
   color: white;
+}
+.my-profile .list-country {
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid blue;
+  scrollbar-width: none;
+  border-radius: 10px;
+  width: 100%;
+  max-height: 200px;
+  padding: 5px;
+  gap: 5px;
+}
+.my-profile .list-country .country-item {
+  background: none;
+  position: static;
+  display: block;
+  text-align: left;
+  padding: 5px;
+}
+.my-profile .list-country .country-item:hover {
+  background: #ff00e1;
 }
 @keyframes loading {
   to {rotate: 360deg;}
@@ -878,7 +893,6 @@ nav input {
   width: 0%;
   height: 100%;
   left: 0%;
-  transition: 1s all;
 }
 .my-dashboard .missing-progress {
   display: flex;
@@ -1065,7 +1079,7 @@ nav input {
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   padding: 20px;
   gap: 20px;
   width: 100%;
@@ -1074,12 +1088,56 @@ nav input {
   background: var(--overlay);
   color: var(--text);
 }
+.project-item .created-at {
+  opacity: 0.5;
+}
+.project-item .tech,
+.certificate-item .tech {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.project-item .tech:hover,
+.certificate-item .tech:hover {
+  white-space: wrap;
+  text-overflow: none;
+}
+.project-item .tech span,
+.certificate-item .tech span {
+  padding-right: 5px;
+}
 .project-item .description-project {
-  opacity: 0.8;
+  opacity: 0.5;
   line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  text-overflow: ellipsis;
+}
+.project-item .description-project:hover {
+  -webkit-line-clamp: none;
 }
 .certificate-item table{
   width: 100%;
+  opacity: 0.7;
+}
+#issued-by a {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  background: var(--text);
+  color: var(--bg);
+  gap: 5px;
+  padding: 5px 10px;
+}
+#issued-by a:hover {
+  background: #ff00e1;
+}
+#issued-by a img {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
 }
 .project-item .side,
 .certificate-item .side {
@@ -1091,9 +1149,16 @@ nav input {
 
 .project-item .side img,
 .certificate-item .side img {
+  cursor: pointer;
   width: 300px;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 10px;
+  box-shadow: 0 0 5px black;
+  height: 200px;
+}
+.project-item .side img:hover,
+.certificate-item .side img:hover {
+  box-shadow: 0 0 5px #ff00e1;
 }
 .project-item .side:nth-child(2),
 .certificate-item .side:nth-child(2) {
@@ -1104,7 +1169,8 @@ nav input {
   justify-content: start;
 }
 .project-item .side:nth-child(3) button,
-.certificate-item .side:nth-child(3) button {
+.certificate-item .side:nth-child(3) button,
+.certificate-item .side:nth-child(3) a {
   cursor: pointer;
   background: transparent;
   border-radius: 5px;
@@ -1187,9 +1253,34 @@ nav input {
 }
 .form-input-project .wrapping {
   display: flex;
-  gap: 10px;
   width: 100%;
+  gap: 10px;
   max-width: 500px;
+}
+.form-input-project .wrapping .inp-group {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+.form-input-project .wrapping .inp-group label {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+.form-input-project .inp-group input.hidden {
+  color: transparent;
+}
+.form-input-project .inp-group label.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 .form-input-project input {
   padding-left: 10px;
@@ -1202,6 +1293,7 @@ nav input {
   width: 100%;
   max-width: 500px;
   border-radius: 10px;
+  font-size: 1rem;
 }
 .form-input-project textarea {
   resize: none;
@@ -1209,13 +1301,18 @@ nav input {
   height: 100px;
 }
 .form-input-project button {
+  cursor: pointer;
   background: linear-gradient(to right, blue, #ff00e1);
   font-size: 1rem;
   color: white;
   font-weight: bold;
+
+  background: blue;
+}
+.form-input-project button:hover {
+  background: #ff00e1;
 }
 .form-input-project #back {
-  cursor: pointer;
   background: transparent;
   color: var(--text);
   font-size: 1rem;
@@ -1223,6 +1320,68 @@ nav input {
   width: 100px;
   top: 20px;
   left: 20px;
+}
+.form-input-project #back:hover {
+  color: #ff00e1;
+}
+.form-input-project .list-organizations {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  max-height: 200px;
+  border: 1px solid black;
+  padding: 5px;
+  gap: 5px;
+  border-radius: 10px;
+  overflow: auto;
+}
+.form-input-project .list-organizations .organization-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  gap: 5px;
+  padding: 5px;
+  background: #00000041;
+  border-radius: 10px;
+}
+.form-input-project .list-organizations .organization-item:hover {
+  background: #ff00e1;
+}
+.form-input-project .list-organizations .organization-item img {
+  width: 30px;
+  border-radius: 100%;
+}
+.form-input-project .list-skills {
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 100px;
+  padding: 5px;
+  gap: 5px;
+}
+.form-input-project .list-skills .skill-item {
+  cursor: pointer;
+  display: flex;
+  padding: 5px;
+  gap: 5px;
+  background: #00000041;
+}
+.form-input-project .list-skills .skill-item:hover {
+  background: #ff00e1;
+}
+.form-input-project .list-skills .skill-item span {
+  width: max-content;
+  height: max-content;
+  font-size: 1rem;
+  color: black;
 }
 .popup-message {
   display: flex;

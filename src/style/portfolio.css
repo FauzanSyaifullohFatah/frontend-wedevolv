@@ -12,6 +12,11 @@
   flex-direction: column;
   gap: 20px;
 }
+.portfolio-home .wrapper span {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .portfolio-home .wrapper h1 {
   font-size: 3rem;
 }
@@ -24,6 +29,7 @@
 }
 .portfolio-home .wrapper .social-media {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 .portfolio-home .wrapper .social-media a {
@@ -76,15 +82,36 @@
   padding: 50px;
   gap: 50px;
 }
-.portfolio-project .project-item {
+.portfolio-project .project-item,
+.portfolio-certificate .certificate-item {
   padding: 40px;
   gap: 40px;
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 5px #00000057;
+  background: var(--overlay);
+  align-items: start;
 }
 .portfolio-project .project-item a:nth-child(2) {
   background: linear-gradient(to right bottom, blue, #ff00e1);
   color: white;
   text-shadow: 0 0 5px black;
+}
+.portfolio-certificate .certificate-item {
+  width: calc(33% - 30px);
+  flex-direction: column;
+  gap: 10px;
+}
+.portfolio-certificate .certificate-item img {
+  width: 100% !important;
+  height: auto !important;
+}
+.portfolio-certificate .certificate-item h3 {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.portfolio-certificate .certificate-item table {
+  display: none;
 }
 
 /* ----->>>>> PORTFOLIO SKILLS */
@@ -116,27 +143,23 @@
 .portfolio-skill h2 {
   color: var(--text);
 }
-.portfolio-skill .box-skill {
-  overflow: hidden;
-  display: flex;
-}
-.portfolio-skill .box-skill .skill-list {
+.portfolio-skill .skill-list {
   flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   padding: 30px;
-  padding-left: 0;
   gap: 30px;
-
-  animation: test 5s linear infinite;
 }
-.portfolio-skill .box-skill .skill-list .skill-item {
+.portfolio-skill .skill-list .skill-item {
   flex-direction: column;
   justify-content: center;
   color: white;
-  width: 100px;
-  height: 100px;
-  background: black;
-  box-shadow: 0 0 5px black;
+  width: 200px;
+  height: 200px;
   border: 1px solid gray;
+  background: #363636;
+  border-radius: 100%;
 }
 
 .portfolio-coming-soon {
@@ -176,16 +199,38 @@
   }
 }
 
-
-@keyframes test {
-  to {
-    transform: translateX(-100%);
+@media only screen and (max-width: 1200px) {
+  .portfolio-certificate .certificate-item {
+    width: calc(50% - 30px);
   }
 }
-
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 1000px) {
   .portfolio-home {
     flex-direction: column-reverse;
+    padding: 50px 30px;
+  }
+  .portfolio-home .wrapper span h1 {
+    font-size: 2rem;
+  }
+  .portfolio-project .project-item {
+    flex-direction: column;
+  }
+  .portfolio-project .project-item {
+    align-items: center;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .portfolio-certificate .certificate-item {
+    width: calc(100%);
+  }
+}
+@media only screen and (max-width: 620px) {
+  .portfolio-skill {
+    padding: 10px;
+  }
+  .portfolio-skill .skill-list .skill-item {
+    width: 150px;
+    height: 150px;
   }
   .portfolio-project,
   .portfolio-certificate {
@@ -193,7 +238,16 @@
   }
   .portfolio-project .project-list,
   .portfolio-certificate .certificate-list {
-    padding: 50px 10px;
+    padding: 50px 20px;
     gap: 20px;
+  }
+  .portfolio-project .project-item,
+  .portfolio-certificate .certificate-item {
+    gap: 20px;
+    padding: 20px;
+  }
+  .portfolio-project .project-list .project-item img,
+  .portfolio-certificate .certificate-list .certificate-item img {
+    width: 100%;
   }
 }

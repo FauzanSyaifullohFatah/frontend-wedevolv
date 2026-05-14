@@ -6,9 +6,11 @@ import SkillList from "../../../component/SkillList";
 import Image from "../../../component/Image";
 import { portfolioProgress } from "../../../utils";
 import { Helmet } from "react-helmet-async";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 function MyDashboard(){
   const { user, setUser } = useAuth();
+  const { t } = useLanguage();
 
   const [projects, setProjects] = useState([]);
   const [certificates, setCertificates] = useState([]);
@@ -73,13 +75,11 @@ function MyDashboard(){
       isVerified: user.is_verified,
       role: user.role,
       country: user.country,
-      phoneNumber: user.phone,
-      whatsapp: user.whatsapp,
       linkedin: user.linkedin,
       github: user.github,
       summary: user.bio,
       projectCount: projects.length || 0,
-      certificateCount: certificates.length || 0,
+      t,
     });
 
     setProgress(resultProgress.progress);
@@ -91,7 +91,7 @@ function MyDashboard(){
         : false;
 
     setIsPublicPortfolio(effectivePublicPortfolio);
-  }, [user, projects, certificates]);
+  }, [user, projects, certificates, t]);
 
   const handlePublicPortfolio = async () => {
     if (progress !== 100) return;
@@ -115,7 +115,7 @@ function MyDashboard(){
   const handleDropdownProgress = () => {
     setDropdownProgress(!dropdownProgress);
   }
-  
+
   return (
     <>
       <Helmet>
@@ -167,7 +167,7 @@ function MyDashboard(){
 
         <div className="portfolio-progress">
           <span>
-            <p>Portfolio Progress {progress}%</p>
+            <p>{t("portfolioProgress.title")} {progress}%</p>
             {progress < 100 && (
               <button onClick={handleDropdownProgress}>
                 <i className="fa fa-chevron-down"></i>

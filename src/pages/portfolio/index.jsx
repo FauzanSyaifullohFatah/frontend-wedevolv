@@ -136,32 +136,30 @@ function PortfolioPage() {
 
         <Home user={data.user} />
 
-        <section className="portfolio-project" id="projects">
-          <h2><i className="fa fa-laptop-code"></i> Projects</h2>
-          <ProjectList
-            projects={data.projects || []}
-            onlyVisible={true}
-          />
-        </section>
+        {data.projects?.some(project => project.is_visible) && (
+          <section className="portfolio-project" id="projects">
+            <h2><i className="fa fa-laptop-code"></i> Projects</h2>
+            <ProjectList
+              projects={data.projects || []}
+              onlyVisible={true}
+            />
+          </section>
+        )}
 
-        <section className="portfolio-certificate" id="certificate">
-          <h2><i className="fa-solid fa-award"></i> CERTIFICATE</h2>
-          <CertificateList
-            certificates={data.certificates || []}
-            onlyVisible={true}
-          />
-        </section>
+        {data.certificates?.some(certificate => certificate.is_visible) && (
+          <section className="portfolio-certificate" id="certificate">
+            <h2><i className="fa-solid fa-award"></i> CERTIFICATE</h2>
+            <CertificateList
+              certificates={data.certificates || []}
+              onlyVisible={true}
+            />
+          </section>
+        )}
 
         <section className="portfolio-skill" id="skills">
           <h2><i className="fa-solid fa-code"></i> SKILLS</h2>
 
-          <div
-            className="box-skill"
-            style={{ width: `${100 * (allSkill.length || 1) + 80}px` }}
-          >
-            <SkillList allSkill={allSkill || []} />
-            <SkillList allSkill={allSkill || []} />
-          </div>
+          <SkillList allSkill={allSkill || []} />
         </section>
 
         <Footer />

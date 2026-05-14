@@ -81,7 +81,7 @@ API.interceptors.response.use(
 async function getUserLogged() {
   try {
     const res = await API.get("auth/profile/");
-    return res.data;
+    return res.data.payload;
   } catch (err) {
     return null; 
   }
@@ -93,8 +93,8 @@ async function login(form) {
     const user = await getUserLogged();
     return user;
   } catch (err) {
-    const error = err.response?.data?.error;
-    throw error || "Terjadi kesalahan";
+    const error = err.response?.data?.message;
+    throw error || "server_error";
   }
 }
 
@@ -102,7 +102,7 @@ async function logout() {
   try {
     await API.post("auth/logout/");
   } catch (err) {
-    console.error(err);
+    console.error(err?.response?.data);
   }
 }
 
@@ -125,16 +125,16 @@ async function register(form) {
 async function getProjects() {
   try {
     const res = await API.get("projects/");
-    return res.data;
+    return res.data?.payload;
   } catch (err) {
-    console.error("Gagal fetch project:", err.response?.data || err);
+    console.error(err?.response?.data);
   }
 }
 
 async function getCertificates() {
   try {
     const res = await API.get("certificates/");
-    return res.data;
+    return res.data.payload;
   } catch (err) {
     console.error("Gagal fetch certificate:", err.response?.data || err);
   }
@@ -143,19 +143,19 @@ async function getCertificates() {
 async function getPortfolio(username) {
   try {
     const res = await API.get(`auth/portfolio/${username}/`);
-    return res.data;
+    return res.data.payload;
   } catch (err) {
-    console.error("Gagal fetch portfolio:", err.response?.data || err);
+    console.error(err.response?.data);
   }
 }
 
 async function getAllUsers() {
   try {
     const res = await API.get("auth/users/");
-    return res.data;
+    return res.data.payload;
   } catch (err) {
-    console.error("Gagal fetch users:", err.response?.data || err);
-    throw err.response?.data || "Gagal mengambil daftar pengguna";
+    console.error(err.response?.data);
+    throw err.response?.data || "Failed to retrieve user list";
   }
 }
 

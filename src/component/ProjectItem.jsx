@@ -1,9 +1,10 @@
-import { formatDateIn } from "../utils/index";
+import { formatDateIn, formatDateEn } from "../utils/index";
 import PropTypes from "prop-types";
 import Image from "../component/Image";
 import highlightText from "../utils/highlight";
 import { useLocation } from "react-router-dom";
 import { useLanguage } from "../hooks/useLanguage";
+import { getSkills } from "../utils/skills";
 
 function ProjectItem({
   projects,
@@ -15,7 +16,7 @@ function ProjectItem({
   keyword = "",
   onlyVisible = false,
 }) {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const locationPath = useLocation().pathname;
 
   const filteredProjects = projects
@@ -46,10 +47,18 @@ function ProjectItem({
               <h3>{highlightText(p.title, keyword)}</h3>
 
               <p className="created-at">
-                {formatDateIn(
+                {(lang === "id" ? formatDateIn : formatDateEn)(
                   highlightText(p.created_at, keyword)
                 )}
               </p>
+
+              <div className="tech">
+                {getSkills(p.tech).map((s) => (
+                  <span key={s.label}>
+                    <i className={s.icon}></i> {s.label}
+                  </span>
+                ))}
+              </div>
 
               <p className="description-project">
                 {highlightText(p.description, keyword)}
@@ -108,7 +117,7 @@ ProjectItem.propTypes = {
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       tech: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
+      image: PropTypes.string,
       link_demo: PropTypes.string.isRequired,
       link_repository: PropTypes.string.isRequired,
       is_visible: PropTypes.bool.isRequired,

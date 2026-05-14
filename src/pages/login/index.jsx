@@ -22,13 +22,13 @@ function LoginPage(){
     const reason = params.get("reason");
 
     if (reason === "expired") {
-      setLoginExpired("Sesi Anda telah berakhir. Silakan login kembali.");
+      setLoginExpired(t("loginExpired"));
     }
 
     if (reason) {
       window.history.replaceState({}, "", "/login");
     }
-  }, []);
+  }, [t]);
 
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState(false);
@@ -54,11 +54,7 @@ function LoginPage(){
       navigate("/");
     } catch (error) {
       setLoginError(true);
-      if (error === "Invalid username or password") {
-        setLoginMessage(t("formLogin.usr_or_pass"));
-      } else {
-        setLoginMessage(t("formLogin.error"));
-      }
+      setLoginMessage(t(`formLogin.${error}`))
     } finally {
       setLoading(false);
     }
@@ -136,7 +132,7 @@ function LoginPage(){
             <button
               disabled={loading}
             >{t("login")}</button>
-            <Link to={"/forgot-password"}>Lupa kata sandi</Link>
+            <Link to={"/forgot-password"}>{t("forgotPassword.title")}</Link>
             <Footer />
           </form>
         </div>

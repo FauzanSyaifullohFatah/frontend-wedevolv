@@ -9,7 +9,6 @@ function Navigation() {
   const { t } = useLanguage();
 
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     try {
       await logout();

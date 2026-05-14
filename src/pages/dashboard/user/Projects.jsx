@@ -56,7 +56,7 @@ function MyProjects() {
       setProjects((prev) => prev.filter((p) => p.id !== id));
       setPopup(false);
     } catch (err) {
-      console.error("Gagal hapus:", err.response?.data || err);
+      console.error(err.response?.data || err);
     }
   };
 

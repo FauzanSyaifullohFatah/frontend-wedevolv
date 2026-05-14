@@ -1,7 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth"
+import { useLanguage } from "../hooks/useLanguage";
 
 function MainNavigation() {
+  const { t } = useLanguage();
   const { user } = useAuth();
   const admin = user?.is_superuser;
 
@@ -28,7 +30,7 @@ function MainNavigation() {
                 <span><i className="fa fa-exclamation-triangle"></i></span>
               )}
             </NavLink>
-            <h2>Main navigation</h2>
+            <h2>{t("mainNavigation")}</h2>
             <NavLink to={"/dashboard"} end>
               <i className="fa fa-th-large"></i>
               <p>Dashboard</p>

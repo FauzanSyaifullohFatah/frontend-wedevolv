@@ -61,7 +61,7 @@ CertificateList.propTypes = {
       issue_date: PropTypes.string.isRequired,
       expiration_date: PropTypes.string.isRequired,
       skills: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
+      image: PropTypes.string,
       url_credential: PropTypes.string.isRequired,
       created_at: PropTypes.string.isRequired,
       updated_at: PropTypes.string.isRequired,

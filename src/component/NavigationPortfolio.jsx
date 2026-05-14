@@ -21,7 +21,7 @@ function NavigationPortfolio(){
         });
       },
       {
-        threshold: 1,
+        threshold: 0.3,
       }
     );
     sections.forEach((section) => observer.observe(section));
@@ -37,7 +37,7 @@ function NavigationPortfolio(){
             className={active === list.id ? "active" : ""}
             onClick={() => setActive(list.id)}>
             <i className={list.icon}></i>
-            {list.label}
+            <p>{list.label}</p>
           </a>
         </li>
       ))}

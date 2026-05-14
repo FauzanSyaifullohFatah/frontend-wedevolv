@@ -58,7 +58,7 @@ ProjectList.propTypes = {
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       tech: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
+      image: PropTypes.string,
       link_demo: PropTypes.string.isRequired,
       link_repository: PropTypes.string.isRequired,
       is_visible: PropTypes.bool.isRequired,

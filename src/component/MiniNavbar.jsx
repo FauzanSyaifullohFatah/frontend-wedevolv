@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useLanguage } from "../hooks/useLanguage";
 
 function MiniNavbar({ variant, onAdd, keyword, setKeyword }) {
+  const { t } = useLanguage();
   const [icon, setIcon] = useState();
 
   useEffect(() => {
@@ -20,7 +22,7 @@ function MiniNavbar({ variant, onAdd, keyword, setKeyword }) {
         <input
           type="search"
           id={variant}
-          placeholder="Search"
+          placeholder={t("search")}
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
         />
@@ -31,7 +33,7 @@ function MiniNavbar({ variant, onAdd, keyword, setKeyword }) {
         onClick={onAdd}
       >
         <i className="fa fa-plus-circle"></i>
-        <p>Add</p>
+        <p>{t("add")}</p>
       </button>
     </div>
   )

@@ -3,6 +3,18 @@
     width: calc(50% - 20px);
   }
 }
+@media only screen and (max-width: 1250px) {
+  .my-projects .project-item {
+    flex-wrap: wrap;
+  }
+  .my-projects .project-item .side:nth-child(2) {
+    width: calc(100% - 320px);
+  }
+  .my-projects .project-item .side:nth-child(3) {
+    width: 100%;
+    flex-direction: row;
+  }
+}
 @media only screen and (max-width: 1100px) {
   .login-page .wrapper:nth-child(1),
   .register-page .wrapper:nth-child(1) {
@@ -13,18 +25,41 @@
     font-size: 3rem;
   }
 }
+@media only screen and (max-width: 1000px) {
+  .my-projects .project-item,
+  .my-certificates .certificate-item {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+  }
+  .my-certificates .certificate-item .side:nth-child(3) {
+    flex-direction: row;
+    width: 100%;
+  }
+  .my-projects .project-item .side:nth-child(2) {
+    width: 100%;
+  }
+  .mini-navbar h3 {
+    display: none;
+  }
+}
 @media only screen and (max-width: 900px) {
   .login-page .wrapper:nth-child(1),
-  .register-page .wrapper:nth-child(1) {
+  .register-page .wrapper:nth-child(1),
+  .reset-password .wrapper:nth-child(1) {
     display: none;
   }
   .login-page .wrapper:nth-child(2),
-  .register-page .wrapper:nth-child(2) {
+  .register-page .wrapper:nth-child(2),
+  .reset-password .wrapper:nth-child(2) {
     padding: 10px;
   }
   .login-page .wrapper form,
-  .register-page .wrapper form {
+  .register-page .wrapper form,
+  .reset-password .wrapper form {
     padding: 20px;
+    box-shadow: none;
+    background: transparent;
   }
   .home-page .hero {
     padding: 50px 0;
@@ -41,6 +76,17 @@
   }
   .about-wrapper {
     padding: 0px 40px;
+  }
+  .dashboard-admin table thead {
+    top: 108px;
+  }
+  .dashboard-admin table thead tr th:nth-child(2),
+  .dashboard-admin table thead tr th:nth-child(5),
+  .dashboard-admin table thead tr th:last-child,
+  .dashboard-admin table tbody tr td:nth-child(2),
+  .dashboard-admin table tbody tr td:nth-child(5),
+  .dashboard-admin table tbody tr td:last-child {
+    display: none;
   }
 }
 @media only screen and (max-width: 620px) {
@@ -136,12 +182,10 @@
   .mini-navbar .search-box {
     background: var(--card-bg);
     width: 100%;
+    max-width: none;
   }
   .mini-navbar .search-box input {
     color: var(--text) !important;
-  }
-  .mini-navbar h3 {
-    display: none;
   }
   #nav-logout {display: flex;}
   #aside-logout {display: none}
@@ -208,8 +252,9 @@
   .project-list, .certificate-list {
     padding: 10px;
   }
-  .project-item, .certificate-item {
+  .project-item {
     flex-direction: column;
+    align-items: center;
     background: var(--card-bg);
   }
   .project-item .side:nth-child(1),
@@ -219,8 +264,15 @@
   .project-item .side:nth-child(3),
   .certificate-item .side:nth-child(3) {
     width: 100%;
-    flex-direction: row;
     justify-content: space-between;
+  }
+  .my-certificates .certificate-item {
+    flex-direction: row;
+    background: var(--card-bg);
+  }
+  .my-certificates .certificate-item .side:nth-child(3) {
+    flex-direction: column;
+    width: max-content;
   }
   .my-dashboard {
     height: auto;
@@ -234,18 +286,22 @@
   }
 }
 
+@media only screen and (max-width: 750px) {
+  .my-certificates .certificate-item {
+    flex-direction: column;
+  }
+  .my-certificates .certificate-item .side:nth-child(3) {
+    flex-direction: row;
+    width: 100%;
+  }
+}
+
 @media only screen and (max-width: 800px) {
   .my-profile {
     padding-bottom: 60px;
     background: transparent;
   }
-  .my-profile form .box-picture  {
-    padding: 20px;
-  }
-  .my-profile form .box {
-    flex-direction: column;
-  }
-  .my-profile form .box .side {
+  .my-profile form span {
     width: 100%;
   }
   .my-profile form button {
