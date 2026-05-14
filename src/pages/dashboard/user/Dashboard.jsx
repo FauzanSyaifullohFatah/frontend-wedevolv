@@ -101,11 +101,11 @@ function MyDashboard(){
         is_public_portfolio: !isPublicPortfolio
       });
 
-      setIsPublicPortfolio(res.data.is_public_portfolio);
+      setIsPublicPortfolio(res.data.payload.is_public_portfolio);
 
       setUser(prev => ({
         ...prev,
-        is_public_portfolio: res.data.is_public_portfolio
+        is_public_portfolio: res.data.payload.is_public_portfolio
       }));
     } catch(err) {
       console.error(err);
@@ -155,7 +155,14 @@ function MyDashboard(){
               className="box"
               style={{opacity: progress === 100 ? 1 : 0.7}}
             >
-              <p>Active</p>
+              <a
+                href={`https://wedevolv.com/${user?.username}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fa fa-external-link"></i>
+                wedevolv.com/{user?.username}
+              </a>
 
               <ToggleSwitch
                 condition={isPublicPortfolio}
@@ -166,13 +173,9 @@ function MyDashboard(){
         </div>
 
         <div className="portfolio-progress">
-          <span>
+          <span onClick={progress < 100 ? handleDropdownProgress : undefined}>
             <p>{t("portfolioProgress.title")} {progress}%</p>
-            {progress < 100 && (
-              <button onClick={handleDropdownProgress}>
-                <i className="fa fa-chevron-down"></i>
-              </button>
-            )}
+            {progress < 100 && <i className="fa fa-chevron-down"></i>}
           </span>
 
           <div className="bar" style={{width: `${progress}%`}}></div>

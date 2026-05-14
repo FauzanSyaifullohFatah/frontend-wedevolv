@@ -816,6 +816,17 @@ nav input {
   background: var(--card-bg);
   color: var(--text);
 }
+.dashboard-page main .cards .card a {
+  display: flex;
+  align-items: center;
+  color: black;
+  font-weight: bold;
+  font-size: 0.8rem;
+  gap: 5px;
+}
+.dashboard-page main .cards .card a:hover {
+  color: #ff00e1;
+}
 .dashboard-page main .cards .card .count {
   font-size: 3rem;
 }
@@ -855,9 +866,9 @@ nav input {
   align-items: center;
   border-radius: 10px;
   gap: 10px;
-  min-height: calc(90svh - 20px);
 }
 .my-dashboard .portfolio-progress {
+  cursor: pointer;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -878,11 +889,8 @@ nav input {
   z-index: 1;
   color: var(--text);
 }
-.my-dashboard .portfolio-progress span button {
-  cursor: pointer;
+.my-dashboard .portfolio-progress span i {
   font-size: 1.5rem;
-  background: transparent;
-  border: none;
   color: var(--text);
 }
 .my-dashboard .portfolio-progress .bar {
@@ -934,11 +942,10 @@ nav input {
   background: var(--card-bg);
   color: var(--text);
   border-radius: 10px;
-  gap: 10px;
   width: 50%;
-  height: 100%;
+  height: calc(90vh - 230px);
+  gap: 10px;
   padding: 10px;
-  height: 100%;
 }
 .my-dashboard .preview .box .project,
 .my-dashboard .preview .box .certificate {
@@ -967,6 +974,7 @@ nav input {
   height: 100%;
 }
 .skill-list {
+  overflow: auto;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -1126,13 +1134,13 @@ nav input {
   display: flex;
   align-items: center;
   width: max-content;
-  background: var(--text);
-  color: var(--bg);
+  color: var(--text);
   gap: 5px;
-  padding: 5px 10px;
+  font-weight: bold;
+  text-decoration: underline;
 }
 #issued-by a:hover {
-  background: #ff00e1;
+  color: #ff00e1;
 }
 #issued-by a img {
   width: 20px;
@@ -1145,6 +1153,12 @@ nav input {
   flex-direction: column;
   justify-content: space-between;
   gap: 10px;
+}
+.project-item .side:nth-child(2) a:hover,
+.project-item .side:nth-child(3) button:hover,
+.certificate-item .side:nth-child(3) button:hover,
+.certificate-item .side:nth-child(3) a:hover {
+  color: #ff00e1;
 }
 
 .project-item .side img,
@@ -1160,7 +1174,9 @@ nav input {
 .certificate-item .side img:hover {
   box-shadow: 0 0 5px #ff00e1;
 }
-.project-item .side:nth-child(2),
+.project-item .side:nth-child(2) {
+  width: calc(100% - 370px);
+}
 .certificate-item .side:nth-child(2) {
   width: 100%;
 }

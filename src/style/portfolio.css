@@ -214,9 +214,10 @@
   }
   .portfolio-project .project-item {
     flex-direction: column;
-  }
-  .portfolio-project .project-item {
     align-items: center;
+  }
+  .portfolio-project .project-item .side:nth-child(2) {
+    width: 100%;
   }
 }
 @media only screen and (max-width: 800px) {

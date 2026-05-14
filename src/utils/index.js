@@ -109,3 +109,13 @@ export function portfolioProgress({
     missingFields: missing,
   };
 }
+
+export const getCertificateStatus = (expirationDate, t) => {
+  if (!expirationDate) return t('active');
+
+  const today = new Date();
+  const exp = new Date(expirationDate);
+  
+  const isExpired = exp < today;
+  return isExpired ? t('statusCertificate.not_active') : t('statusCertificate.active');
+};

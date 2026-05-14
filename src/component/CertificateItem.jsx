@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import highlightText from "../utils/highlight";
 import { useLocation } from "react-router-dom";
 import { useLanguage } from "../hooks/useLanguage";
-import { formatDateIn } from "../utils";
+import { formatDateIn, getCertificateStatus } from "../utils";
 import { getSkills } from "../utils/skills";
 import { organizations } from "../utils/organizations";
 
@@ -118,7 +118,17 @@ function CertificateItem({
                     <tr>
                       <td>STATUS</td>
                       <td>:</td>
-                      <td>Active</td>
+                      <td>
+                        {getCertificateStatus(c.expiration_date, t)}
+                        <span
+                          style={{
+                            display: "inline-flex",width: "10px",
+                            height: "10px", borderRadius: "100%",
+                            marginLeft: "5px",
+                            background: new Date(c.expiration_date) < new Date() ? "red" : "green"
+                          }}
+                        />
+                      </td>
                     </tr>
                   </tbody>
                 </table>
