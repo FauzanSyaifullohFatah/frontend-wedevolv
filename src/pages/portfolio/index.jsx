@@ -67,7 +67,9 @@ function PortfolioPage() {
         console.error("Fetch portfolio error:", err);
         setData(null);
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000)
       }
     };
 
@@ -128,7 +130,7 @@ function PortfolioPage() {
         <meta property="og:url" content={`https://wedevolv.com/${username}`} />
         <meta property="og:title" content={`${data.user.fullname} - Portfolio`} />
         <meta property="og:description" content={data.user.bio} />
-        <meta property="og:image" content={data.user.image || "https://wedevolv.com/wedevolv-fav-icon.svg"} />
+        <meta property="og:image" content={data.user.image || "https://wedevolv.com/og-image.png"} />
 
         <meta name="robots" content="index, follow" />
       </Helmet>

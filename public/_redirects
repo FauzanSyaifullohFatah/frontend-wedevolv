@@ -1,2 +1,7 @@
+https://wedevolv.netlify.app/seo-template.html  /seo-template.html  200
+
 /sitemap.xml  https://api.wedevolv.com/sitemap.xml  200
-/*            /index.html                           200
+
+https://wedevolv.netlify.app/*  https://www.wedevolv.com/:splat  301!
+
+/*  /index.html  200

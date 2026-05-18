@@ -20,12 +20,12 @@ function SEO({ title, description }) {
       <meta property="og:url" content="https://wedevolv.com" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content="https://wedevolv.com/wedevolv-fav-icon.svg" />
+      <meta property="og:image" content="https://wedevolv.com/og-image.png" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content="Wedevolv - Developer Portfolio Builder" />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content="https://wedevolv.com/wedevolv-fav-icon.svg" />
+      <meta name="twitter:image" content="https://wedevolv.com/og-image.png" />
 
       <meta name="robots" content="index, follow" />
     </Helmet>

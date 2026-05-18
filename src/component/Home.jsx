@@ -46,8 +46,6 @@ function Home({ user }) {
     .find((c) => c.name === user?.country
   );
 
-  console.log(user);
-
   return (
     <section className="portfolio-home" id="home">
       <div className="wrapper">
