@@ -1,7 +1,13 @@
-https://wedevolv.netlify.app/seo-template.html  /seo-template.html  200
+https://wedevolv.netlify.app/*    https://wedevolv.com/:splat    301!
 
-/sitemap.xml  https://api.wedevolv.com/sitemap.xml  200
+/sitemap.xml    https://api.wedevolv.com/sitemap.xml    200
 
-https://wedevolv.netlify.app/*  https://www.wedevolv.com/:splat  301!
+/favicon.ico              /favicon.ico              200
+/og-image.png             /og-image.png             200
+/robots.txt               /robots.txt               200
+/wedevolv-fav-icon.svg    /wedevolv-fav-icon.svg    200
+/wedevolv-new.svg         /wedevolv-new.svg         200
+/wedevolv.svg             /wedevolv.svg             200
+/assets/*                 /assets/:splat            200
 
-/*  /index.html  200
+/*              https://api.wedevolv.com/:splat         200
