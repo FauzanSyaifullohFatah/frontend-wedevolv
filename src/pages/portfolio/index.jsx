@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPortfolio } from "../../utils/api";
-import { portfolioProgress } from "../../utils";
+import { getImageUrl, portfolioProgress } from "../../utils";
 
 import PortfolioComingSoon from "./PortfolioComingSoon";
 import Home from "../../component/Home";
@@ -17,13 +17,15 @@ import { Helmet } from "react-helmet-async";
 import { useLanguage } from "../../hooks/useLanguage";
 
 function PortfolioPage() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const { username } = useParams();
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [allSkill, setAllSkill] = useState([]);
   const [progress, setProgress] = useState(null);
+  const [showPreviewImage, setShowPreviewImage] = useState(false);
+  const [linkPreviewImage, setLinkPreviewImage] = useState("");
 
   useEffect(() => {
     const fetchPortfolio = async () => {
@@ -96,6 +98,11 @@ function PortfolioPage() {
     setProgress(resultProgress.progress);
   }, [data]);
 
+  const handlePreviewImage = (url) => {
+    setLinkPreviewImage(getImageUrl(url));
+    setShowPreviewImage(true);
+  }
+
   const isLoading = loading;
   const isNotFound = !loading && !data;
   const isReady = data && progress !== null;
@@ -134,7 +141,7 @@ function PortfolioPage() {
 
         <meta name="robots" content="index, follow" />
       </Helmet>
-      <div className="portfolio-container">
+      <main className="portfolio-container">
 
         <Home user={data.user} />
 
@@ -144,6 +151,7 @@ function PortfolioPage() {
             <ProjectList
               projects={data.projects || []}
               onlyVisible={true}
+              onClick={handlePreviewImage}
             />
           </section>
         )}
@@ -154,6 +162,7 @@ function PortfolioPage() {
             <CertificateList
               certificates={data.certificates || []}
               onlyVisible={true}
+              onClick={handlePreviewImage}
             />
           </section>
         )}
@@ -164,8 +173,17 @@ function PortfolioPage() {
           <SkillList allSkill={allSkill || []} />
         </section>
 
+        {showPreviewImage && (
+          <div className="preview-image">
+            <img src={linkPreviewImage} alt="Preview Image" />
+            <button onClick={() => setShowPreviewImage(false)}>
+              <i className="fa fa-chevron-left"></i> {t("back")}
+            </button>
+          </div>
+        )}
+
         <Footer />
-      </div>
+      </main>
     </>
   );
 }

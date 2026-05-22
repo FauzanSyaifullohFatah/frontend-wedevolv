@@ -16,6 +16,7 @@ function CertificateItem({
   showForm,
   keyword = "",
   onlyVisible = false,
+  onClick
 }) {
   const { t } = useLanguage();
   const locationPath = useLocation().pathname;
@@ -51,11 +52,17 @@ function CertificateItem({
                 <Image
                   src={c.image}
                   alt={c.title}
+                  onClick={() => onClick(c.image)}
                 />
               </div>
 
               <div className="side">
-                <h3>{highlightText(c.title, keyword)}</h3>
+                <h3>
+                  <a href={c.url_credential} target="_blank" rel="noopener noreferrer">
+                    <img src={org.favicon} alt={org.name} />
+                  </a>
+                  <span>{highlightText(c.title, keyword)}</span>
+                </h3>
 
                 <div className="tech">
                   {getSkills(c.skills).map((skill) => (
@@ -207,6 +214,7 @@ CertificateItem.propTypes = {
   showForm: PropTypes.func,
   keyword: PropTypes.string,
   onlyVisible: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default CertificateItem;

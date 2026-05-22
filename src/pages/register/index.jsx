@@ -21,6 +21,9 @@ function RegisterPage(){
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  const [showPass, setShowPass] = useState(false);
+  const [isVisibleShowPass, setIsVisibleShowPass] = useState(false);
+
   if (user) {
     return <Navigate to={"/"} />;
   }
@@ -51,6 +54,17 @@ function RegisterPage(){
       setLoading(false);
     }
   };
+
+  const onChange = (e) => {
+    const value = e.target.value.replace(/\s/g, "");
+    setForm({ ...form, password: value })
+
+    if (value.length > 0) {
+      setIsVisibleShowPass(true);
+    } else {
+      setIsVisibleShowPass(false);
+    }
+  }
 
   return (
     <>
@@ -107,20 +121,31 @@ function RegisterPage(){
                 <label htmlFor="password"><i className="fa fa-unlock-alt"></i></label>
                 <input
                   id="password"
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder={t("formReg.password")}
                   value={form.password}
-                  onChange={(e) =>
-                    setForm({ ...form, password: e.target.value })
-                  }
+                  onChange={onChange}
                   required
                 />
+                {isVisibleShowPass && (
+                  <button
+                    type="button"
+                    id="show-pass"
+                    onClick={() => setShowPass(!showPass)}
+                    >
+                    {showPass
+                      ? <i className="fa fa-eye"></i>
+                      : <i className="fa fa-eye-slash"></i>
+                    }
+                    
+                  </button>
+                )}
               </div>
               <div className="inp">
                 <label htmlFor="confirm-password"><i className="fa fa-unlock-alt"></i></label>
                 <input
                   id="confirm-password"
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder={t("formReg.confirmPass")}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}

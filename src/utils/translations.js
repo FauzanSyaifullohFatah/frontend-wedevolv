@@ -102,6 +102,8 @@ export const translations = {
       description: "Silakan masukkan kata sandi baru Anda. Pastikan kata sandi sulit ditebak namun mudah Anda ingat.",
       newPass: "Kata sandi baru",
       confirm: "Konfirmasi kata sandi",
+      message: "Password Berhasil diubah",
+      backTolog: "Silahkan untuk login kembali",
       submit: "Ubah kata sandi",
       sending: "Memproses..."
     },
@@ -146,6 +148,7 @@ export const translations = {
       email_verification_success: "Cek email anda",
       username_taken: "Username ini sudah digunakan.",
       username_required: "Username wajib diisi.",
+      username_reserved: "Username tidak tersedia",
       url_invalid: "Format URL tidak valid (Gunakan https://...)",
       phoneNumber: "Nomor Ponsel",
       country: "Negara",
@@ -286,6 +289,8 @@ export const translations = {
       description: "Please enter your new password. Make sure it is hard to guess but easy for you to remember.",
       newPass: "New password",
       confirm: "Confirm password",
+      message: "Password changed successfully",
+      backTolog: "Please log in again",
       submit: "Change password",
       sending: "Processing..."
     },
@@ -330,6 +335,7 @@ export const translations = {
       email_verification_success: "Check your email",
       username_taken: "This username is already taken.",
       username_required: "Username required.",
+      username_reserved: "Username not available",
       url_invalid: "Enter a valid URL (Use https://...)",
       phoneNumber: "Phone Number",
       country: "Country",

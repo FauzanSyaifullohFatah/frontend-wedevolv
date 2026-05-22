@@ -467,6 +467,28 @@ nav input {
 .reset-password .wrapper form small {
   padding: 10px;
 }
+.reset-password .message {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  background: var(--bg);
+  box-shadow: 0 0 10px black;
+  border-radius: 20px;
+  padding: 20px;
+  gap: 20px;
+  top: -100px;
+  animation: showMessage 3s linear forwards;
+}
+.reset-password .message img {
+  width: 50px;
+}
+@keyframes showMessage {
+  0% {top: -100px}
+  10% {top: 80px;}
+  70% {top: 80px;}
+  100% {top: -100px;}
+}
 .email_reset_password_success {
   color: green;
 }
@@ -1154,6 +1176,9 @@ nav input {
   justify-content: space-between;
   gap: 10px;
 }
+.certificate-item h3 img {
+  display: none;
+}
 .project-item .side:nth-child(2) a:hover,
 .project-item .side:nth-child(3) button:hover,
 .certificate-item .side:nth-child(3) button:hover,
@@ -1163,16 +1188,11 @@ nav input {
 
 .project-item .side img,
 .certificate-item .side img {
-  cursor: pointer;
   width: 300px;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 0 5px black;
   height: 200px;
-}
-.project-item .side img:hover,
-.certificate-item .side img:hover {
-  box-shadow: 0 0 5px #ff00e1;
 }
 .project-item .side:nth-child(2) {
   width: calc(100% - 370px);

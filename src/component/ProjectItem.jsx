@@ -15,6 +15,7 @@ function ProjectItem({
   showForm,
   keyword = "",
   onlyVisible = false,
+  onClick
 }) {
   const { t, lang } = useLanguage();
   const locationPath = useLocation().pathname;
@@ -40,7 +41,7 @@ function ProjectItem({
         filteredProjects.map((p) => (
           <article className="project-item" key={p.id}>
             <div className="side">
-              <Image src={p.image} alt={p.title} />
+              <Image src={p.image} alt={p.title} onClick={() => onClick(p.image)}/>
             </div>
 
             <div className="side">
@@ -132,6 +133,7 @@ ProjectItem.propTypes = {
   showForm: PropTypes.func,
   keyword: PropTypes.string,
   onlyVisible: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default ProjectItem;

@@ -12,6 +12,7 @@ function CertificateList({
   isLoading,
   keyword,
   onlyVisible,
+  onClick
 }) {
   const { t } = useLanguage();
 
@@ -45,6 +46,7 @@ function CertificateList({
         showForm={showForm}
         keyword={keyword}
         onlyVisible={onlyVisible}
+        onClick={onClick}
       />
     </div>
   )
@@ -75,6 +77,7 @@ CertificateList.propTypes = {
   isLoading: PropTypes.bool,
   keyword: PropTypes.string,
   onlyVisible: PropTypes.bool,
+  onClick: PropTypes.func,
 }
 
 export default CertificateList;

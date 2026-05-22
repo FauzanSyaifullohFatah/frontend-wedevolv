@@ -1,4 +1,38 @@
 /* ----->>>>> PORTFOLIO HOME */
+.portfolio-container .preview-image {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  top: 70px;
+  width: 100%;
+  height: calc(100svh - 70px);
+  backdrop-filter: blur(50px);
+  background: #00000057;
+}
+.portfolio-container .preview-image button {
+  cursor: pointer;
+  background: var(--bg);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+  padding: 10px 20px;
+  border: none;
+  color: var(--text);
+  font-size: 1rem;
+  box-shadow: 0 0 20px black;
+}
+.portfolio-container .preview-image button:hover {
+  background: #ff00e1;
+}
+.portfolio-container .preview-image img {
+  border-radius: 10px;
+  box-shadow: 0 0 20px black;
+  width: 90%;
+  max-width: 800px;
+}
 .portfolio-home {
   flex-direction: row;
   justify-content: space-around;
@@ -35,7 +69,7 @@
 .portfolio-home .wrapper .social-media a {
   background: linear-gradient(to right bottom,blue, #ff00e1);
   background: var(--overlay);
-  border: 1px solid white;
+  border: 1px solid var(--text);
   color: var(--text);
   display: flex;
   justify-content: center;
@@ -90,6 +124,11 @@
   background: var(--overlay);
   align-items: start;
 }
+.portfolio-project .project-item .side img:hover,
+.portfolio-certificate .certificate-item .side img:hover {
+  cursor: pointer;
+  box-shadow: 0 0 5px #ff00e1;
+}
 .portfolio-project .project-item a:nth-child(2) {
   background: linear-gradient(to right bottom, blue, #ff00e1);
   color: white;
@@ -105,10 +144,19 @@
   height: auto !important;
 }
 .portfolio-certificate .certificate-item h3 {
+  display: flex;
+  gap: 5px;
   width: 100%;
+}
+.portfolio-certificate .certificate-item h3 span {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.portfolio-certificate .certificate-item h3 img {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
 }
 .portfolio-certificate .certificate-item table {
   display: none;

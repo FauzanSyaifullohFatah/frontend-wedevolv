@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { BASE_URL } from "../utils/api";
 
-function Image({ src, alt }) {
+function Image({ src, alt, onClick }) {
   const baseUrl = BASE_URL;
 
   if (!src) return null;
@@ -14,6 +14,7 @@ function Image({ src, alt }) {
     <img
       src={finalUrl}
       alt={alt}
+      onClick={onClick}
     />
   )
 }
@@ -21,6 +22,7 @@ function Image({ src, alt }) {
 Image.propTypes = {
   src: PropTypes.string,
   alt: PropTypes.string,
+  onClick: PropTypes.func,
 }
 
 export default Image;
