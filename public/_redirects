@@ -19,5 +19,5 @@ https://wedevolv.netlify.app/*    https://wedevolv.com/:splat    301!
 
 /index.html               /index.html                            200
 
+/:username                http://192.168.0.102:8000/:username     200!
 /:username/*              /index.html                            200!
-/:username                https://api.wedevolv.com/:username     200!
