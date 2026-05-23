@@ -10,14 +10,14 @@ https://wedevolv.netlify.app/*    https://wedevolv.com/:splat    301!
 /wedevolv.svg             /wedevolv.svg                          200
 /assets/*                 /assets/:splat                         200
 
-/login                    /index.html                            200
-/register                 /index.html                            200
-/forgot-password          /index.html                            200
-/confirm-password         /index.html                            200
-/about                    /index.html                            200
-/dashboard                /index.html                            200
+/login/*                  /index.html                            200
+/register/*               /index.html                            200
+/forgot-password/*        /index.html                            200
+/confirm-password/*       /index.html                            200
+/about/*                  /index.html                            200
+/dashboard/*              /index.html                            200
 
 /index.html               /index.html                            200
 
-/:username/:splat         /index.html                            200!
+/:username/*              /index.html                            200!
 /:username                https://api.wedevolv.com/:username     200!
