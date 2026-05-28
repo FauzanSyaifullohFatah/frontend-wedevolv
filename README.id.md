@@ -2,199 +2,126 @@
 
 🇮🇩 Indonesia | [🇺🇸 English](README.md)
 
-Wedevolv adalah platform pembuat portfolio developer modern yang dibangun menggunakan React dan Django. Platform ini memungkinkan developer untuk membuat dan mengelola website portfolio profesional dengan mudah untuk menampilkan project, sertifikat, skill, dan informasi pribadi melalui halaman portfolio publik yang bersih dan dapat dikustomisasi.
+**🌐 [Lihat Demo Langsung](https://wedevolv.com)** | **🔗 [Repository Backend]( https://github.com/FauzanSyaifullohFatah/backend-wedevolv)**
 
-Setiap user yang sudah terverifikasi dapat memiliki halaman portfolio publik dengan format URL:
+Wedevolv Frontend adalah aplikasi frontend modern yang dibangun menggunakan React dan Vite untuk platform pembuat portofolio pengembang Wedevolv.
+
+Frontend ini menangani:
+
+- Public portfolio pages
+- Authentication pages
+- User dashboard
+- Portfolio management interface
+- Dynamic SEO metadata
+- Responsive UI rendering
+
+Setiap pengguna yang terverifikasi dapat memiliki halaman portofolio publik dengan format URL berikut:
 
 ```bash
 wedevolv.com/username
 ```
-
----
 
 # ✨ Fitur
 
-- 👤 Sistem registrasi user
-- 🔐 Login & logout authentication
-- 🛡️ JWT authentication yang aman
-- 📧 Sistem verifikasi email
-- 🌐 Pembuatan halaman portfolio publik
-- 🔗 URL portfolio custom
-- 📁 Menambahkan dan mengelola project
-- 🏆 Menambahkan dan mengelola sertifikat
-- 🔄 Reset password melalui email
-- 📱 Tampilan modern dan responsive
-- 🎨 Kustomisasi profile user
-- ⚡ Arsitektur REST API
-- 🍪 Cookie authentication yang aman
+- 👤 Antarmuka autentikasi pengguna
+- 🔐 Halaman masuk (login) & keluar (logout)
+- 📧 Halaman verifikasi email
+- 🔄 Halaman atur ulang kata sandi
+- 🌐 Halaman portofolio publik dinamis
+- 🔗 Pembuatan URL portofolio unik
+- 📁 Antarmuka manajemen proyek
+- 🏆 Antarmuka manajemen sertifikat
+- 🎨 Kustomisasi profil
+- 📱 Desain responsif
+- ⚡ Rendering portofolio dinamis
+- 🌐 Metadata SEO dinamis
+- 🖼️ Integrasi Open Graph meta
 
 ---
 
-# 🔑 Alur Authentication
+# 📸 Tampilan
 
-## 📝 Registrasi
-User dapat membuat akun baru menggunakan username, email, dan password.
+| Halaman Utama | Dashboard |
+| :------: | :-------: |
+| ![Homepage](https://raw.githubusercontent.com/FauzanSyaifullohFatah/backend-wedevolv/master/images/home.png) | ![Dashboard](https://raw.githubusercontent.com/FauzanSyaifullohFatah/backend-wedevolv/master/images/dashboard.png) |
 
-## 📧 Verifikasi Email
-Setelah registrasi, user harus melakukan verifikasi email sebelum halaman portfolio dapat diakses publik.
-
-Contoh:
-
-```bash
-wedevolv.com/username
-```
-
-## 🔐 Login & Logout
-User dapat login dan logout secara aman menggunakan JWT authentication dengan cookie-based session handling.
-
-## 🔄 Reset Password
-User dapat melakukan reset password dengan memasukkan email yang terdaftar. Wedevolv akan mengirimkan link reset password ke email user.
+| Portofolio |
+| :-------: |
+| ![Portfolio](https://raw.githubusercontent.com/FauzanSyaifullohFatah/backend-wedevolv/master/images/portfolio.png) |
 
 ---
 
 # 🛠️ Tech Stack
-
-## 🎨 Frontend
 - React
-- Vite
 - React Router DOM
-- Axios
 - React Helmet Async
-- CSS
+- Axios
+- PropTypes
 - ESLint
-
-## ⚙️ Backend
-- Django
-- Django REST Framework
-- Simple JWT
-- Django CORS Headers
-- Django Cleanup
-- SMTP Email Backend
-
-## 🗄️ Database
-- SQLite (Development)
-- MySQL (Production)
+- Vite
+- CSS
 
 ---
 
-# 🚀 Deployment
-
-## 🌐 Frontend
-Source code frontend diupload ke GitHub dan dideploy menggunakan Netlify.
-
-## 🖥️ Backend
-Source code backend diupload ke GitHub dan disinkronkan ke VPS untuk production deployment.
-
----
-
-# 📦 Installation
+# 📦 Instalasi
 
 ## 📥 Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/wedevolv.git
-cd wedevolv
+git clone https://github.com/FauzanSyaifullohFatah/frontend-wedevolv.git
 ```
 
----
-
-# 💻 Setup Frontend
+## 💻 Frontend Setup
 
 ```bash
-cd frontend
+cd frontend-wedevolv
 
 npm install
 
 npm run dev
 ```
 
-Frontend berjalan di:
+Frontend berjalan pada:
 
 ```bash
 http://localhost:5173
 ```
 
----
-
-# ⚙️ Setup Backend
-
-```bash
-cd backend
-
-pip install -r requirements.txt
-
-python manage.py migrate
-
-python manage.py runserver
-```
-
-Backend berjalan di:
-
-```bash
-http://localhost:8000
-```
-
----
-
-# 🔑 Environment Variables
-
-Buat file `.env` di dalam folder backend:
+## 🔑 Environment Variables
 
 ```env
-SECRET_KEY=your_secret_key
-
-DEBUG=True
-
-ALLOWED_HOSTS=127.0.0.1,localhost
-
-FRONTEND_URL=http://localhost:5173
-BACKEND_URL=http://localhost:8000
-
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-
-EMAIL_HOST_USER=your_email@gmail.com
-EMAIL_HOST_PASSWORD=your_app_password
+VITE_BASE_URL=http://localhost:8000
 ```
 
----
-
-# 📁 Struktur Project
+# 📁 Struktur Proyek
 
 ```bash
-backend/
-├── apps/
-│   ├── users/
-│   ├── projects/
-│   └── certificates/
-│
-├── templates/
-│   └── emails/
-│
-├── media/
-├── staticfiles/
-└── config/
-
-frontend/
+frontend-wedevolv/
 ├── src/
+│   ├── app/
+│   ├── component/
+│   ├── context/
+│   ├── hooks/
+│   ├── pages/
+│   ├── style/
+│   └── utils/
 ├── public/
+│   ├── _redirects
+│   ├── favicon.ico
+│   ├── og-image.png
+│   └── robots.txt
+├── index.html
 └── package.json
 ```
 
----
+# 🌐 Deployment
 
-# 🛡️ Fitur Keamanan
+Kode sumber frontend diunggah ke GitHub dan di-deploy menggunakan Netlify.
 
-- JWT Authentication
-- Secure HTTP-only cookies
-- CSRF protection
-- Email verification
-- Sistem reset password
-- Secure production configuration
+# 🔗 Related Repository
 
----
+Backend Repository: https://github.com/FauzanSyaifullohFatah/backend-wedevolv
 
-# 📝 Catatan
+# 📝 Notes
 
-Wedevolv dirancang untuk membantu developer membangun identitas profesional online dengan mudah dan cepat. Platform ini menggabungkan frontend modern menggunakan React dengan backend Django REST yang scalable untuk memberikan pengalaman pembuatan portfolio yang cepat dan aman.
+Wedevolv Frontend berfokus pada penyampaian pengalaman pengguna yang modern dan responsif bagi pengembang untuk membangun serta memamerkan portofolio profesional secara efisien.

@@ -2,7 +2,18 @@
 
 🇺🇸 English | [🇮🇩 Indonesia](README.id.md)
 
-Wedevolv is a modern developer portfolio builder platform built using React and Django. The platform allows developers to create and manage professional portfolio websites easily to showcase projects, certificates, skills, and personal information through a clean and customizable public portfolio page.
+**🌐 [Live Demo](https://wedevolv.com)** | **🔗 [Repository Backend]( https://github.com/FauzanSyaifullohFatah/backend-wedevolv)**
+
+Wedevolv Frontend is a modern frontend application built using React and Vite for the Wedevolv developer portfolio builder platform.
+
+This frontend handles:
+
+- Public portfolio pages
+- Authentication pages
+- User dashboard
+- Portfolio management interface
+- Dynamic SEO metadata
+- Responsive UI rendering
 
 Each verified user can have a public portfolio page with the following URL format:
 
@@ -10,80 +21,45 @@ Each verified user can have a public portfolio page with the following URL forma
 wedevolv.com/username
 ```
 
----
-
 # ✨ Features
 
-- 👤 User registration system
-- 🔐 Login & logout authentication
-- 🛡️ Secure JWT authentication
-- 📧 Email verification system
-- 🌐 Public portfolio page generation
-- 🔗 Custom portfolio URL
-- 📁 Add and manage projects
-- 🏆 Add and manage certificates
-- 🔄 Password reset via email
-- 📱 Modern responsive UI
-- 🎨 User profile customization
-- ⚡ REST API architecture
-- 🍪 Secure cookie authentication
+- 👤 User authentication interface
+- 🔐 Login & logout pages
+- 📧 Email verification pages
+- 🔄 Password reset pages
+- 🌐 Dynamic public portfolio pages
+- 🔗 Unique portfolio URL generation
+- 📁 Project management interface
+- 🏆 Certificate management interface
+- 🎨 Profile customization
+- 📱 Responsive design
+- ⚡ Dynamic portfolio rendering
+- 🌐 Dynamic SEO metadata
+- 🖼️ Open Graph meta integration
 
 ---
 
-# 🔑 Authentication Flow
+# 📸 Preview
 
-## 📝 Register
-Users can create a new account using username, email, and password.
+| Homepage | Dashboard |
+| :------: | :-------: |
+| ![Homepage](https://raw.githubusercontent.com/FauzanSyaifullohFatah/backend-wedevolv/master/images/home.png) | ![Dashboard](https://raw.githubusercontent.com/FauzanSyaifullohFatah/backend-wedevolv/master/images/dashboard.png) |
 
-## 📧 Email Verification
-After registration, users must verify their email address before their portfolio page becomes publicly accessible.
-
-Example:
-
-```bash
-wedevolv.com/username
-```
-
-## 🔐 Login & Logout
-Users can securely log in and log out using JWT authentication with cookie-based session handling.
-
-## 🔄 Reset Password
-Users can reset their password by entering their registered email address. Wedevolv will send a password reset link to the user's email.
+| Portfolio |
+| :-------: |
+| ![Portfolio](https://raw.githubusercontent.com/FauzanSyaifullohFatah/backend-wedevolv/master/images/portfolio.png) |
 
 ---
 
 # 🛠️ Tech Stack
-
-## 🎨 Frontend
 - React
-- Vite
 - React Router DOM
-- Axios
 - React Helmet Async
-- CSS
+- Axios
+- PropTypes
 - ESLint
-
-## ⚙️ Backend
-- Django
-- Django REST Framework
-- Simple JWT
-- Django CORS Headers
-- Django Cleanup
-- SMTP Email Backend
-
-## 🗄️ Database
-- SQLite (Development)
-- MySQL (Production)
-
----
-
-# 🚀 Deployment
-
-## 🌐 Frontend
-Frontend source code is uploaded to GitHub and deployed using Netlify.
-
-## 🖥️ Backend
-Backend source code is uploaded to GitHub and synchronized to a VPS server for production deployment.
+- Vite
+- CSS
 
 ---
 
@@ -92,16 +68,13 @@ Backend source code is uploaded to GitHub and synchronized to a VPS server for p
 ## 📥 Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/wedevolv.git
-cd wedevolv
+git clone https://github.com/FauzanSyaifullohFatah/frontend-wedevolv.git
 ```
 
----
-
-# 💻 Frontend Setup
+## 💻 Frontend Setup
 
 ```bash
-cd frontend
+cd frontend-wedevolv
 
 npm install
 
@@ -114,87 +87,41 @@ Frontend runs on:
 http://localhost:5173
 ```
 
----
-
-# ⚙️ Backend Setup
-
-```bash
-cd backend
-
-pip install -r requirements.txt
-
-python manage.py migrate
-
-python manage.py runserver
-```
-
-Backend runs on:
-
-```bash
-http://localhost:8000
-```
-
----
-
-# 🔑 Environment Variables
-
-Create a `.env` file inside the backend directory:
+## 🔑 Environment Variables
 
 ```env
-SECRET_KEY=your_secret_key
-
-DEBUG=True
-
-ALLOWED_HOSTS=127.0.0.1,localhost
-
-FRONTEND_URL=http://localhost:5173
-BACKEND_URL=http://localhost:8000
-
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USE_TLS=True
-
-EMAIL_HOST_USER=your_email@gmail.com
-EMAIL_HOST_PASSWORD=your_app_password
+VITE_BASE_URL=http://localhost:8000
 ```
-
----
 
 # 📁 Project Structure
 
 ```bash
-backend/
-├── apps/
-│   ├── users/
-│   ├── projects/
-│   └── certificates/
-│
-├── templates/
-│   └── emails/
-│
-├── media/
-├── staticfiles/
-└── config/
-
-frontend/
+frontend-wedevolv/
 ├── src/
+│   ├── app/
+│   ├── component/
+│   ├── context/
+│   ├── hooks/
+│   ├── pages/
+│   ├── style/
+│   └── utils/
 ├── public/
+│   ├── _redirects
+│   ├── favicon.ico
+│   ├── og-image.png
+│   └── robots.txt
+├── index.html
 └── package.json
 ```
 
----
+# 🌐 Deployment
 
-# 🛡️ Security Features
+Frontend source code is uploaded to GitHub and deployed using Netlify.
 
-- JWT Authentication
-- Secure HTTP-only cookies
-- CSRF protection
-- Email verification
-- Password reset system
-- Secure production configuration
+# 🔗 Related Repository
 
----
+Backend Repository: https://github.com/FauzanSyaifullohFatah/backend-wedevolv
 
 # 📝 Notes
 
-Wedevolv is designed to help developers build a professional online presence quickly and efficiently. The platform combines modern frontend development using React with a scalable Django REST backend architecture to provide a fast and secure portfolio building experience.
+Wedevolv Frontend focuses on delivering a modern and responsive user experience for developers to build and showcase professional portfolios efficiently.
