@@ -94,14 +94,11 @@ export function portfolioProgress({
   }
 
   // ===== PROJECTS (35%) =====
-  const projectProgress = Math.min(projectCount / 3, 1) * 35;
+  const projectProgress = projectCount >= 1 ? 35 : 0;
   progress += projectProgress;
 
-  if (projectCount < 3) {
-    missing.push(
-      t("portfolioProgress.addProject")
-        .replace("{count}", 3 - projectCount)
-    );
+  if (projectCount < 1) {
+    missing.push(t("portfolioProgress.addProject")); 
   }
 
   return {
