@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { getPortfolio } from "../../utils/api";
 import { getImageUrl, portfolioProgress } from "../../utils";
@@ -27,7 +27,9 @@ function PortfolioPage() {
   const [showPreviewImage, setShowPreviewImage] = useState(false);
   const [linkPreviewImage, setLinkPreviewImage] = useState("");
 
-  const safeT = typeof t === 'function' ? t : (key) => key;
+  const safeT = useMemo(() => {
+    return typeof t === 'function' ? t : (key) => key;
+  }, [t]);
 
   useEffect(() => {
     const fetchPortfolio = async () => {

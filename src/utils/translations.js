@@ -164,7 +164,7 @@ export const translations = {
       country: "Negara belum diisi",
       linkedinOrGithub: "LinkedIn atau GitHub belum diisi",
       summary: "Professional summary minimal 50 karakter",
-      addProject: "Tambahkan {count} project lagi",
+      addProject: "Tambahkan 1 project",
     },
     statusCertificate: {
       "active": "Aktif",
@@ -351,7 +351,7 @@ export const translations = {
       country: "Country has not been filled in",
       linkedinOrGithub: "LinkedIn or GitHub has not been filled in",
       summary: "Professional summary must be at least 50 characters",
-      addProject: "Add {count} more projects",
+      addProject: "Add 1 project",
     },
     statusCertificate: {
       "active": "Active",
